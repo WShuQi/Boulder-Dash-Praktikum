@@ -1,0 +1,27 @@
+{
+  "gems":[8,12,16],
+  "name":"Trichter",
+  "time":[130,50,25],
+  "mapdata": {
+    "width" : 15,
+    "height" : 10,
+    "tiles" : {
+      "main" : [
+        [ ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
+          ["wall", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem", "exit"],
+          ["wall", "bricks", "stone", "stone", "gem", "stone", "stone", "stone", "stone", "gem", "stone", "wall", "wall", "wall", "wall"],
+          ["wall", "wall", "bricks", "stone", "stone", "stone", "stone", "stone", "bricks", "wall", "wall", "wall", "path", "path", "wall"],
+          ["wall", "path", "path", "bricks", "stone", "gem", "stone", "bricks", "path", "path", "me", "path", "path", "path", "wall"],
+          ["wall", "path", "path", "path", "bricks", "stone", "bricks", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "wall"],
+          ["wall", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "wall"],
+          ["wall", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "wall"],
+          ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"] ]
+      ]
+    },
+    "tilesat" : [
+      {"x" : 0, "y" : 0, "kind" : "main", "default" : 0}
+    ],
+    "default" : "wall"
+  }
+}
