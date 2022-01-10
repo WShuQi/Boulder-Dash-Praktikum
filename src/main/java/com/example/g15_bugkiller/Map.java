@@ -15,7 +15,7 @@ public class Map {
 
     public Map(Input info, int maxNumberOfTrials) {
         this.info = info;
-        this.maxMapSize = info.getMaxMapSize();
+        this.maxMapSize = info.getMapSize();
         this.maxNumberOfTrials = maxNumberOfTrials;
         this.defaultMapIsValid = checkIfDefaultMapIsValid();
         this.map = generateMap();

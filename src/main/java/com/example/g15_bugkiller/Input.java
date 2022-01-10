@@ -10,15 +10,15 @@ public class Input {
     private List<ConnectBy> connectBys = new ArrayList<ConnectBy>();
     private static Field defaultField;
     private Coordinate coordinateOffset; // Zur Umrechnung von negativen Indizes
-    private Coordinate maxMapSize;  //speichert die Größe der tatsächlich gespeicherten endlichen Karte, auf der Kacheln liegen
+    private Coordinate mapSize;  //speichert die Größe der tatsächlich gespeicherten endlichen Karte, auf der Kacheln liegen
 
-    public Input(List<Tile> tiles, List<TilesAt> tilesAts, List<ConnectBy> connectBys, Field defaultField) {
+    public Input(List<Tile> tiles, List<TilesAt> tilesAts, List<ConnectBy> connectBys, Field defaultField, Coordinate mapSize) {
         this.tiles = tiles;
         this.tilesAts = tilesAts;
         this.connectBys = connectBys;
         this.defaultField = defaultField;
         this.coordinateOffset = getCoordinateOffset();
-        this.maxMapSize = findMaxMapSize();
+        this.mapSize = mapSize;
         applyCoordinateOffsetToConnectBy();
         applyCoordinateOffsetToTilesAt();
     }
@@ -35,8 +35,8 @@ public class Input {
         return defaultField;
     }
 
-    public Coordinate getMaxMapSize() {
-        return maxMapSize;
+    public Coordinate getMapSize() {
+        return mapSize;
     }
 
 
@@ -95,26 +95,6 @@ public class Input {
                     tilesAts.get(i).getCoordinate().getY() + coordinateOffset.getY());
             tilesAts.get(i).setCoordinate(tilesAtOffset);
         }
-    }
-
-    private Coordinate findMaxMapSize(){
-        List<TilesAt> tilesAts = getTilesAts();
-        Coordinate endXY = new Coordinate(0, 0);
-        for (int p = 0; p<tilesAts.size(); p++){
-            Coordinate tilesAtXY = tilesAts.get(p).getCoordinate();
-            Tile tile = getTileWithName(tilesAts.get(p).getKindName());
-            Coordinate biggestXY = tile.getBiggestXandY();
-            int endX = biggestXY.getX() + tilesAtXY.getX() + coordinateOffset.getX();
-            int endY = biggestXY.getY() + tilesAtXY.getY() + coordinateOffset.getY();
-
-            if (endXY.getX() < endX){
-                endXY.setX(endX);
-            }
-            if (endXY.getY() < endY){
-                endXY.setY(endY);
-            }
-        }
-        return endXY;
     }
 
     public void printOutInput(){
