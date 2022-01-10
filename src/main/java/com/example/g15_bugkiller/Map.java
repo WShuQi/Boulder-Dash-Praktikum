@@ -153,7 +153,7 @@ public class Map {
 
         for(int rowIterator = 0; rowIterator < maxMapSize.getX(); rowIterator++){                      //erstelle map aus default-Werten
             for(int columnIterator = 0; columnIterator < maxMapSize.getY(); columnIterator++){
-               newMap[rowIterator][columnIterator]= new Field(info.getDefaultField().getType());
+               newMap[rowIterator][columnIterator]= new Field(info.getDefaultField().getGegenstand());
             }
         }
 
@@ -166,7 +166,7 @@ public class Map {
 
             for(int rowIterator = 0; rowIterator < biggestRowInTileVersion; rowIterator++){   //gehe in jeder Zeile alle Spalten durch
                 if (rowIterator >= lengthOfCurrentRowInTileVersion){
-                    newMap[x + rowIterator][y + columnIterator].setInKachel();
+                    //newMap[x + rowIterator][y + columnIterator].setInKachel();
                     continue;
                 }
                 if(!currentRow.get(rowIterator).getType().equals("-")) {
@@ -174,7 +174,7 @@ public class Map {
                 } else {
                     newMap[x + rowIterator][y + columnIterator] = info.getDefaultField();   //"-" heißt: Loch in der Kachel --> Füge an dieser Stelle default-Zelle ein
                 }
-                newMap[x + rowIterator][y + columnIterator].setInKachel();
+                //newMap[x + rowIterator][y + columnIterator].setInKachel();
             }
         }
         return newMap;
@@ -255,9 +255,9 @@ public class Map {
         for (int i = 0; i < copyOfMap.length; i++) {
             for (int j = 0; j < copyOfMap[i].length; j++) {
                 if(i>=1 && j>=1 && i<copyOfMap.length-1 && j<copyOfMap[i].length-1){
-                    copyOfMap[i][j] = new Field(map[i-1][j-1].getType());   //"innerer Teil"
+                    copyOfMap[i][j] = new Field(map[i-1][j-1].getGegenstand());   //"innerer Teil"
                 } else {
-                    copyOfMap[i][j] = new Field(info.getDefaultField().getType());  //"Rahmen aus default-Feldern"
+                    copyOfMap[i][j] = new Field(info.getDefaultField().getGegenstand());  //"Rahmen aus default-Feldern"
                 }
             }
         }

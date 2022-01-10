@@ -2,23 +2,23 @@ package com.example.g15_bugkiller;
 
 public class Field {
 
-    private String type;
+
     private boolean checked;
-    private boolean inKachel;
+    Gegenstand gegenstand;
 
-    public Field(String type) {
-        this.type = type;
-    }
 
-    public String getType() {
-        return type;
+    public Field(Gegenstand gegenstand) { this.gegenstand = gegenstand;}
+
+    public Type getType() {
+        return gegenstand.getToken();
     }
 
     public boolean getChecked() { return checked;}
 
-    public void setChecked() { this.checked = true; }
+    public void setChecked() { this.checked = true;}
 
-    public boolean getInKachel() { return inKachel;}
+    public Gegenstand getGegenstand(){
+        return gegenstand;
+    }
 
-    public void setInKachel() { this.inKachel = true;}
 }
