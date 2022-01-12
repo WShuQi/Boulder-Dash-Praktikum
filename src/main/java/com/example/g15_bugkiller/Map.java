@@ -123,7 +123,7 @@ public class Map {
         return defaultMapIsValid;
     }
 
-    private Field[][] generateMapWithDefaultTiles(){   //erstelle Map mit default-Tiles
+    public Field[][] generateMapWithDefaultTiles(){   //erstelle Map mit default-Tiles
         Field[][] defaultMap;
 
         int numberOfTilesAts = info.getTilesAts().size();

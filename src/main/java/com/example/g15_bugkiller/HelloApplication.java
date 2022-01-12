@@ -17,6 +17,9 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        // for testing
+        Level level = TestInputData.createLevelData();
     }
 
     public static void main(String[] args) {

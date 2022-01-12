@@ -6,6 +6,7 @@ public class Level {
 
     String levelName;
     int[] gems;
+    int[] time;
     List<Regel> preRules;
     List<Regel> postRules;
     int maxSlime;
@@ -17,12 +18,17 @@ public class Level {
     int y;
     int z;
 
-    public Level(String levelName, int[] gems, int ticks, Input mapData ) {
+    public Level(String levelName, int[] gems, int[] time, Input mapData ) {
         this.levelName = levelName;
         this.gems = gems;
         Map map = new Map(mapData, 1000);
         this.map = map.generateMap() ;
-        this.ticks = ticks;
+        this.time = time;
+
+        System.out.println(levelName);
+        System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
+        System.out.println("time: " + time[0] + ", " + time[1] + ", " + time[2]);
+        TerminalMap.drawMap(this.map);
     }
 
     public String getLevelName() {
@@ -32,6 +38,8 @@ public class Level {
     public int[] getGems() {
         return gems;
     }
+
+    public int[] getTime() { return time; }
 
     public List<Regel> getPreRules() {
         return preRules;

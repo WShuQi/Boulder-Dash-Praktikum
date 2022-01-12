@@ -4,41 +4,38 @@ import java.util.HashMap;
 
 public class TerminalMap {
 
-    private static HashMap<String, String> fieldTypes = new HashMap<String, String>(){
+    private static HashMap<Type, String> fieldTypes = new HashMap<Type, String>(){
         {
-            put("ostwest", "─");
-            put("nordsued", "│");
+            put(Type.ME, "☺");
 
-            put("kurve_nordost", "└");
-            put("kurve_suedwest", "┐");
-            put("kurve_nordwest", "┘");
-            put("kurve_suedost", "┌");
+            put(Type.MUD, "▒");
+            put(Type.STONE, "●");
+            put(Type.GEM, "◊");
+            put(Type.WALL, "█");
+            put(Type.BRICKS, "□");
+            put(Type.PATH, "┼");
+            put(Type.EXIT, "E");
 
-            put("tkreuz_nord", "┴");
-            put("tkreuz_sued", "┬");
-            put("tkreuz_ost", "├");
-            put("tkreuz_west", "┤");
+            put(Type.SLIME, "S");
+            put(Type.SWAPLING, "sw");
+            put(Type.BLOCKLING, "B");
+            put(Type.XLING, "X");
+            put(Type.GHOSTLING, "G");
 
-            put("obersee_wiese", "▄");
-            put("obersee_ostwest", "╥");
-            put("untersee_suedost", "▀╔");
-            put("seekurve_suedost", "╔");
+            put(Type.EXPLOSION, "!");
+            put(Type.FIRE, "☼");
+            put(Type.POT, "Ս");
+            put(Type.SIEVE, "֍");
+            put(Type.SAND, "҈");
 
-            put("kreuzung2", "╬");
-            put("kreuzung", "┼");
-            put("kurvenkreuzung", "♯");
-            put("seekreuzung", "¤");
-
-            put("wiese", "▒");
+            put(Type.NORTHTHING, "↑");
+            put(Type.EASTTHING, "→");
+            put(Type.SOUTHTHING, "↓");
+            put(Type.WESTTHING, "←");
         }
     };
 
     public static void drawMap(Field[][] map){
-        System.out.println("Drawing Terminal Map");
-        //System.out.println("Map-Height: " + map[0].length);
-        //System.out.println("Map-Width : " + map.length);
-        System.out.println("");
-
 
         for(int i=0; i<map[0].length;i++){
             String printRow = "";
