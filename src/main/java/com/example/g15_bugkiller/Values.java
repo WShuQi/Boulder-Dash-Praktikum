@@ -2,18 +2,18 @@ package com.example.g15_bugkiller;
 
 public class Values {
 
-    int moved;
-    int falling;
-    int loose;
-    int slippery;
-    int pushable;
-    int bam;
-    int bamrich;
-    int direction;
-    int A;
-    int B;
-    int C;
-    int D;
+    int moved = 0;
+    int falling = 0;
+    int loose = 0;
+    int slippery = 0;
+    int pushable = 0;
+    int bam = 0;
+    int bamrich= 0;
+    int direction = 0;
+    int A = 0;
+    int B = 0;
+    int C = 0;
+    int D = 0;
 
     public int getMoved() {
         return moved;
@@ -110,4 +110,19 @@ public class Values {
     public void setD(int d) {
         D = d;
     }
+
+    public void resetValues(){
+
+        moved = 0;
+        falling = 0;
+        loose = 0;
+        slippery = 0;
+        pushable = 0;
+        bam = 0;
+        bamrich = 0;
+    }
+
+
+
+
 }

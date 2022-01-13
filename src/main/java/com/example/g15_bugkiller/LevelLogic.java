@@ -25,9 +25,12 @@ public class LevelLogic {
             return updatedMap;
     }
 
-    public static Field[][] zurücksetzen(Field[][] map){
-        //ToDo Zurücksetzen der Values aller Felder entsprechend ihrer Bedeutung
-
+    public static Field[][] resetValues(Field[][] map){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+        for(int y=0; map[y].length>y; y++) {
+            for (int x = 0; map[x].length > x; x++) {
+                map[y][x].getGegenstand().resetValues();
+            }
+        }
         return map;
     }
 

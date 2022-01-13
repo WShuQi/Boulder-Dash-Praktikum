@@ -2,25 +2,30 @@ package com.example.g15_bugkiller;
 
 public enum Type {
     ME,
+
+    GEM,
     MUD,
     STONE,
-    GEM,
+    BRICKS,
+
+    PATH,
     EXIT,
     WALL,
-    BRICKS,
-    PATH,
+
     EXPLOSION,
+    FIRE,
+    POT,
+    SIEVE,
+    SAND,
+
     SLIME,
     SWAPLING,
     BLOCKLING,
     XLING,
     GHOSTLING,
-    FIRE,
+
     NORTHTHING,
     EASTTHING,
     SOUTHTHING,
-    WESTTHING,
-    POT,
-    SIEVE,
-    SAND
+    WESTTHING
 }
