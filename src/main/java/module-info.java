@@ -6,4 +6,6 @@ module com.example.g15_bugkiller {
 
     opens com.example.g15_bugkiller to javafx.fxml;
     exports com.example.g15_bugkiller;
+    exports MapGeneration;
+    opens MapGeneration to javafx.fxml;
 }

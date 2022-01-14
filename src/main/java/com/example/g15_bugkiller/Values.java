@@ -111,6 +111,7 @@ public class Values {
         D = d;
     }
 
+    
     public void resetValues(){
 
         moved = 0;

@@ -1,4 +1,7 @@
-package com.example.g15_bugkiller;
+package MapGeneration;
+
+import MapGeneration.*;
+import com.example.g15_bugkiller.Field;
 
 import java.util.ArrayList;
 import java.util.List;

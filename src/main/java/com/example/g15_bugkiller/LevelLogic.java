@@ -6,12 +6,12 @@ public class LevelLogic {
 
 // Grundablauf pro Tick
 
-    public static  Field[][] tick (Field[][] map) {
+    public static Field[][] tick (Field[][] map) {
 
         Field[][] updatedMap = map;
 
         //loop through map
-            updatedMap = zurücksetzen(updatedMap);
+            updatedMap = resetValues(updatedMap);
 
         //loop through map
             updatedMap = preRegelnAusführen(updatedMap);

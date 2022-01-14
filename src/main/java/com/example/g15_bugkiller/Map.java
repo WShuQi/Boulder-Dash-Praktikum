@@ -1,5 +1,7 @@
 package com.example.g15_bugkiller;
 
+import MapGeneration.*;
+
 import java.util.*;
 
 public class Map {

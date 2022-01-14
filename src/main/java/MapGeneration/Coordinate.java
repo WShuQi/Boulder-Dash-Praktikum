@@ -1,4 +1,4 @@
-package com.example.g15_bugkiller;
+package MapGeneration;
 
 public class Coordinate {
 

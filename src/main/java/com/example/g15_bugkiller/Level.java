@@ -1,5 +1,7 @@
 package com.example.g15_bugkiller;
 
+import MapGeneration.Input;
+
 import java.util.List;
 
 public class Level {

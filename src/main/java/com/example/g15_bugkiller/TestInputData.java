@@ -5,6 +5,8 @@ package com.example.g15_bugkiller;
 // trichter.json
 
 
+import MapGeneration.*;
+
 import java.util.List;
 
 public class TestInputData {
