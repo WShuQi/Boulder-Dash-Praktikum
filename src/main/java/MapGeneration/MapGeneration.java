@@ -1,10 +1,12 @@
-package com.example.g15_bugkiller;
+package MapGeneration;
 
 import MapGeneration.*;
+import com.example.g15_bugkiller.Field;
+import com.example.g15_bugkiller.TerminalMap;
 
 import java.util.*;
 
-public class Map {
+public class MapGeneration {
 
     private Input info;   //eingelesene Input-Daten
     private Field[][] map;    //hier als endliche Map implementiert: außenrum nur noch default-Felder
@@ -15,7 +17,7 @@ public class Map {
     private Field [][] connectedByMap; //speichert die schon besuchten Zellen in der Tiefensuche, die in valideConnectBy(...) durchgeführt wird
 
 
-    public Map(Input info, int maxNumberOfTrials) {
+    public MapGeneration(Input info, int maxNumberOfTrials) {
         this.info = info;
         this.maxMapSize = info.getMapSize();
         this.maxNumberOfTrials = maxNumberOfTrials;

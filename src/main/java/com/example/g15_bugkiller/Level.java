@@ -1,6 +1,7 @@
 package com.example.g15_bugkiller;
 
 import MapGeneration.Input;
+import MapGeneration.MapGeneration;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Level {
     public Level(String levelName, int[] gems, int[] time, Input mapData ) {
         this.levelName = levelName;
         this.gems = gems;
-        Map map = new Map(mapData, 1000);
+        MapGeneration map = new MapGeneration(mapData, 1000);
         this.map = map.generateMap() ;
         this.time = time;
 
