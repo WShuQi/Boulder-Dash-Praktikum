@@ -10,52 +10,50 @@ public class LevelLogic {
 
         level.setTicksPast(level.getTicksPast()+1);
 
-        Level updatedLevel = new Level();
-
-        Field[][] updatedMap = level.getMap();
+        Level updatedLevel = level;
 
         //loop through map
-            updatedMap = resetValues(updatedMap);
+            updatedLevel = resetValues(updatedLevel);
 
         //loop through map
-            updatedMap = preRegelnAusführen(updatedMap);
+            updatedLevel = preRegelnAusführen(updatedLevel);
 
         //loop through map
-            updatedMap = hauptregelnAnwenden(updatedMap);
+            updatedLevel = hauptregelnAnwenden(updatedLevel);
 
         //loop through map
-            updatedMap = postRegelnAusführen(updatedMap);
-
-            updatedLevel.setMap(updatedMap);
+            updatedLevel = postRegelnAusführen(updatedLevel);
 
             return updatedLevel;
     }
 
-    public static Field[][] resetValues(Field[][] map){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+    public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+        Field[][] map = level.getMap();
         for(int y=0; map[y].length>y; y++) {
             for (int x = 0; map[x].length > x; x++) {
                 map[y][x].getGegenstand().resetValues();
             }
         }
-        return map;
+        level.setMap(map);
+        return level;
     }
 
-    public static Field[][] preRegelnAusführen(Field[][] map){
+    public static Level preRegelnAusführen(Level level){
         //ToDo Levelregeln pre ausführen
 
-        return map;
+        return level;
     }
 
-    public static Field[][] hauptregelnAnwenden(Field[][] map){
+    public static Level hauptregelnAnwenden(Level level){
         //ToDo Levelzustand entsprechend der Hauptregeln veränder
 
-        return map;
+        return level;
     }
 
-    public static Field[][] postRegelnAusführen(Field[][] map){
+    public static Level postRegelnAusführen(Level level){
         // ToDo Levelregeln post ausführen
 
-        return map;
+        return level;
     }
 
 
