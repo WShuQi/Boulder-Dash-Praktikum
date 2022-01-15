@@ -9,19 +9,22 @@ public class Level {
 
     String levelName;
     int[] gems;
-    int[] time;
+    int[] ticks;
     List<Regel> preRules;
     List<Regel> postRules;
     int maxSlime;
     Field[][] map;
     int collectedGems;
+    int ticksPast;  //schon vergangene Ticks
     int scoredPoints;
-    int ticks;
+    int time;  //maximale Zeit in Ticks
     int x;
     int y;
     int z;
 
-    public Level(String levelName, int[] gems, int[] time, Input mapData ) {
+    public Level(){}
+
+    public Level(String levelName, int[] gems, int time, Input mapData, int[] ticks) {
         this.levelName = levelName;
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
@@ -30,7 +33,7 @@ public class Level {
 
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
-        System.out.println("time: " + time[0] + ", " + time[1] + ", " + time[2]);
+        System.out.println("time: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
         TerminalMap.drawMap(this.map);
     }
 
@@ -42,7 +45,7 @@ public class Level {
         return gems;
     }
 
-    public int[] getTime() { return time; }
+    public int getTime() { return time; }
 
     public List<Regel> getPreRules() {
         return preRules;
@@ -68,7 +71,7 @@ public class Level {
         return scoredPoints;
     }
 
-    public int getTicks() {
+    public int[] getTicks() {
         return ticks;
     }
 
@@ -102,6 +105,22 @@ public class Level {
 
     public void setScoredPoints(int scoredPoints) {
         this.scoredPoints = scoredPoints;
+    }
+
+    public void setMap(Field[][] map) {
+        this.map = map;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getTicksPast() {
+        return ticksPast;
+    }
+
+    public void setTicksPast(int ticksPast) {
+        this.ticksPast = ticksPast;
     }
 
     public void setX(int x) {

@@ -217,8 +217,10 @@ public class TestInputData {
 
         String name = "Trichter";
 
-        int[] time = {130, 50, 25};
+        int[] ticks = {130, 50, 25};
 
-        return new Level(name, gems, time, createMapData());
+        int time = 1000;
+
+        return new Level(name, gems, time, createMapData(), ticks);
     }
 }

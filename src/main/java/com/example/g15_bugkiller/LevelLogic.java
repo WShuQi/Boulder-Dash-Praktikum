@@ -6,9 +6,13 @@ public class LevelLogic {
 
 // Grundablauf pro Tick
 
-    public static Field[][] tick (Field[][] map) {
+    public static Level tick (Level level) {
 
-        Field[][] updatedMap = map;
+        level.setTicksPast(level.getTicksPast()+1);
+
+        Level updatedLevel = new Level();
+
+        Field[][] updatedMap = level.getMap();
 
         //loop through map
             updatedMap = resetValues(updatedMap);
@@ -22,7 +26,9 @@ public class LevelLogic {
         //loop through map
             updatedMap = postRegelnAusführen(updatedMap);
 
-            return updatedMap;
+            updatedLevel.setMap(updatedMap);
+
+            return updatedLevel;
     }
 
     public static Field[][] resetValues(Field[][] map){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung

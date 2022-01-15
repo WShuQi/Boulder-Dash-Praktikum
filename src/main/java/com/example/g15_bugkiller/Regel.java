@@ -14,7 +14,7 @@ public class Regel {
         this.situation = situation;
         this.direction = direction;
         this.original = original;
-        this. result = result;
+        this.result = result;
     }
 
     public Situation getSituation(){
