@@ -1,8 +1,10 @@
 package com.example.g15_bugkiller;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +22,11 @@ public class HelloApplication extends Application {
 
         // for testing
         Level level = TestInputData.createLevelData();
+
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, KeyPressListener.keyPressed);
+
+        scene.addEventFilter(KeyEvent.KEY_RELEASED, KeyPressListener.keyReleased);
     }
 
     public static void main(String[] args) {
