@@ -14,22 +14,22 @@ import org.json.JSONObject;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+       /* FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
 
         // for testing
         Level level = TestInputData.createLevelData();
 
         HelloController controller = new HelloController();
 
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, KeyPressListener.keyPressed);
+        //scene.addEventFilter(KeyEvent.KEY_PRESSED, KeyPressListener.keyPressed);
 
-        scene.addEventFilter(KeyEvent.KEY_RELEASED, KeyPressListener.keyReleased);
+        //scene.addEventFilter(KeyEvent.KEY_RELEASED, KeyPressListener.keyReleased);
 
-        controller.executeTimeline();
+        //controller.executeTimeline();
     }
 
     public static void main(String[] args) {

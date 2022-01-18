@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class HelloController {
 
-    LevelLogic levelLogic;
+    Level level;
 
     public void executeTimeline(){
 
@@ -20,7 +20,7 @@ public class HelloController {
             @Override
             public void handle(ActionEvent event){
                 //getListeners();
-                levelLogic.tick(levelLogic.getLevel());
+                level.getLevelLogic().tick(level);
                 //updateGraphics();
             }
         };

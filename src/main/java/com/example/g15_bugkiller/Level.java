@@ -13,7 +13,7 @@ public class Level {
     List<Regel> preRules;
     List<Regel> postRules;
     int maxSlime;
-    Field[][] map;
+    Field[][] levelMap;
     int collectedGems;
     int ticksPast;  //schon vergangene Ticks
     int scoredPoints;
@@ -21,6 +21,7 @@ public class Level {
     int x;
     int y;
     int z;
+    LevelLogic levelLogic;
 
     public Level(){}
 
@@ -28,13 +29,13 @@ public class Level {
         this.levelName = levelName;
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
-        this.map = map.generateMap() ;
+        this.levelMap = map.generateMap() ;
         this.time = time;
 
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
         System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
-        TerminalMap.drawMap(this.map);
+        TerminalMap.drawMap(this.levelMap);
     }
 
     public String getLevelName() {
@@ -59,8 +60,8 @@ public class Level {
         return maxSlime;
     }
 
-    public Field[][] getMap() {
-        return map;
+    public Field[][] getLevelMap() {
+        return levelMap;
     }
 
     public int getCollectedGems() {
@@ -107,8 +108,8 @@ public class Level {
         this.scoredPoints = scoredPoints;
     }
 
-    public void setMap(Field[][] map) {
-        this.map = map;
+    public void setLevelMap(Field[][] levelMap) {
+        this.levelMap = levelMap;
     }
 
     public void setTime(int time) {
@@ -133,5 +134,13 @@ public class Level {
 
     public void setZ(int z) {
         this.z = z;
+    }
+
+    public LevelLogic getLevelLogic() {
+        return levelLogic;
+    }
+
+    public void setLevelLogic(LevelLogic levelLogic) {
+        this.levelLogic = levelLogic;
     }
 }

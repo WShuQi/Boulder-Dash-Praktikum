@@ -25,6 +25,14 @@ public class MapGeneration {
         this.map = generateMap();
     }
 
+    public Coordinate getMaxMapSize() {
+        return maxMapSize;
+    }
+
+    public void setMaxMapSize(Coordinate maxMapSize) {
+        this.maxMapSize = maxMapSize;
+    }
+
     public Field[][] getMap() {
         return map;
     }
