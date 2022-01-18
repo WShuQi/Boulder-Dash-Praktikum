@@ -23,10 +23,13 @@ public class HelloApplication extends Application {
         // for testing
         Level level = TestInputData.createLevelData();
 
+        HelloController controller = new HelloController();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, KeyPressListener.keyPressed);
 
         scene.addEventFilter(KeyEvent.KEY_RELEASED, KeyPressListener.keyReleased);
+
+        controller.executeTimeline();
     }
 
     public static void main(String[] args) {

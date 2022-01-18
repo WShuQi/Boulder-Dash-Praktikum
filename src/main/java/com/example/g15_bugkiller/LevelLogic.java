@@ -4,7 +4,18 @@ import java.util.List;
 
 public class LevelLogic {
 
+    Level level;
+
 // Grundablauf pro Tick
+
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 
     public static Level tick (Level level) {
 
