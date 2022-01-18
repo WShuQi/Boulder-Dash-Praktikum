@@ -122,7 +122,7 @@ public class LevelLogic {
                     nextFields[fieldCounter] = map[rowCounter][columnCounter + fieldCounter];
                 }
 
-                if(checkIfNextFieldsAndOriginalsAgree(nextField, original)){
+                if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
                     for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++) {
                         Gegenstand currentGegenstand = map[rowCounter][columnCounter + fieldCounter].getGegenstand();
@@ -141,11 +141,6 @@ public class LevelLogic {
     }
 
 
-
-
-
-    }
-
     public void executePrePostRuleWestward(Regel rule, Level level){
     }
 
@@ -156,6 +151,13 @@ public class LevelLogic {
 
     public void executePrePostRuleSouthward(Regel rule, Level level){
     }
+
+    public boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<Regelbaustein> original){
+        return true;
+    }
+
+    public void  replaceGegenstand(Gegenstand currentGegenstand, Regelbaustein currentResult){}
+
 
 // Methoden für Hauptregeln
 
