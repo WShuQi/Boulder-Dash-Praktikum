@@ -1,7 +1,13 @@
 package com.example.g15_bugkiller;
 
+import java.util.HashMap;
+
+import static com.example.g15_bugkiller.ValuesNames.*;
+import static com.example.g15_bugkiller.ValuesNames.D;
+
 public class Values {
 
+    /*
     int moved = 0;
     int falling = 0;
     int loose = 0;
@@ -15,6 +21,25 @@ public class Values {
     int C = 0;
     int D = 0;
 
+     */
+
+    HashMap<ValuesNames, Integer> valueList = new HashMap<ValuesNames, Integer>();
+
+    public Values(){
+        valueList.put(MOVED, 0);
+        valueList.put(FALLING, 0);
+        valueList.put(LOOSE, 0);
+        valueList.put(SLIPPERY, 0);
+        valueList.put(PUSHABLE, 0);
+        valueList.put(BAM, 0);
+        valueList.put(BAMRICH, 0);
+        valueList.put(DIRECTION, 0);
+        valueList.put(A, 0);
+        valueList.put(B, 0);
+        valueList.put(C, 0);
+        valueList.put(D, 0);
+    }
+/*
     public int getMoved() {
         return moved;
     }
@@ -123,6 +148,13 @@ public class Values {
         bamrich = 0;
     }
 
+ */
 
+    public HashMap<ValuesNames, Integer> getValueList() {
+        return valueList;
+    }
 
+    public void setValueList(HashMap<ValuesNames, Integer> valueList) {
+        this.valueList = valueList;
+    }
 }

@@ -2,7 +2,9 @@ package com.example.g15_bugkiller;
 
 import MapGeneration.MapGeneration;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class LevelLogic {
 
@@ -129,7 +131,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
-                    //replaceFields(nextFields, original, result);
+                    replaceFields(nextFields, result);
                     columnCounter = columnCounter + numberOfRuleComponents;
 
                 } else {
@@ -163,7 +165,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
-                    //replaceFields(nextFields, original, result);
+                    replaceFields(nextFields, result);
                     columnCounter = columnCounter - numberOfRuleComponents;
 
                 } else {
@@ -198,7 +200,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
-                    //replaceFields(nextFields, original, result);
+                    replaceFields(nextFields, result);
                     rowCounter = rowCounter - numberOfRuleComponents;
 
                 } else {
@@ -233,7 +235,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
-                    //replaceFields(nextFields, original, result);
+                    replaceFields(nextFields, result);
                     rowCounter = rowCounter + numberOfRuleComponents;
 
                 } else {
@@ -256,7 +258,7 @@ public class LevelLogic {
 
             if(currentOriginalToken.getClass() == String.class){
 
-                if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues(), currentOriginalValues)){
+                if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
@@ -265,7 +267,7 @@ public class LevelLogic {
 
                 for(int currentOriginalTokenIterator = 0; currentOriginalTokenIterator < lengthOfCurrentOriginalToken; currentOriginalTokenIterator++){
 
-                    if(!((String[]) currentOriginalToken)[currentOriginalTokenIterator].equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues(), currentOriginalValues)){
+                    if(!((String[]) currentOriginalToken)[currentOriginalTokenIterator].equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                         nextFieldsAndOriginalsAgree = false;
                     }
                 }
@@ -275,6 +277,7 @@ public class LevelLogic {
         return nextFieldsAndOriginalsAgree;
     }
 
+    /*
     public static boolean valuesAgree(Values fieldValues, Values ruleComponentValues){
 
         boolean bothIsZero = fieldValues.moved == 0 && ruleComponentValues.getMoved() == 0 && fieldValues.falling == 0 &&  ruleComponentValues.getFalling() == 0 &&
@@ -289,7 +292,7 @@ public class LevelLogic {
                                                 ruleComponentValues.getBamrich() > 0 && ruleComponentValues.getA() > 0 &&
                                                 ruleComponentValues.getB() > 0 && ruleComponentValues.getC() > 0 && ruleComponentValues.getD() > 0;
 
-        boolean fieldValueIsGreaterOrEqualToRuleComponentValue = fieldValues.moved >= ruleComponentValues.getMoved() && fieldValues.falling >=  ruleComponentValues.getFalling() &&
+        boolean fieldValueIsGreaterOrEqualToRuleComponentValue = fieldValues.moved >= ruleComponentValues.getMoved() && fieldValues.falling >= ruleComponentValues.getFalling() &&
                                                                     fieldValues.loose >= ruleComponentValues.getLoose() && fieldValues.slippery >= ruleComponentValues.getSlippery() &&
                                                                     fieldValues.pushable >= ruleComponentValues.getPushable() && fieldValues.bam >= ruleComponentValues.getBam()  &&
                                                                     fieldValues.bamrich >= ruleComponentValues.getBamrich() && fieldValues.A >= ruleComponentValues.getA() &&
@@ -298,7 +301,70 @@ public class LevelLogic {
         return bothIsZero || (fieldValueIsGreaterOrEqualToRuleComponentValue && ruleComponentValueIsPositive);
     }
 
-    //TODO: replaceFieldsNorthward(...),.....: Stefan
+     */
+    public static boolean valuesAgree(HashMap<ValuesNames, Integer> fieldValues, HashMap<ValuesNames, Integer> ruleComponentValues){
+
+        boolean bothAreZero = true;
+        boolean ruleComponentValuesArePositive = true;
+        boolean fieldValuesAreGreaterOrEqualToRuleComponentValues = true;
+
+        for(Integer fieldValue: fieldValues.values()){
+            if(fieldValue != 0) {
+                bothAreZero = false;
+            }
+        }
+
+        for(Integer ruleComponentValue: ruleComponentValues.values()){
+            if(ruleComponentValue != 0){
+                bothAreZero = false;
+            }
+            if(ruleComponentValue <= 0){
+                ruleComponentValuesArePositive = false;
+            }
+        }
+
+       for(ValuesNames valueName: ValuesNames.values()){
+           if(fieldValues.get(valueName) < ruleComponentValues.get(valueName)){
+               fieldValuesAreGreaterOrEqualToRuleComponentValues = false;
+           }
+       }
+
+       return bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive);
+    }
+
+
+    public static void replaceFields(Field[] nextFields, List<Regelbaustein> result) {
+        int resultLength = result.size();
+
+        for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
+            Field currentField = nextFields[resultIterator];
+            Regelbaustein currentResultComponent = result.get(resultIterator);
+
+            if(currentResultComponent.getToken() == String.class){
+                Type newToken = Type.valueOf(((String) currentResultComponent.getToken()).toUpperCase());
+                currentField.getGegenstand().setToken(newToken);
+            } else if (currentResultComponent.getToken() == int.class){
+                currentField.getGegenstand().setToken(nextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
+            }
+
+            replaceValues(currentField, currentResultComponent);
+        }
+    }
+
+    public static void replaceValues(Field currentField, Regelbaustein currentResultComponent) {
+
+       for(ValuesNames valueName: ValuesNames.values()){
+           int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);
+           int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
+
+           if(currentResultComponentValue == 0){
+               currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
+           } else {
+               int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
+               currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);
+           }
+       }
+    }
 
 
 
