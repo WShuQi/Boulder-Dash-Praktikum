@@ -9,26 +9,24 @@ import java.util.Locale;
 public class LevelLogic {
 
 
-// Grundablauf pro Tick
-// TODO: Sparsity fragen im Tutorium, Kann ein Feld pro Tick mehrmals geändert werden?, Levelübersicht?, Integration von Keypresslistener?, Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?)
+
+// TODO: Fragen fürs Tutorium:
+//  Sparsity
+//  Kann ein Feld pro Tick mehrmals geändert werden?,
+//  Levelübersicht?,
+//  Integration von Keypresslistener?,
+//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?)
 
 
-
+    // Grundablauf pro Tick
     public static void tick (Level level) {
 
         level.setTicksPast(level.getTicksPast()+1);
 
         resetValues(level);
-
-        //loop through map
         executePreRules(level);
-
-        //loop through map
         hauptregelnAnwenden(level);
-
-        //loop through map
         executePostRules(level);
-
     }
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
