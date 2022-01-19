@@ -149,6 +149,15 @@ public class Values {
     }
 
  */
+    public void resetValues(){
+        valueList.put(MOVED, 0);
+        valueList.put(FALLING, 0);
+        valueList.put(LOOSE, 0);
+        valueList.put(SLIPPERY, 0);
+        valueList.put(PUSHABLE, 0);
+        valueList.put(BAM, 0);
+        valueList.put(BAMRICH, 0);
+    }
 
     public HashMap<ValuesNames, Integer> getValueList() {
         return valueList;

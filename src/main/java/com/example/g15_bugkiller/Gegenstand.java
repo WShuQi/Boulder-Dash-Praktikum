@@ -62,15 +62,8 @@ public class Gegenstand {
     }
 
      */
-    void resetValues(){
-        values.getValueList().put(MOVED, 0);
-        values.getValueList().put(FALLING, 0);
-        values.getValueList().put(LOOSE, 0);
-        values.getValueList().put(SLIPPERY, 0);
-        values.getValueList().put(PUSHABLE, 0);
-        values.getValueList().put(BAM, 0);
-        values.getValueList().put(BAMRICH, 0);
-
+    public void resetValues(){
+        values.resetValues();
         switch (token) {
             case GEM:
                 values.getValueList().put(LOOSE, 1);

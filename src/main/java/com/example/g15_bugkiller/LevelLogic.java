@@ -8,8 +8,6 @@ import java.util.Locale;
 
 public class LevelLogic {
 
-
-
 // TODO: Fragen fürs Tutorium:
 //  Sparsity
 //  Kann ein Feld pro Tick mehrmals geändert werden?,
