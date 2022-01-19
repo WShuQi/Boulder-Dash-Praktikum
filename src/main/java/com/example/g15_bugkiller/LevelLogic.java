@@ -43,10 +43,7 @@ public class LevelLogic {
     }
 
     public static void executePreRules(Level level){
-        //ToDo Levelregeln pre ausführen, Stefan
-
         List<Regel> preRules = level.getPreRules();
-
         executePrePostRules(preRules, level);
     }
 
@@ -56,16 +53,14 @@ public class LevelLogic {
     }
 
     public static void executePostRules(Level level){
-        // ToDo Levelregeln post ausführen, Stefan
         List<Regel> postRules = level.getPostRules();
-
         executePrePostRules(postRules, level);
     }
 
     public static boolean checkIfSituationOccurs(Situation situation, Level level){
         boolean situationOccurs = false;
         int sparsity = 1;//TODO: integrate sparsity in input data
-        KeyPressListener keyPressListener = new KeyPressListener(); //TODO: integrate keypress
+        KeyPressListener keyPressListener = new KeyPressListener();
 
         if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % sparsity == 0) ||
                 (situation == Situation.UP && keyPressListener.isUpPressed()) || (situation == Situation.DOWN && keyPressListener.isDownPressed()) ||
@@ -182,7 +177,6 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
@@ -217,7 +211,6 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
@@ -329,7 +322,7 @@ public class LevelLogic {
            }
        }
 
-       return bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive);
+       return (bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive));
     }
 
 
