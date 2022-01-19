@@ -8,7 +8,7 @@ public class LevelLogic {
 
 
 // Grundablauf pro Tick
-  //TODO: Sparsity fragen im Tutorium
+// TODO: Sparsity fragen im Tutorium, Kann ein Feld pro Tick mehrmals geändert werden?, Levelübersicht?, Integration von Keypresslistener?, Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?)
 
 
 
@@ -62,16 +62,16 @@ public class LevelLogic {
 
     public static boolean checkIfSituationOccurs(Situation situation, Level level){
         boolean situationOccurs = false;
+        int sparsity = 1;//TODO: integrate sparsity in input data
+        KeyPressListener keyPressListener = new KeyPressListener(); //TODO: integrate keypress
 
-        if (situation == Situation.ANY){
+        if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % sparsity == 0) ||
+                (situation == Situation.UP && keyPressListener.isUpPressed()) || (situation == Situation.DOWN && keyPressListener.isDownPressed()) ||
+                (situation == Situation.RIGHT && keyPressListener.isRightPressed()) || (situation == Situation.LEFT && keyPressListener.isLeftPressed()) ||
+                (situation == Situation.METAUP && keyPressListener.isMetaUpPressed()) || (situation == Situation.METADOWN && keyPressListener.isMetaDownPressed()) ||
+                (situation == Situation.METARIGHT && keyPressListener.isMetaRightPressed()) || (situation == Situation.METALEFT && keyPressListener.isMetaLeftPressed())  ) {
             situationOccurs = true;
-        } else if (situation == Situation.RARE){
-            int sparsity = 1; //TODO: integrate sparsity in input data
-            if (level.getTicksPast() % sparsity == 0){
-                situationOccurs = true;
-            }
         }
-        //TODO:  implement other situations....
 
         return situationOccurs;
     }
@@ -165,7 +165,6 @@ public class LevelLogic {
 
                 //if(!currentToken.equals('*') || !currentToken.equals(currentGegens)){}
             }
-
 
         }
 
