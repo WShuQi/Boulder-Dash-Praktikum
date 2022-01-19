@@ -70,6 +70,7 @@ public class LevelLogic {
                 (situation == Situation.RIGHT && keyPressListener.isRightPressed()) || (situation == Situation.LEFT && keyPressListener.isLeftPressed()) ||
                 (situation == Situation.METAUP && keyPressListener.isMetaUpPressed()) || (situation == Situation.METADOWN && keyPressListener.isMetaDownPressed()) ||
                 (situation == Situation.METARIGHT && keyPressListener.isMetaRightPressed()) || (situation == Situation.METALEFT && keyPressListener.isMetaLeftPressed())  ) {
+
             situationOccurs = true;
         }
 
@@ -141,14 +142,107 @@ public class LevelLogic {
 
 
     public static void executePrePostRuleWestward(Regel rule, Level level){
+        List<Regelbaustein> original = rule.getOriginal();
+        List<Regelbaustein> result = rule.getResult();
+        Field[][] map = level.getLevelMap();
+
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
+        int numberOfRuleComponents = original.size();
+
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
+
+            int columnCounter = numberOfColumns-1;
+
+            while(columnCounter - numberOfRuleComponents >= 0){
+
+                Field[] nextFields = new Field[numberOfRuleComponents];
+
+                for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
+                    nextFields[fieldCounter] = map[rowCounter][columnCounter - fieldCounter];
+                }
+
+                if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
+
+                    //replaceFields(nextFields, original, result);
+                    columnCounter = columnCounter - numberOfRuleComponents;
+
+                } else {
+                    columnCounter--;
+                }
+
+            }
+        }
     }
 
 
     public static void executePrePostRuleNorthward(Regel rule, Level level){
+        List<Regelbaustein> original = rule.getOriginal();
+        List<Regelbaustein> result = rule.getResult();
+        Field[][] map = level.getLevelMap();
+
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
+        int numberOfRuleComponents = original.size();
+
+        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+
+            int rowCounter = numberOfRows-1;
+
+            while(rowCounter + numberOfRuleComponents < numberOfRows){
+
+                Field[] nextFields = new Field[numberOfRuleComponents];
+
+                for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
+                    nextFields[fieldCounter] = map[rowCounter - fieldCounter][columnCounter];
+                }
+
+                if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
+
+                    //replaceFields(nextFields, original, result);
+                    rowCounter = rowCounter - numberOfRuleComponents;
+
+                } else {
+                    rowCounter--;
+                }
+
+            }
+        }
     }
 
 
     public static void executePrePostRuleSouthward(Regel rule, Level level){
+        List<Regelbaustein> original = rule.getOriginal();
+        List<Regelbaustein> result = rule.getResult();
+        Field[][] map = level.getLevelMap();
+
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
+        int numberOfRuleComponents = original.size();
+
+        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+
+            int rowCounter = 0;
+
+            while(rowCounter + numberOfRuleComponents < numberOfRows){
+
+                Field[] nextFields = new Field[numberOfRuleComponents];
+
+                for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
+                    nextFields[fieldCounter] = map[rowCounter + fieldCounter][columnCounter];
+                }
+
+                if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
+
+                    //replaceFields(nextFields, original, result);
+                    rowCounter = rowCounter + numberOfRuleComponents;
+
+                } else {
+                    rowCounter++;
+                }
+
+            }
+        }
     }
 
     public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<Regelbaustein> original){
@@ -158,17 +252,51 @@ public class LevelLogic {
         for(int componentCounter = 0; componentCounter < numberOfOriginals; componentCounter++){
 
             Gegenstand currentGegenstand = nextFields[componentCounter].getGegenstand();
-            Object currentToken = original.get(componentCounter).getToken();
-            Values currentValues = original.get(componentCounter).getValues();
+            Object currentOriginalToken = original.get(componentCounter).getToken();
+            Values currentOriginalValues = original.get(componentCounter).getValues();
 
-            if(currentToken.getClass() == String.class){
+            if(currentOriginalToken.getClass() == String.class){
 
-                //if(!currentToken.equals('*') || !currentToken.equals(currentGegens)){}
+                if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues(), currentOriginalValues)){
+                    nextFieldsAndOriginalsAgree = false;
+                }
+
+            } else if (currentOriginalToken.getClass() == String[].class){
+                int lengthOfCurrentOriginalToken = ((String[]) currentOriginalToken).length;
+
+                for(int currentOriginalTokenIterator = 0; currentOriginalTokenIterator < lengthOfCurrentOriginalToken; currentOriginalTokenIterator++){
+
+                    if(!((String[]) currentOriginalToken)[currentOriginalTokenIterator].equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues(), currentOriginalValues)){
+                        nextFieldsAndOriginalsAgree = false;
+                    }
+                }
             }
-
         }
 
         return nextFieldsAndOriginalsAgree;
+    }
+
+    public static boolean valuesAgree(Values fieldValues, Values ruleComponentValues){
+
+        boolean bothIsZero = fieldValues.moved == 0 && ruleComponentValues.getMoved() == 0 && fieldValues.falling == 0 &&  ruleComponentValues.getFalling() == 0 &&
+                                fieldValues.loose == 0 && ruleComponentValues.getLoose() == 0 && fieldValues.slippery == 0 && ruleComponentValues.getSlippery() == 0 &&
+                                fieldValues.pushable == 0 && ruleComponentValues.getPushable() == 0 && fieldValues.bam == 0 && ruleComponentValues.getBam() == 0  &&
+                                fieldValues.bamrich == 0 && ruleComponentValues.getBamrich() == 0 && fieldValues.A == 0 && ruleComponentValues.getA() == 0 &&
+                                fieldValues.B == 0 && ruleComponentValues.getB() == 0 && fieldValues.C == 0 && ruleComponentValues.getC() == 0 && fieldValues.D == 0 && ruleComponentValues.getD() == 0;
+
+        boolean ruleComponentValueIsPositive = ruleComponentValues.getMoved() > 0 && ruleComponentValues.getFalling() > 0 &&
+                                                ruleComponentValues.getLoose() > 0 && ruleComponentValues.getSlippery() > 0 &&
+                                                ruleComponentValues.getPushable() > 0 && ruleComponentValues.getBam() > 0  &&
+                                                ruleComponentValues.getBamrich() > 0 && ruleComponentValues.getA() > 0 &&
+                                                ruleComponentValues.getB() > 0 && ruleComponentValues.getC() > 0 && ruleComponentValues.getD() > 0;
+
+        boolean fieldValueIsGreaterOrEqualToRuleComponentValue = fieldValues.moved >= ruleComponentValues.getMoved() && fieldValues.falling >=  ruleComponentValues.getFalling() &&
+                                                                    fieldValues.loose >= ruleComponentValues.getLoose() && fieldValues.slippery >=ruleComponentValues.getSlippery() &&
+                                                                    fieldValues.pushable >= ruleComponentValues.getPushable() && fieldValues.bam >= ruleComponentValues.getBam()  &&
+                                                                    fieldValues.bamrich >= ruleComponentValues.getBamrich() && fieldValues.A >= ruleComponentValues.getA() &&
+                                                                    fieldValues.B >= ruleComponentValues.getB() && fieldValues.C >= ruleComponentValues.getC() && fieldValues.D >= ruleComponentValues.getD();
+
+        return bothIsZero || (fieldValueIsGreaterOrEqualToRuleComponentValue && ruleComponentValueIsPositive);
     }
 
  //   public static void  replaceFields(Field[] nextFields, List<Regelbaustein> original, List<Regelbaustein> results){}
