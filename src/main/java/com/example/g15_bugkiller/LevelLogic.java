@@ -8,11 +8,11 @@ public class LevelLogic {
 
 
 // Grundablauf pro Tick
+  //TODO: Sparsity fragen im Tutorium
 
 
 
-
-    public void tick (Level level) {
+    public static void tick (Level level) {
 
         level.setTicksPast(level.getTicksPast()+1);
 
@@ -29,7 +29,7 @@ public class LevelLogic {
 
     }
 
-    public Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+    public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
         for(int y=0; map[y].length>y; y++) {
             for (int x = 0; map[x].length > x; x++) {
@@ -40,46 +40,50 @@ public class LevelLogic {
         return level;
     }
 
-    public void executePreRules(Level level){
-        //ToDo Levelregeln pre ausführen
+    public static void executePreRules(Level level){
+        //ToDo Levelregeln pre ausführen, Stefan
 
         List<Regel> preRules = level.getPreRules();
 
         executePrePostRules(preRules, level);
     }
 
-    public Level hauptregelnAnwenden(Level level){
-        //ToDo Levelzustand entsprechend der Hauptregeln veränder
+    public static void hauptregelnAnwenden(Level level){
+        //ToDo Levelzustand entsprechend der Hauptregeln verändern, Charis
 
-        return level;
     }
 
-    public void executePostRules(Level level){
-        // ToDo Levelregeln post ausführen
+    public static void executePostRules(Level level){
+        // ToDo Levelregeln post ausführen, Stefan
         List<Regel> postRules = level.getPostRules();
 
         executePrePostRules(postRules, level);
     }
 
-    public boolean checkIfSituationOccurs(Situation situation){
+    public static boolean checkIfSituationOccurs(Situation situation, Level level){
         boolean situationOccurs = false;
 
-        if(situation == Situation.ANY){
+        if (situation == Situation.ANY){
             situationOccurs = true;
+        } else if (situation == Situation.RARE){
+            int sparsity = 1; //TODO: integrate sparsity in input data
+            if (level.getTicksPast() % sparsity == 0){
+                situationOccurs = true;
+            }
         }
         //TODO:  implement other situations....
 
         return situationOccurs;
     }
 
-    public void executePrePostRules(List<Regel> rules, Level level){
+    public static void executePrePostRules(List<Regel> rules, Level level){
 
         for(Regel rule : rules){
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
 
-            if(!checkIfSituationOccurs(situation)){
+            if(!checkIfSituationOccurs(situation, level)){
                 continue;
             }
 
@@ -101,7 +105,7 @@ public class LevelLogic {
         }
     }
 
-    public void executePrePostRuleEastward(Regel rule, Level level){
+    public static void executePrePostRuleEastward(Regel rule, Level level){
         List<Regelbaustein> original = rule.getOriginal();
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -124,12 +128,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
-                    for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++) {
-                        Gegenstand currentGegenstand = map[rowCounter][columnCounter + fieldCounter].getGegenstand();
-                        Regelbaustein currentResult = result.get(fieldCounter);
-                        replaceGegenstand(currentGegenstand, currentResult);
-                    }
-
+                    //replaceFields(nextFields, original, result);
                     columnCounter = columnCounter + numberOfRuleComponents;
 
                 } else {
@@ -141,22 +140,39 @@ public class LevelLogic {
     }
 
 
-    public void executePrePostRuleWestward(Regel rule, Level level){
+    public static void executePrePostRuleWestward(Regel rule, Level level){
     }
 
 
-    public void executePrePostRuleNorthward(Regel rule, Level level){
+    public static void executePrePostRuleNorthward(Regel rule, Level level){
     }
 
 
-    public void executePrePostRuleSouthward(Regel rule, Level level){
+    public static void executePrePostRuleSouthward(Regel rule, Level level){
     }
 
-    public boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<Regelbaustein> original){
-        return true;
+    public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<Regelbaustein> original){
+        boolean nextFieldsAndOriginalsAgree = true;
+        int numberOfOriginals = original.size();
+
+        for(int componentCounter = 0; componentCounter < numberOfOriginals; componentCounter++){
+
+            Gegenstand currentGegenstand = nextFields[componentCounter].getGegenstand();
+            Object currentToken = original.get(componentCounter).getToken();
+            Values currentValues = original.get(componentCounter).getValues();
+
+            if(currentToken.getClass() == String.class){
+
+                //if(!currentToken.equals('*') || !currentToken.equals(currentGegens)){}
+            }
+
+
+        }
+
+        return nextFieldsAndOriginalsAgree;
     }
 
-    public void  replaceGegenstand(Gegenstand currentGegenstand, Regelbaustein currentResult){}
+ //   public static void  replaceFields(Field[] nextFields, List<Regelbaustein> original, List<Regelbaustein> results){}
 
 
 // Methoden für Hauptregeln

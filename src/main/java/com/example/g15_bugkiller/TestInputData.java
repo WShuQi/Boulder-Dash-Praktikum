@@ -219,8 +219,6 @@ public class TestInputData {
 
         int[] ticks = {130, 50, 25};
 
-        int time = 1000;
-
-        return new Level(name, gems, time, createMapData(), ticks);
+        return new Level(name, gems, createMapData(), ticks);
     }
 }

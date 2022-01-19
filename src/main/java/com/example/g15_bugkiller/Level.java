@@ -17,20 +17,17 @@ public class Level {
     int collectedGems;
     int ticksPast;  //schon vergangene Ticks
     int scoredPoints;
-    int time;  //maximale Zeit in Ticks
     int x;
     int y;
     int z;
-    LevelLogic levelLogic;
 
     public Level(){}
 
-    public Level(String levelName, int[] gems, int time, Input mapData, int[] ticks) {
+    public Level(String levelName, int[] gems, Input mapData, int[] ticks) {
         this.levelName = levelName;
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap() ;
-        this.time = time;
 
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
@@ -45,8 +42,6 @@ public class Level {
     public int[] getGems() {
         return gems;
     }
-
-    public int getTime() { return time; }
 
     public List<Regel> getPreRules() {
         return preRules;
@@ -112,10 +107,6 @@ public class Level {
         this.levelMap = levelMap;
     }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
-
     public int getTicksPast() {
         return ticksPast;
     }
@@ -136,11 +127,4 @@ public class Level {
         this.z = z;
     }
 
-    public LevelLogic getLevelLogic() {
-        return levelLogic;
-    }
-
-    public void setLevelLogic(LevelLogic levelLogic) {
-        this.levelLogic = levelLogic;
-    }
 }

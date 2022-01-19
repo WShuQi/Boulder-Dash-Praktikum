@@ -20,7 +20,7 @@ public class HelloController {
             @Override
             public void handle(ActionEvent event){
                 //getListeners();
-                level.getLevelLogic().tick(level);
+                LevelLogic.tick(level);
                 //updateGraphics();
             }
         };

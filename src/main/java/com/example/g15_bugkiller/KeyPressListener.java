@@ -28,7 +28,23 @@ public class KeyPressListener {
     }
 
     public static boolean isShiftPressed() {
-        return shiftPressed;
+        return shiftPressed ;
+    }
+
+    public static boolean isMetaUpPressed() {
+        return upPressed && shiftPressed;
+    }
+
+    public static boolean isMetaRightPressed() {
+        return rightPressed && shiftPressed;
+    }
+
+    public static boolean isMetaDownPressed() {
+        return downPressed && shiftPressed;
+    }
+
+    public static boolean isMetaLeftPressed() {
+        return leftPressed && shiftPressed;
     }
 
     public static EventHandler<KeyEvent> keyPressed  = keyEvent-> {
