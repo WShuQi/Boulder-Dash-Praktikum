@@ -140,7 +140,6 @@ public class LevelLogic {
         }
     }
 
-
     public static void executePrePostRuleWestward(Regel rule, Level level){
         List<Regelbaustein> original = rule.getOriginal();
         List<Regelbaustein> result = rule.getResult();
@@ -291,7 +290,7 @@ public class LevelLogic {
                                                 ruleComponentValues.getB() > 0 && ruleComponentValues.getC() > 0 && ruleComponentValues.getD() > 0;
 
         boolean fieldValueIsGreaterOrEqualToRuleComponentValue = fieldValues.moved >= ruleComponentValues.getMoved() && fieldValues.falling >=  ruleComponentValues.getFalling() &&
-                                                                    fieldValues.loose >= ruleComponentValues.getLoose() && fieldValues.slippery >=ruleComponentValues.getSlippery() &&
+                                                                    fieldValues.loose >= ruleComponentValues.getLoose() && fieldValues.slippery >= ruleComponentValues.getSlippery() &&
                                                                     fieldValues.pushable >= ruleComponentValues.getPushable() && fieldValues.bam >= ruleComponentValues.getBam()  &&
                                                                     fieldValues.bamrich >= ruleComponentValues.getBamrich() && fieldValues.A >= ruleComponentValues.getA() &&
                                                                     fieldValues.B >= ruleComponentValues.getB() && fieldValues.C >= ruleComponentValues.getC() && fieldValues.D >= ruleComponentValues.getD();
@@ -299,7 +298,8 @@ public class LevelLogic {
         return bothIsZero || (fieldValueIsGreaterOrEqualToRuleComponentValue && ruleComponentValueIsPositive);
     }
 
- //   public static void  replaceFields(Field[] nextFields, List<Regelbaustein> original, List<Regelbaustein> results){}
+    //TODO: replaceFieldsNorthward(...),.....: Stefan
+
 
 
 // Methoden für Hauptregeln
