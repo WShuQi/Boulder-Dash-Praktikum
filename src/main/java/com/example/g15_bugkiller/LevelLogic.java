@@ -189,7 +189,7 @@ public class LevelLogic {
 
             int rowCounter = numberOfRows-1;
 
-            while(rowCounter + numberOfRuleComponents < numberOfRows){
+            while(rowCounter - numberOfRuleComponents >= 0){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
