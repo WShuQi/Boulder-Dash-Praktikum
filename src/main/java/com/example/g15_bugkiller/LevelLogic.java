@@ -1,9 +1,6 @@
 package com.example.g15_bugkiller;
 
-import javafx.animation.KeyFrame;
-
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -270,6 +267,7 @@ public class LevelLogic {
         for(Integer fieldValue: fieldValues.values()){
             if(fieldValue != 0) {
                 bothAreZero = false;
+                break;
             }
         }
 
@@ -285,6 +283,7 @@ public class LevelLogic {
        for(ValuesNames valueName: ValuesNames.values()){
            if(fieldValues.get(valueName) < ruleComponentValues.get(valueName)){
                fieldValuesAreGreaterOrEqualToRuleComponentValues = false;
+               break;
            }
        }
 
