@@ -8,6 +8,23 @@ public class Values {
 
     HashMap<ValuesNames, Integer> valueList = new HashMap<ValuesNames, Integer>();
 
+    public Values(){
+        valueList.put(MOVED, 0);
+        valueList.put(FALLING, 0);
+        valueList.put(LOOSE, 0);
+        valueList.put(SLIPPERY, 0);
+        valueList.put(PUSHABLE, 0);
+        valueList.put(BAM, 0);
+        valueList.put(BAMRICH, 0);
+        valueList.put(DIRECTION, 0);
+        valueList.put(A, 0);
+        valueList.put(B, 0);
+        valueList.put(C, 0);
+        valueList.put(D, 0);
+        valueList.put(COLLECTED, 0);
+    }
+
+
     public Values(HashMap<ValuesNames, Integer> initalValueList){
         valueList.put(MOVED, initalValueList.getOrDefault(MOVED, 0));
         valueList.put(FALLING, initalValueList.getOrDefault(FALLING, 0));
@@ -21,6 +38,7 @@ public class Values {
         valueList.put(B, initalValueList.getOrDefault(B, 0));
         valueList.put(C, initalValueList.getOrDefault(C, 0));
         valueList.put(D, initalValueList.getOrDefault(D, 0));
+        valueList.put(COLLECTED, initalValueList.getOrDefault(COLLECTED,0));
     }
 
     public void resetValues(){
@@ -31,6 +49,7 @@ public class Values {
         valueList.put(PUSHABLE, 0);
         valueList.put(BAM, 0);
         valueList.put(BAMRICH, 0);
+        valueList.put(COLLECTED, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {

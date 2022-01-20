@@ -5,10 +5,14 @@ public class Regelbaustein {
     Object token;       // could be String, String[], int
     Values values;
 
-
     public Regelbaustein (Object token, Values values){
         this.token = token;
         this.values = values;
+    }
+
+    public Regelbaustein (Object token){
+        this.token = token;
+        this.values = new Values();
     }
 
     public Object getToken() {

@@ -12,5 +12,6 @@ public enum ValuesNames {
     A,
     B,
     C,
-    D
+    D,
+    COLLECTED
 }
