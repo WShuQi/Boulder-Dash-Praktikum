@@ -15,7 +15,7 @@ public class Hauptregeln {
     // Edelsteine können eingesammelt werden
     // Hat man genügend Edelsteine gesammelt, so kann man ein Level durch einen Ausgang verlassen
 
-
+/*
     List<Values> values = new List<Values>;
     public static Regel falling = new Regel(
             Situation.ANY,
@@ -53,5 +53,9 @@ public class Hauptregeln {
 
 
 
+*/
 
+    public boolean giveTrueWithThreePercentProbability(){
+        return (Math.random() <= 0.03);
+    }
 }
