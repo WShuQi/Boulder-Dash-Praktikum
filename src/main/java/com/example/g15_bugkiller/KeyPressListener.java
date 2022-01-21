@@ -5,49 +5,59 @@ import javafx.scene.input.MouseEvent;
 
 public class KeyPressListener {
 
-    static boolean upPressed;
-    static boolean rightPressed;
-    static boolean downPressed;
-    static boolean leftPressed;
-    static boolean shiftPressed;
+    boolean upPressed = false;
+    boolean rightPressed = false;
+    boolean downPressed = false;
+    boolean leftPressed = false;
+    boolean shiftPressed = false;
 
-    public static boolean isUpPressed() {
+    public KeyPressListener(boolean upPressed, boolean rightPressed, boolean downPressed, boolean leftPressed, boolean shiftPressed) {
+        this.upPressed = upPressed;
+        this.rightPressed = rightPressed;
+        this.downPressed = downPressed;
+        this.leftPressed = leftPressed;
+        this.shiftPressed = shiftPressed;
+    }
+
+    public KeyPressListener(){}
+
+    public boolean isUpPressed() {
         return upPressed;
     }
 
-    public static boolean isRightPressed() {
+    public boolean isRightPressed() {
         return rightPressed;
     }
 
-    public static boolean isDownPressed() {
+    public boolean isDownPressed() {
         return downPressed;
     }
 
-    public static boolean isLeftPressed() {
+    public boolean isLeftPressed() {
         return leftPressed;
     }
 
-    public static boolean isShiftPressed() {
+    public boolean isShiftPressed() {
         return shiftPressed ;
     }
 
-    public static boolean isMetaUpPressed() {
+    public boolean isMetaUpPressed() {
         return upPressed && shiftPressed;
     }
 
-    public static boolean isMetaRightPressed() {
+    public boolean isMetaRightPressed() {
         return rightPressed && shiftPressed;
     }
 
-    public static boolean isMetaDownPressed() {
+    public boolean isMetaDownPressed() {
         return downPressed && shiftPressed;
     }
 
-    public static boolean isMetaLeftPressed() {
+    public boolean isMetaLeftPressed() {
         return leftPressed && shiftPressed;
     }
 
-    public static EventHandler<KeyEvent> keyPressed  = keyEvent-> {
+    public EventHandler<KeyEvent> keyPressed  = keyEvent-> {
         System.out.println("pressed Key: " + keyEvent.getCode());
             switch (keyEvent.getCode()){
                 case UP:
@@ -72,7 +82,7 @@ public class KeyPressListener {
             }
         };
 
-        public static EventHandler<KeyEvent> keyReleased = keyEvent -> {
+        public EventHandler<KeyEvent> keyReleased = keyEvent -> {
             System.out.println("released Key: " + keyEvent.getCode());
                 switch (keyEvent.getCode()){
                     case UP:
@@ -93,10 +103,16 @@ public class KeyPressListener {
                 }
         };
 
-        private static void resetButtons(){
+        private void resetButtons(){
             upPressed = false;
             rightPressed = false;
             downPressed = false;
             leftPressed = false;
         }
+
+        public KeyPressListener getClone(){
+            return new KeyPressListener(this.upPressed, this.rightPressed, this.downPressed, this.leftPressed, this.shiftPressed);
+        };
+
+
 }

@@ -12,6 +12,12 @@ import org.json.JSONObject;
 public class HelloController {
 
     Level level;
+    KeyPressListener keyPressListener;
+
+    public HelloController(Level level, KeyPressListener keyPressListener) {
+        this.level = level;
+        this.keyPressListener = keyPressListener;
+    }
 
     public void executeTimeline(){
 
@@ -19,8 +25,8 @@ public class HelloController {
 
             @Override
             public void handle(ActionEvent event){
-                //getListeners();
-                LevelLogic.tick(level);
+                KeyPressListener currentKeysPressed = keyPressListener.getClone();
+                LevelLogic.tick(level, currentKeysPressed);
                 //updateGraphics();
             }
         };
@@ -30,4 +36,6 @@ public class HelloController {
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
+
+
 }

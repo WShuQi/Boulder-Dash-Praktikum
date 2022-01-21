@@ -16,14 +16,14 @@ public class LevelLogic {
 
 
     // Grundablauf pro Tick
-    public static void tick (Level level) {
+    public static void tick (Level level, KeyPressListener currentKeysPressed) {
 
         level.setTicksPast(level.getTicksPast()+1);
 
         resetValues(level);
-        executePreRules(level);
-        hauptregelnAnwenden(level);
-        executePostRules(level);
+        executePreRules(level, currentKeysPressed);
+        hauptregelnAnwenden(level, currentKeysPressed);
+        executePostRules(level, currentKeysPressed);
     }
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
@@ -37,30 +37,30 @@ public class LevelLogic {
         return level;
     }
 
-    public static void executePreRules(Level level){
+    public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
         List<Regel> preRules = level.getPreRules();
-        executeRules(preRules, level);
+        executeRules(preRules, level,  currentKeysPressed);
     }
 
-    public static void hauptregelnAnwenden(Level level){
+    public static void hauptregelnAnwenden(Level level, KeyPressListener currentKeysPressed){
         //ToDo Levelzustand entsprechend der Hauptregeln verändern, Charis
 
     }
 
-    public static void executePostRules(Level level){
+    public static void executePostRules(Level level, KeyPressListener currentKeysPressed){
         List<Regel> postRules = level.getPostRules();
-        executeRules(postRules, level);
+        executeRules(postRules, level, currentKeysPressed);
     }
 
-    public static boolean checkIfSituationOccurs(Situation situation, Level level){
+    public static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
         boolean situationOccurs = false;
         int sparsity = level.getSparsity();
 
         if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % sparsity == 0) ||
-                (situation == Situation.UP && KeyPressListener.isUpPressed()) || (situation == Situation.DOWN && KeyPressListener.isDownPressed()) ||
-                (situation == Situation.RIGHT && KeyPressListener.isRightPressed()) || (situation == Situation.LEFT && KeyPressListener.isLeftPressed()) ||
-                (situation == Situation.METAUP && KeyPressListener.isMetaUpPressed()) || (situation == Situation.METADOWN && KeyPressListener.isMetaDownPressed()) ||
-                (situation == Situation.METARIGHT && KeyPressListener.isMetaRightPressed()) || (situation == Situation.METALEFT && KeyPressListener.isMetaLeftPressed())  ) {
+                (situation == Situation.UP && currentKeysPressed.isUpPressed()) || (situation == Situation.DOWN && currentKeysPressed.isDownPressed()) ||
+                (situation == Situation.RIGHT && currentKeysPressed.isRightPressed()) || (situation == Situation.LEFT && currentKeysPressed.isLeftPressed()) ||
+                (situation == Situation.METAUP && currentKeysPressed.isMetaUpPressed()) || (situation == Situation.METADOWN && currentKeysPressed.isMetaDownPressed()) ||
+                (situation == Situation.METARIGHT && currentKeysPressed.isMetaRightPressed()) || (situation == Situation.METALEFT && currentKeysPressed.isMetaLeftPressed())  ) {
 
             situationOccurs = true;
         }
@@ -68,14 +68,14 @@ public class LevelLogic {
         return situationOccurs;
     }
 
-    public static void executeRules(List<Regel> rules, Level level){
+    public static void executeRules(List<Regel> rules, Level level, KeyPressListener currentKeysPressed){
 
         for(Regel rule : rules){
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
 
-            if(!checkIfSituationOccurs(situation, level)){
+            if(!checkIfSituationOccurs(situation, level,  currentKeysPressed)){
                 continue;
             }
 
