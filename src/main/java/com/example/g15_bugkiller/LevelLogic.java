@@ -243,7 +243,7 @@ public class LevelLogic {
 
             if(currentOriginalToken.getClass() == Type.class){ //TODO: Sonderfall * berücksichtigen
 
-                if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
+                if(!currentOriginalToken.equals(Type.CATCHALL) || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
