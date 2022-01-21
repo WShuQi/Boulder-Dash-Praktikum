@@ -6,12 +6,13 @@ import java.util.List;
 
 public class LevelLogic {
 
+
 // TODO: Fragen fürs Tutorium:
-//  Sparsity
-//  Kann ein Feld pro Tick mehrmals geändert werden?,
-//  Levelübersicht?,
-//  Integration von Keypresslistener?,
-//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?)
+//  Sparsity  -> wsl auf der obersten Ebene gespeichert
+//  Kann ein Feld pro Tick mehrmals geändert werden? -> Ja!
+//  Levelübersicht? -> Sinnvoll, Gui bauen
+//  Integration von Keypresslistener?, -> am besten in Timeline, übergeben als Parameter
+//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?) -> siehe Seite 15 oben
 
 
     // Grundablauf pro Tick
@@ -53,7 +54,7 @@ public class LevelLogic {
 
     public static boolean checkIfSituationOccurs(Situation situation, Level level){
         boolean situationOccurs = false;
-        int sparsity = 1;//TODO: integrate sparsity in input data
+        int sparsity = level.getSparsity();
 
         if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % sparsity == 0) ||
                 (situation == Situation.UP && KeyPressListener.isUpPressed()) || (situation == Situation.DOWN && KeyPressListener.isDownPressed()) ||
@@ -163,7 +164,7 @@ public class LevelLogic {
         }
     }
 
-
+//TODO: eventuell abstrahieren
     public static void executeRuleNorthward(Regel rule, Level level){
         List<Regelbaustein> original = rule.getOriginal();
         List<Regelbaustein> result = rule.getResult();
@@ -240,7 +241,7 @@ public class LevelLogic {
             Object currentOriginalToken = original.get(componentCounter).getToken();
             Values currentOriginalValues = original.get(componentCounter).getValues();
 
-            if(currentOriginalToken.getClass() == Type.class){
+            if(currentOriginalToken.getClass() == Type.class){ //TODO: Sonderfall * berücksichtigen
 
                 if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
@@ -316,7 +317,7 @@ public class LevelLogic {
            int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
 
            if(currentResultComponentValue == 0){
-               currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
+               currentField.getGegenstand().getValues().getValueList().put(valueName, 0);
            } else {
                int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
                currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);

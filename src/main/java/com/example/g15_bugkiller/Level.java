@@ -8,6 +8,7 @@ import java.util.List;
 public class Level {
 
     String levelName;
+    int sparsity = 1;
     int[] gems;
     int[] ticks;
     List<Regel> preRules;
@@ -127,4 +128,11 @@ public class Level {
         this.z = z;
     }
 
+    public void setSparsity(int sparsity) {
+        this.sparsity = sparsity;
+    }
+
+    public int getSparsity() {
+        return sparsity;
+    }
 }
