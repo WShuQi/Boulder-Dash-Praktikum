@@ -219,6 +219,7 @@ public class TestInputData {
 
         int[] ticks = {130, 50, 25};
 
+
         return new Level(name, gems, createMapData(), ticks);
     }
 }

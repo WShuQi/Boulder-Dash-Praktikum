@@ -167,7 +167,6 @@ public class LevelLogic {
         }
     }
 
-//TODO: eventuell abstrahieren
     public static void executeRuleNorthward(Regel rule, Level level){
         List<Regelbaustein> original = rule.getOriginal();
         List<Regelbaustein> result = rule.getResult();
