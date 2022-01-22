@@ -173,10 +173,11 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
+        int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
             int rowCounter = numberOfRows-1;
 
@@ -206,10 +207,11 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
+        int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
             int rowCounter = 0;
 
