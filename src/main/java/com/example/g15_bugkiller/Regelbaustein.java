@@ -2,7 +2,7 @@ package com.example.g15_bugkiller;
 
 public class Regelbaustein {
 
-    Object token;       // could be Type, Type[], int
+    Object token;       // could be Type (incl CATCHALL), Type[], int
     Values values;
 
     public Regelbaustein (Object token, Values values){

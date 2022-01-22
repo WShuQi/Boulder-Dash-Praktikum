@@ -28,9 +28,12 @@ public class LevelLogic {
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
-        for(int y=0; map[y].length>y; y++) {
-            for (int x = 0; map[x].length > x; x++) {
-                map[y][x].getGegenstand().resetValues();
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
+
+        for(int rowIterator=0; rowIterator < numberOfRows; rowIterator++) {
+            for (int columnIterator = 0; columnIterator < numberOfColumns; columnIterator++) {
+                map[rowIterator][columnIterator].getGegenstand().resetValues();
             }
         }
         level.setLevelMap(map);
@@ -39,7 +42,7 @@ public class LevelLogic {
 
     public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
         List<Regel> preRules = level.getPreRules();
-        executeRules(preRules, level,  currentKeysPressed);
+        executeRules(preRules, level, currentKeysPressed);
     }
 
     public static void hauptregelnAnwenden(Level level, KeyPressListener currentKeysPressed){
@@ -241,7 +244,7 @@ public class LevelLogic {
             Object currentOriginalToken = original.get(componentCounter).getToken();
             Values currentOriginalValues = original.get(componentCounter).getValues();
 
-            if(currentOriginalToken.getClass() == Type.class){ //TODO: Sonderfall * berücksichtigen
+            if(currentOriginalToken.getClass() == Type.class){
 
                 if(!currentOriginalToken.equals(Type.CATCHALL) || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
