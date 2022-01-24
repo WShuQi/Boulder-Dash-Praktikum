@@ -7,76 +7,78 @@ import java.util.List;
 public class LevelLogic {
 
 // TODO: Fragen fürs Tutorium:
-//  Sparsity  -> wsl auf der obersten Ebene gespeichert
-//  Kann ein Feld pro Tick mehrmals geändert werden? -> Ja!
-//  Levelübersicht? -> Sinnvoll, Gui bauen
-//  Integration von Keypresslistener?, -> am besten in Timeline, übergeben als Parameter
-//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?) -> siehe Seite 15 oben
+//  Sparsity
+//  Kann ein Feld pro Tick mehrmals geändert werden?,
+//  Levelübersicht?,
+//  Integration von Keypresslistener?,
+//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?)
 
 
     // Grundablauf pro Tick
-    public static void tick (Level level, KeyPressListener currentKeysPressed) {
+    public static void tick (Level level) {
 
         level.setTicksPast(level.getTicksPast()+1);
 
         resetValues(level);
-        executePreRules(level, currentKeysPressed);
-        hauptregelnAnwenden(level, currentKeysPressed);
-        executePostRules(level, currentKeysPressed);
+        executePreRules(level);
+        hauptregelnAnwenden(level);
+        executePostRules(level);
     }
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
-        int rowLength = map.length;
-        int columnLength = map[0].length;
-
-        for(int rowIterator=0; rowIterator < rowLength; rowIterator++) {
-            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
-                map[rowIterator][columnIterator].getGegenstand().resetValues();
+        for(int y=0; map[y].length>y; y++) {
+            for (int x = 0; map[x].length > x; x++) {
+                map[y][x].getGegenstand().resetValues();
             }
         }
         level.setLevelMap(map);
         return level;
     }
 
-    public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
+    public static void executePreRules(Level level){
         List<Regel> preRules = level.getPreRules();
-        executeRules(preRules, level, currentKeysPressed);
+        if (preRules != null) {
+            executeRules(preRules, level);
+        }
     }
 
-    public static void hauptregelnAnwenden(Level level, KeyPressListener currentKeysPressed){
+    public static void hauptregelnAnwenden(Level level){
         //ToDo Levelzustand entsprechend der Hauptregeln verändern, Charis
 
     }
 
-    public static void executePostRules(Level level, KeyPressListener currentKeysPressed){
+    public static void executePostRules(Level level){
         List<Regel> postRules = level.getPostRules();
-        executeRules(postRules, level, currentKeysPressed);
+        if (postRules != null) {
+            executeRules(postRules, level);
+        }
     }
 
-    public static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
+    public static boolean checkIfSituationOccurs(Situation situation, Level level){
         boolean situationOccurs = false;
+        int sparsity = 1;//TODO: integrate sparsity in input data
 
-        if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % level.getSparsity() == 0) ||
-                (situation == Situation.UP && currentKeysPressed.isUpPressed()) || (situation == Situation.DOWN && currentKeysPressed.isDownPressed()) ||
-                (situation == Situation.RIGHT && currentKeysPressed.isRightPressed()) || (situation == Situation.LEFT && currentKeysPressed.isLeftPressed()) ||
-                (situation == Situation.METAUP && currentKeysPressed.isMetaUpPressed()) || (situation == Situation.METADOWN && currentKeysPressed.isMetaDownPressed()) ||
-                (situation == Situation.METARIGHT && currentKeysPressed.isMetaRightPressed()) || (situation == Situation.METALEFT && currentKeysPressed.isMetaLeftPressed())  ) {
-
-            situationOccurs = true;
-        }
+//        if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % sparsity == 0) ||
+//                (situation == Situation.UP && KeyPressListener.isUpPressed()) || (situation == Situation.DOWN && KeyPressListener.isDownPressed()) ||
+//                (situation == Situation.RIGHT && KeyPressListener.isRightPressed()) || (situation == Situation.LEFT && KeyPressListener.isLeftPressed()) ||
+//                (situation == Situation.METAUP && KeyPressListener.isMetaUpPressed()) || (situation == Situation.METADOWN && KeyPressListener.isMetaDownPressed()) ||
+//                (situation == Situation.METARIGHT && KeyPressListener.isMetaRightPressed()) || (situation == Situation.METALEFT && KeyPressListener.isMetaLeftPressed())  ) {
+//
+//            situationOccurs = true;
+//        }
 
         return situationOccurs;
     }
 
-    public static void executeRules(List<Regel> rules, Level level, KeyPressListener currentKeysPressed){
+    public static void executeRules(List<Regel> rules, Level level){
 
         for(Regel rule : rules){
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
 
-            if(!checkIfSituationOccurs(situation, level,  currentKeysPressed)){
+            if(!checkIfSituationOccurs(situation, level)){
                 continue;
             }
 
@@ -103,15 +105,15 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < rowLength; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
             int columnCounter = 0;
 
-            while(columnCounter + numberOfRuleComponents < columnLength){
+            while(columnCounter + numberOfRuleComponents < numberOfColumns){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -137,13 +139,13 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < rowLength; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
-            int columnCounter = columnLength-1;
+            int columnCounter = numberOfColumns-1;
 
             while(columnCounter - numberOfRuleComponents >= 0){
 
@@ -165,18 +167,18 @@ public class LevelLogic {
         }
     }
 
+
     public static void executeRuleNorthward(Regel rule, Level level){
         List<Regelbaustein> original = rule.getOriginal();
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < columnLength; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
-            int rowCounter = rowLength-1;
+            int rowCounter = numberOfRows-1;
 
             while(rowCounter - numberOfRuleComponents >= 0){
 
@@ -204,15 +206,14 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < columnLength; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
             int rowCounter = 0;
 
-            while(rowCounter + numberOfRuleComponents < rowLength){
+            while(rowCounter + numberOfRuleComponents < numberOfRows){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -245,7 +246,7 @@ public class LevelLogic {
 
             if(currentOriginalToken.getClass() == Type.class){
 
-                if(!currentOriginalToken.equals(Type.CATCHALL) || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
+                if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
@@ -319,7 +320,7 @@ public class LevelLogic {
            int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
 
            if(currentResultComponentValue == 0){
-               currentField.getGegenstand().getValues().getValueList().put(valueName, 0);
+               currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
            } else {
                int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
                currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);

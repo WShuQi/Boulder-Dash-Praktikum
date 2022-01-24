@@ -9,14 +9,22 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 import org.json.JSONObject;
 
-public class HelloController {
+public class GUIController {
 
-    Level level;
-    KeyPressListener keyPressListener;
+    private GUIView view;
+    private Level level;
+    private KeyPressListener keyPressListener;
 
-    public HelloController(Level level, KeyPressListener keyPressListener) {
+    public GUIController(GUIView view, Level level, KeyPressListener keyPressListener) {
+        this.view = view;
         this.level = level;
         this.keyPressListener = keyPressListener;
+
+        executeTimeline();
+    }
+
+    private void updateView() {
+        view.drawLevel(level);
     }
 
     public void executeTimeline(){
@@ -26,8 +34,8 @@ public class HelloController {
             @Override
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
-                LevelLogic.tick(level, currentKeysPressed);
-                //updateGraphics();
+                LevelLogic.tick(level);
+                updateView();
             }
         };
 
