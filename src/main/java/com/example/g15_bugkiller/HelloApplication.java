@@ -28,9 +28,9 @@ public class HelloApplication extends Application {
         HelloController controller = new HelloController(level, keyPressListener);
 
        // scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressListener.keyPressed);
-      //  scene.addEventFilter(KeyEvent.KEY_RELEASED, keyPressListener.keyReleased);
+        // scene.addEventFilter(KeyEvent.KEY_RELEASED, keyPressListener.keyReleased);
 
-        //controller.executeTimeline();
+       // controller.executeTimeline();
     }
 
     public static void main(String[] args) {

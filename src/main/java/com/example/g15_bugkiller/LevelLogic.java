@@ -6,7 +6,6 @@ import java.util.List;
 
 public class LevelLogic {
 
-
 // TODO: Fragen fürs Tutorium:
 //  Sparsity  -> wsl auf der obersten Ebene gespeichert
 //  Kann ein Feld pro Tick mehrmals geändert werden? -> Ja!
@@ -28,11 +27,11 @@ public class LevelLogic {
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int rowLength = map.length;
+        int columnLength = map[0].length;
 
-        for(int rowIterator=0; rowIterator < numberOfRows; rowIterator++) {
-            for (int columnIterator = 0; columnIterator < numberOfColumns; columnIterator++) {
+        for(int rowIterator=0; rowIterator < rowLength; rowIterator++) {
+            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
                 map[rowIterator][columnIterator].getGegenstand().resetValues();
             }
         }
@@ -104,15 +103,15 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int rowLength = map.length;
+        int columnLength = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
+        for(int rowCounter = 0; rowCounter < rowLength; rowCounter++){
 
             int columnCounter = 0;
 
-            while(columnCounter + numberOfRuleComponents < numberOfColumns){
+            while(columnCounter + numberOfRuleComponents < columnLength){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -138,13 +137,13 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int rowLength = map.length;
+        int columnLength = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
+        for(int rowCounter = 0; rowCounter < rowLength; rowCounter++){
 
-            int columnCounter = numberOfColumns-1;
+            int columnCounter = columnLength-1;
 
             while(columnCounter - numberOfRuleComponents >= 0){
 
@@ -171,13 +170,13 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int rowLength = map.length;
+        int columnLength = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
+        for(int columnCounter = 0; columnCounter < columnLength; columnCounter++){
 
-            int rowCounter = numberOfRows-1;
+            int rowCounter = rowLength-1;
 
             while(rowCounter - numberOfRuleComponents >= 0){
 
@@ -205,15 +204,15 @@ public class LevelLogic {
         List<Regelbaustein> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int rowLength = map.length;
+        int columnLength = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
+        for(int columnCounter = 0; columnCounter < columnLength; columnCounter++){
 
             int rowCounter = 0;
 
-            while(rowCounter + numberOfRuleComponents < numberOfRows){
+            while(rowCounter + numberOfRuleComponents < rowLength){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
