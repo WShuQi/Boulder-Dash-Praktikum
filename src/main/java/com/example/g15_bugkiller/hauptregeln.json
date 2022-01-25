@@ -103,80 +103,31 @@
       "direction":"north",
       "original":[{"token":"me", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
       "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable": 1}}]
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-    { "situation":"any",
-      "direction":"west",
-      "original":[{"token":"bricks", "values":{"A":0}},{"token":"slime", "values":{"A":0}}],
-      "result":[{"token":"bricks"},{"token":"bricks", "values":{"A":1}}]
-    },
-    { "situation":"any",
-      "direction":"north",
-      "original":[{"token":"bricks", "values":{"A":0}},{"token":"slime", "values":{"A":0}}],
-      "result":[{"token":"bricks"},{"token":"bricks", "values":{"A":1}}]
-    },
-    { "situation":"any",
-      "direction":"south",
-      "original":[{"token":"bricks", "values":{"A":0}},{"token":"slime", "values":{"A":0}}],
-      "result":[{"token":"bricks"},{"token":"bricks", "values":{"A":1}}]
-    },
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"stone"},{"token":"slime"}],
-      "result":[{"token":"stone", "values":{"bam":1}},{"token":"slime", "values":{"bam":1}}]
-    },
-    { "situation":"any",
-      "direction":"west",
-      "original":[{"token":"stone"},{"token":"slime"}],
-      "result":[{"token":"stone", "values":{"bam":1}},{"token":"slime", "values":{"bam":1}}]
-    },
-    { "situation":"any",
-      "direction":"north",
-      "original":[{"token":"stone"},{"token":"slime"}],
-      "result":[{"token":"stone", "values":{"bam":1}},{"token":"slime", "values":{"bam":1}}]
-    },
-    { "situation":"any",
-      "direction":"south",
-      "original":[{"token":"stone"},{"token":"slime"}],
-      "result":[{"token":"stone", "values":{"bam":1}},{"token":"slime", "values":{"bam":1}}]
     }
   ],
-  "post":[
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"bricks", "values":{"A":1}}],
-      "result":[{"token":"bricks", "values":{"A":2}}]
+
+
+
+
+  "SlimeRules":[
+    { "name": "SlimeIncreasesVertical",
+      "situation":"chance",
+      "direction":"south",
+      "original":[{"token":["mud", "path"], "values":{"moved":0}},{"token":"slime", "values":{"moved":0}}, {"token":["mud", "path"], "values":{"moved":0}}],
+      "result":[{"token":"slime", "values":{"moved":1}},{"token":"slime", "values":{"moved":0}}, {"token":"slime", "values":{"moved":1}}]
     },
-    { "situation":"any",
+
+    { "name": "SlimeIncreasesHorizontal",
+      "situation":"chance",
       "direction":"east",
-      "original":[{"token":"bricks", "values":{"A":2}}],
-      "result":[{"token":"bricks", "values":{"A":3}}]
-    },
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"bricks", "values":{"A":3}}],
-      "result":[{"token":"bricks", "values":{"A":4}}]
-    },
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"bricks", "values":{"A":4}}],
-      "result":[{"token":"bricks", "values":{"A":5}}]
-    },
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"bricks", "values":{"A":5}}],
-      "result":[{"token":"bricks", "values":{"A":0}}]
+      "original":[{"token":["mud", "path"], "values":{"moved":0}},{"token":"*slime", "values":{"moved":0}}, {"token":["mud", "path"], "values":{"moved":0}}],
+      "result":[{"token":"slime", "values":{"moved":1}},{"token":"slime", "values":{"moved":0}}, {"token":"slime", "values":{"moved":1}}]
     }
+
+
   ]
+
+
+
+
 }

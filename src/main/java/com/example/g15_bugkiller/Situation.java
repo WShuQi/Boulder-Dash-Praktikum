@@ -11,4 +11,5 @@ public enum Situation {
     METARIGHT,
     METAUP,
     METADOWN,
+    CHANCE
 }
