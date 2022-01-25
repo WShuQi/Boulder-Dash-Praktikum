@@ -23,6 +23,8 @@ public class LevelLogic {
         executePreRules(level, currentKeysPressed);
         hauptregelnAnwenden(level, currentKeysPressed);
         executePostRules(level, currentKeysPressed);
+        computeScoredPoints(level);
+        checkIfTimeIsUp(level);
     }
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
@@ -37,6 +39,13 @@ public class LevelLogic {
         }
         level.setLevelMap(map);
         return level;
+    }
+
+
+    public static void checkIfTimeIsUp(Level level){
+        int maxTicks = level.getTicks()[0];
+        int ticksPast = level.getTicksPast();
+        level.setTimeUp(ticksPast <= maxTicks);
     }
 
     public static void computeScoredPoints(Level level){

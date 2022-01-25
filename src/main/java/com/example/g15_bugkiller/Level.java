@@ -21,6 +21,7 @@ public class Level {
     int x;
     int y;
     int z;
+    boolean timeUp = false; //ist ticksPast <= ticks[0] ?
 
     public Level(){}
 
@@ -134,5 +135,13 @@ public class Level {
 
     public int getSparsity() {
         return sparsity;
+    }
+
+    public boolean isTimeUp() {
+        return timeUp;
+    }
+
+    public void setTimeUp(boolean timeUp) {
+        this.timeUp = timeUp;
     }
 }
