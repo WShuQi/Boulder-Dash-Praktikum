@@ -39,6 +39,23 @@ public class LevelLogic {
         return level;
     }
 
+    public static void computeScoredPoints(Level level){
+        int[] gems = level.getGems();
+        int[] ticks = level.getTicks();
+        int collectedGems = level.getCollectedGems();
+        int ticksPast = level.getTicksPast();
+
+        if(ticksPast <= ticks[2] && collectedGems >= gems[2]){
+            level.setScoredPoints(3);
+        } else if ((ticksPast > ticks[2] && ticksPast <= ticks[1]) || (collectedGems < gems[2] && collectedGems >= gems[1])){
+            level.setScoredPoints(2);
+        } else if ((ticksPast > ticks[1] && ticksPast <= ticks[0]) || (collectedGems < gems[1] && collectedGems >= gems[0])){
+            level.setScoredPoints(1);
+        } else {
+            level.setScoredPoints(0);
+        }
+    }
+
     public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
         List<Regel> preRules = level.getPreRules();
         executeRules(preRules, level, currentKeysPressed);

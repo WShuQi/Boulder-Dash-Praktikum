@@ -1,21 +1,16 @@
 package com.example.g15_bugkiller;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import org.json.JSONObject;
-
-public class GUIApplication extends Application {
+public class HelloApplication extends Application {
 
     public static int SCREEN_WIDTH = 1000;
     public static int SCREEN_HEIGHT = 800;
