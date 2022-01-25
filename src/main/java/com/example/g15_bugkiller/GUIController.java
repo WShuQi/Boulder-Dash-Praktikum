@@ -34,7 +34,7 @@ public class GUIController {
             @Override
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
-                LevelLogic.tick(level);
+                LevelLogic.tick(level, currentKeysPressed);
                 updateView();
             }
         };
