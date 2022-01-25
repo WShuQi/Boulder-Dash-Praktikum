@@ -21,6 +21,8 @@ public class Values {
         valueList.put(B, 0);
         valueList.put(C, 0);
         valueList.put(D, 0);
+
+        //new values
         valueList.put(COLLECTED, 0);
     }
 
