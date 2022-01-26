@@ -21,7 +21,7 @@ public class LevelLogic {
 
         resetValues(level);
         executePreRules(level, currentKeysPressed);
-        hauptregelnAnwenden(level, currentKeysPressed);
+        executeMainRules(level, currentKeysPressed);
         executePostRules(level, currentKeysPressed);
         computeScoredPoints(level);
         checkIfTimeIsUp(level);
@@ -66,17 +66,17 @@ public class LevelLogic {
     }
 
     public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
-        List<Regel> preRules = level.getPreRules();
+        List<Rule> preRules = level.getPreRules();
         executeRules(preRules, level, currentKeysPressed);
     }
 
-    public static void hauptregelnAnwenden(Level level, KeyPressListener currentKeysPressed){
-        //ToDo Levelzustand entsprechend der Hauptregeln verändern, Charis
-
+    public static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
+        List<Rule> mainRules = level.getMainRules();
+        executeRules(mainRules, level, currentKeysPressed);
     }
 
     public static void executePostRules(Level level, KeyPressListener currentKeysPressed){
-        List<Regel> postRules = level.getPostRules();
+        List<Rule> postRules = level.getPostRules();
         executeRules(postRules, level, currentKeysPressed);
     }
 
@@ -100,13 +100,13 @@ public class LevelLogic {
         return (Math.random() <= 0.03);
     }
 
-    public static void executeRules(List<Regel> rules, Level level, KeyPressListener currentKeysPressed){
+    public static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed){
 
         if(rules == null){
             return;
         }
 
-        for(Regel rule : rules){
+        for(Rule rule : rules){
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
@@ -133,9 +133,9 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleEastward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleEastward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
         int rowLength = map.length;
@@ -167,9 +167,9 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleWestward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleWestward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
         int rowLength = map.length;
@@ -200,9 +200,9 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleNorthward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleNorthward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
         int rowLength = map.length;
@@ -234,9 +234,9 @@ public class LevelLogic {
     }
 
 
-    public static void executeRuleSouthward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleSouthward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
         int rowLength = map.length;
@@ -268,7 +268,7 @@ public class LevelLogic {
         }
     }
 
-    public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<Regelbaustein> original){
+    public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<RuleComponent> original){
         boolean nextFieldsAndOriginalsAgree = true;
         int numberOfOriginals = original.size();
 
@@ -329,12 +329,12 @@ public class LevelLogic {
     }
 
 
-    public static void replaceFields(Field[] nextFields, List<Regelbaustein> result) {
+    public static void replaceFields(Field[] nextFields, List<RuleComponent> result) {
         int resultLength = result.size();
 
         for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
             Field currentField = nextFields[resultIterator];
-            Regelbaustein currentResultComponent = result.get(resultIterator);
+            RuleComponent currentResultComponent = result.get(resultIterator);
 
             if(currentResultComponent.getToken() == Type.class){
                 Type newToken = (Type) currentResultComponent.getToken();
@@ -347,7 +347,7 @@ public class LevelLogic {
         }
     }
 
-    public static void replaceValues(Field currentField, Regelbaustein currentResultComponent) {
+    public static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
 
         for(ValuesNames valueName: ValuesNames.values()){
             int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);

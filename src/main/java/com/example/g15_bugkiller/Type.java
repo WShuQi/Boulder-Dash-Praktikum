@@ -28,6 +28,7 @@ public enum Type {
     EASTTHING,
     SOUTHTHING,
     WESTTHING,
+
     CATCHALL
 
 }

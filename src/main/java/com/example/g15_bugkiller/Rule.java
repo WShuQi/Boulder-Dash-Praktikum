@@ -2,15 +2,15 @@ package com.example.g15_bugkiller;
 
 import java.util.List;
 
-public class Regel {
+public class Rule {
 
     Situation situation;
     Direction direction;
-    List<Regelbaustein> original;
-    List<Regelbaustein> result;
+    List<RuleComponent> original;
+    List<RuleComponent> result;
 
 
-    public Regel (Situation situation, Direction direction, List<Regelbaustein> original, List<Regelbaustein> result){
+    public Rule(Situation situation, Direction direction, List<RuleComponent> original, List<RuleComponent> result){
         this.situation = situation;
         this.direction = direction;
         this.original = original;
@@ -25,11 +25,11 @@ public class Regel {
         return direction;
     }
 
-    public List<Regelbaustein> getOriginal(){
+    public List<RuleComponent> getOriginal(){
         return original;
     }
 
-    public List<Regelbaustein> getResult(){
+    public List<RuleComponent> getResult(){
         return result;
     }
 }
