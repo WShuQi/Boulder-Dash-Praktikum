@@ -30,6 +30,7 @@ public class Level {
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap() ;
+        this.ticks = ticks;
 
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class GUIApplication extends Application {
 
     public static int SCREEN_WIDTH = 1000;
     public static int SCREEN_HEIGHT = 800;

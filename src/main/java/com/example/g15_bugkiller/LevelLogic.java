@@ -102,6 +102,10 @@ public class LevelLogic {
 
     public static void executeRules(List<Regel> rules, Level level, KeyPressListener currentKeysPressed){
 
+        if(rules == null){
+            return;
+        }
+
         for(Regel rule : rules){
 
             Situation situation = rule.getSituation();

@@ -4,8 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import static com.example.g15_bugkiller.HelloApplication.SCREEN_HEIGHT;
-import static com.example.g15_bugkiller.HelloApplication.SCREEN_WIDTH;
+import static com.example.g15_bugkiller.GUIApplication.SCREEN_HEIGHT;
+import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
 
 public class GUIView {
 
