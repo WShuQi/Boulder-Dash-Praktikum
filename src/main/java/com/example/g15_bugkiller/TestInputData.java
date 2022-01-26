@@ -226,7 +226,7 @@ public class TestInputData {
         int[] ticks = {130, 50, 25};
         Level level = new Level(name, gems, createMapData(), ticks);
         level.setMainRules(List.of(new Rule(
-                Situation.ANY,  //eigentlich .RIGHT
+                Situation.RIGHT,  //eigentlich .RIGHT
                 Direction.EAST,
                 List.of(
                         new RuleComponent(
@@ -264,127 +264,154 @@ public class TestInputData {
                                 )
                         )
                 )
-        ),
-                new Rule(
-                        Situation.LEFT,
-                        Direction.WEST,
-                        List.of(
-                                new RuleComponent(
-                                        Type.ME,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 0); }
-                                                }
+        )
+         /*       ,
+                        new Rule(
+                                Situation.LEFT,
+                                Direction.WEST,
+                                List.of(
+                                        new RuleComponent(
+                                                Type.ME,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 0);
+                                                            }
+                                                        }
+                                                )
+                                        ),
+                                        new RuleComponent(
+                                                Type.PATH,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 0);
+                                                            }
+                                                        }
+                                                )
                                         )
                                 ),
-                                new RuleComponent(
-                                        Type.PATH,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 0); }
-                                                }
+                                List.of(
+                                        new RuleComponent(
+                                                Type.PATH,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 1);
+                                                            }
+                                                        }
+                                                )
+                                        ),
+                                        new RuleComponent(
+                                                Type.ME,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 1);
+                                                            }
+                                                        }
+                                                )
                                         )
                                 )
                         ),
-                        List.of(
-                                new RuleComponent(
-                                        Type.PATH,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 1); }
-                                                }
+                        new Rule(
+                                Situation.DOWN,
+                                Direction.SOUTH,
+                                List.of(
+                                        new RuleComponent(
+                                                Type.ME,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 0);
+                                                            }
+                                                        }
+                                                )
+                                        ),
+                                        new RuleComponent(
+                                                Type.PATH,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 0);
+                                                            }
+                                                        }
+                                                )
                                         )
                                 ),
-                                new RuleComponent(
-                                        Type.ME,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 1); }
-                                                }
-                                        )
-                                )
-                        )
-                ),
-                new Rule(
-                        Situation.DOWN,
-                        Direction.SOUTH,
-                        List.of(
-                                new RuleComponent(
-                                        Type.ME,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 0); }
-                                                }
-                                        )
-                                ),
-                                new RuleComponent(
-                                        Type.PATH,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 0); }
-                                                }
-                                        )
-                                )
-                        ),
-                        List.of(
-                                new RuleComponent(
-                                        Type.PATH,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 1); }
-                                                }
-                                        )
-                                ),
-                                new RuleComponent(
-                                        Type.ME,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 1); }
-                                                }
-                                        )
-                                )
-                        )
-                ),
-                new Rule(
-                        Situation.UP,
-                        Direction.NORTH,
-                        List.of(
-                                new RuleComponent(
-                                        Type.ME,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 0); }
-                                                }
-                                        )
-                                ),
-                                new RuleComponent(
-                                        Type.PATH,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 0); }
-                                                }
+                                List.of(
+                                        new RuleComponent(
+                                                Type.PATH,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 1);
+                                                            }
+                                                        }
+                                                )
+                                        ),
+                                        new RuleComponent(
+                                                Type.ME,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 1);
+                                                            }
+                                                        }
+                                                )
                                         )
                                 )
                         ),
-                        List.of(
-                                new RuleComponent(
-                                        Type.PATH,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 1); }
-                                                }
+                        new Rule(
+                                Situation.UP,
+                                Direction.NORTH,
+                                List.of(
+                                        new RuleComponent(
+                                                Type.ME,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 0);
+                                                            }
+                                                        }
+                                                )
+                                        ),
+                                        new RuleComponent(
+                                                Type.PATH,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 0);
+                                                            }
+                                                        }
+                                                )
                                         )
                                 ),
-                                new RuleComponent(
-                                        Type.ME,
-                                        new Values(
-                                                new HashMap<>(){
-                                                    {put(ValuesNames.MOVED, 1); }
-                                                }
+                                List.of(
+                                        new RuleComponent(
+                                                Type.PATH,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 1);
+                                                            }
+                                                        }
+                                                )
+                                        ),
+                                        new RuleComponent(
+                                                Type.ME,
+                                                new Values(
+                                                        new HashMap<>() {
+                                                            {
+                                                                put(ValuesNames.MOVED, 1);
+                                                            }
+                                                        }
+                                                )
                                         )
                                 )
-                        )
-                )));
+                        )*/
+                )
+       );
         return level;
     }
 }

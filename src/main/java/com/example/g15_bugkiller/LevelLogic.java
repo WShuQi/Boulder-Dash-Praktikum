@@ -137,21 +137,23 @@ public class LevelLogic {
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
-    System.out.println("East");
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < rowLength; rowCounter++){
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
 
             int columnCounter = 0;
 
-            while(columnCounter + numberOfRuleComponents < columnLength){
+            while(columnCounter + numberOfRuleComponents < numberOfRows){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
+
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter][columnCounter + fieldCounter];
+                    nextFields[fieldCounter] = map[columnCounter + fieldCounter][rowCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -172,20 +174,20 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < rowLength; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
 
-            int columnCounter = columnLength-1;
+            int columnCounter = numberOfRows-1;
 
             while(columnCounter - numberOfRuleComponents >= 0){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter][columnCounter - fieldCounter];
+                    nextFields[fieldCounter] = map[columnCounter - fieldCounter][rowCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -205,20 +207,20 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < columnLength; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
-            int rowCounter = rowLength-1;
+            int rowCounter = numberOfColumns-1;
 
             while(rowCounter - numberOfRuleComponents >= 0){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter - fieldCounter][columnCounter];
+                    nextFields[fieldCounter] = map[columnCounter][rowCounter - fieldCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -239,20 +241,20 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int rowLength = map.length;
-        int columnLength = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int columnCounter = 0; columnCounter < columnLength; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
             int rowCounter = 0;
 
-            while(rowCounter + numberOfRuleComponents < rowLength){
+            while(rowCounter + numberOfRuleComponents < numberOfColumns){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter + fieldCounter][columnCounter];
+                    nextFields[fieldCounter] = map[columnCounter][rowCounter + fieldCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -280,7 +282,7 @@ public class LevelLogic {
 
             if(currentOriginalToken.getClass() == Type.class){
 
-                if(!currentOriginalToken.equals(Type.CATCHALL) || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
+                if(!((currentOriginalToken.equals(Type.CATCHALL) || currentOriginalToken.equals(currentGegenstand.getToken())) && valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList()))){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
@@ -333,13 +335,15 @@ public class LevelLogic {
         int resultLength = result.size();
 
         for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
+
             Field currentField = nextFields[resultIterator];
             RuleComponent currentResultComponent = result.get(resultIterator);
+            System.out.println(currentResultComponent.getToken().getClass());
 
-            if(currentResultComponent.getToken() == Type.class){
+            if(currentResultComponent.getToken().getClass() == Type.class){
                 Type newToken = (Type) currentResultComponent.getToken();
                 currentField.getGegenstand().setToken(newToken);
-            } else if (currentResultComponent.getToken() == int.class){
+            } else if (currentResultComponent.getToken().getClass() == int.class){
                 currentField.getGegenstand().setToken(nextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
             }
 
