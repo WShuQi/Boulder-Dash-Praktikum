@@ -92,7 +92,7 @@ public class LevelLogic {
 
             situationOccurs = true;
         }
-
+    System.out.println("Situation occures: " + situationOccurs);
         return situationOccurs;
     }
 
@@ -137,7 +137,7 @@ public class LevelLogic {
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
-
+    System.out.println("East");
         int rowLength = map.length;
         int columnLength = map[0].length;
         int numberOfRuleComponents = original.size();
