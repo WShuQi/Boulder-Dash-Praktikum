@@ -82,17 +82,22 @@ public class LevelLogic {
 
     public static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
         boolean situationOccurs = false;
-//ToDo neue Situation: Situation.CHANCE
+
         if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % level.getSparsity() == 0) ||
                 (situation == Situation.UP && currentKeysPressed.isUpPressed()) || (situation == Situation.DOWN && currentKeysPressed.isDownPressed()) ||
                 (situation == Situation.RIGHT && currentKeysPressed.isRightPressed()) || (situation == Situation.LEFT && currentKeysPressed.isLeftPressed()) ||
                 (situation == Situation.METAUP && currentKeysPressed.isMetaUpPressed()) || (situation == Situation.METADOWN && currentKeysPressed.isMetaDownPressed()) ||
-                (situation == Situation.METARIGHT && currentKeysPressed.isMetaRightPressed()) || (situation == Situation.METALEFT && currentKeysPressed.isMetaLeftPressed())  ) {
+                (situation == Situation.METARIGHT && currentKeysPressed.isMetaRightPressed()) || (situation == Situation.METALEFT && currentKeysPressed.isMetaLeftPressed()) ||
+                (situation == Situation.CHANCE && giveTrueWithThreePercentChance())) {
 
             situationOccurs = true;
         }
 
         return situationOccurs;
+    }
+
+    public static boolean giveTrueWithThreePercentChance(){
+        return (Math.random() <= 0.03);
     }
 
     public static void executeRules(List<Regel> rules, Level level, KeyPressListener currentKeysPressed){
