@@ -1,12 +1,7 @@
 package com.example.g15_bugkiller;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 import static com.example.g15_bugkiller.GUIApplication.SCREEN_HEIGHT;
 import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
@@ -14,6 +9,8 @@ import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
 public class GUIView {
 
     public final int BLOCK_SIZE = 32;
+
+    public final int START_FIELD_Y = 30;
 
     public int gemCounter;
 
@@ -34,7 +31,6 @@ public class GUIView {
         //Image counterBackground = new Image("Counter_Vorlage.png");
          **/
 
-
         drawGemCounter(level.getCollectedGems());
 
         drawTimePassed(level.getTicksPast());
@@ -43,7 +39,7 @@ public class GUIView {
             for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
                 Field field = fields[zeile][spalte];
 
-                int y = BLOCK_SIZE * spalte;
+                int y = BLOCK_SIZE * spalte + START_FIELD_Y;
                 int x = BLOCK_SIZE * zeile;
 
                 Image image = PictureRepo.getImage(field.getType().name());
@@ -55,13 +51,7 @@ public class GUIView {
 
     private void drawGemCounter (int gemCounter)  {
 
-        TextField textField = new TextField();
-        Label label = new Label();
-        label.textProperty().bind(textField.textProperty());
-
-        HBox hBox = new HBox(label, textField);
-        hBox.getChildren().addAll(new Label("GEM"));
-
+        gc.fillText("GEMS: " + gemCounter, 240.0D, 20.0D);
 
     }
 
