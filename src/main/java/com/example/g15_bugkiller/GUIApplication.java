@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class GUIApplication extends Application {
 
-    public static int SCREEN_WIDTH = 1000;
+    public static int SCREEN_WIDTH = 800;
     public static int SCREEN_HEIGHT = 800;
 
 
