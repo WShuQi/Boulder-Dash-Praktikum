@@ -7,17 +7,9 @@ import javafx.scene.image.Image;
 public class PictureRepo {
 
     private static HashMap<String, Image> loadedImages = new HashMap();
-    private static final Image PATH = new Image(PictureRepo.class.getResourceAsStream("BildDateien/PATH.png"));
+    private static final Image DEFAULT = new Image(PictureRepo.class.getResourceAsStream("BildDateien/PATH.png"));
 
     public PictureRepo() {
-    }
-
-    public static double getWidth() {
-        return PATH.getWidth();
-    }
-
-    public static double getHeight() {
-        return PATH.getHeight();
     }
 
     public static Image getImage(String name) {
@@ -26,7 +18,7 @@ public class PictureRepo {
         } else {
             InputStream resourceAsStream = PictureRepo.class.getResourceAsStream("BildDateien/" + name + ".png");
             if (resourceAsStream == null) {
-                return PATH;
+                return DEFAULT;
             } else {
                 Image image = new Image(resourceAsStream);
                 loadedImages.put(name, image);
