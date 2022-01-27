@@ -92,7 +92,7 @@ public class LevelLogic {
 
             situationOccurs = true;
         }
-    System.out.println("Situation occures: " + situationOccurs);
+
         return situationOccurs;
     }
 
@@ -338,7 +338,6 @@ public class LevelLogic {
 
             Field currentField = nextFields[resultIterator];
             RuleComponent currentResultComponent = result.get(resultIterator);
-            System.out.println(currentResultComponent.getToken().getClass());
 
             if(currentResultComponent.getToken().getClass() == Type.class){
                 Type newToken = (Type) currentResultComponent.getToken();

@@ -226,7 +226,7 @@ public class TestInputData {
         int[] ticks = {130, 50, 25};
         Level level = new Level(name, gems, createMapData(), ticks);
         level.setMainRules(List.of(new Rule(
-                Situation.RIGHT,  //eigentlich .RIGHT
+                Situation.RIGHT,
                 Direction.EAST,
                 List.of(
                         new RuleComponent(
@@ -264,8 +264,7 @@ public class TestInputData {
                                 )
                         )
                 )
-        )
-         /*       ,
+        ),
                         new Rule(
                                 Situation.LEFT,
                                 Direction.WEST,
@@ -409,7 +408,7 @@ public class TestInputData {
                                                 )
                                         )
                                 )
-                        )*/
+                        )
                 )
        );
         return level;
