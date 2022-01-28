@@ -7,59 +7,88 @@ import java.util.List;
 public class LevelLogic {
 
 // TODO: Fragen fürs Tutorium:
-//  Sparsity
-//  Kann ein Feld pro Tick mehrmals geändert werden?,
-//  Levelübersicht?,
-//  Integration von Keypresslistener?,
-//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?)
+//  Sparsity  -> wsl auf der obersten Ebene gespeichert
+//  Kann ein Feld pro Tick mehrmals geändert werden? -> Ja!
+//  Levelübersicht? -> Sinnvoll, Gui bauen
+//  Integration von Keypresslistener?, -> am besten in Timeline, übergeben als Parameter
+//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?) -> siehe Seite 15 oben
 
 
     // Grundablauf pro Tick
-    public static void tick (Level level) {
+    public static void tick (Level level, KeyPressListener currentKeysPressed) {
 
         level.setTicksPast(level.getTicksPast()+1);
 
         resetValues(level);
-        executePreRules(level);
-        hauptregelnAnwenden(level);
-        executePostRules(level);
+        executePreRules(level, currentKeysPressed);
+        executeMainRules(level, currentKeysPressed);
+        executePostRules(level, currentKeysPressed);
+        computeScoredPoints(level);
+        checkIfTimeIsUp(level);
     }
 
     public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
-        for(int y=0; map[y].length>y; y++) {
-            for (int x = 0; map[x].length > x; x++) {
-                map[y][x].getGegenstand().resetValues();
+        int rowLength = map.length;
+        int columnLength = map[0].length;
+
+        for(int rowIterator=0; rowIterator < rowLength; rowIterator++) {
+            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
+                map[rowIterator][columnIterator].getGegenstand().resetValues();
             }
         }
         level.setLevelMap(map);
         return level;
     }
 
-    public static void executePreRules(Level level){
-        List<Regel> preRules = level.getPreRules();
-        executeRules(preRules, level);
+
+    public static void checkIfTimeIsUp(Level level){
+        int maxTicks = level.getTicks()[0];
+        int ticksPast = level.getTicksPast();
+        level.setTimeUp(ticksPast <= maxTicks);
     }
 
-    public static void hauptregelnAnwenden(Level level){
-        //ToDo Levelzustand entsprechend der Hauptregeln verändern, Charis
+    public static void computeScoredPoints(Level level){
+        int[] gems = level.getGems();
+        int[] ticks = level.getTicks();
+        int collectedGems = level.getCollectedGems();
+        int ticksPast = level.getTicksPast();
 
+        if(ticksPast <= ticks[2] && collectedGems >= gems[2]){
+            level.setScoredPoints(3);
+        } else if ((ticksPast > ticks[2] && ticksPast <= ticks[1]) || (collectedGems < gems[2] && collectedGems >= gems[1])){
+            level.setScoredPoints(2);
+        } else if ((ticksPast > ticks[1] && ticksPast <= ticks[0]) || (collectedGems < gems[1] && collectedGems >= gems[0])){
+            level.setScoredPoints(1);
+        } else {
+            level.setScoredPoints(0);
+        }
     }
 
-    public static void executePostRules(Level level){
-        List<Regel> postRules = level.getPostRules();
-        executeRules(postRules, level);
+    public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
+        List<Rule> preRules = level.getPreRules();
+        executeRules(preRules, level, currentKeysPressed);
     }
 
-    public static boolean checkIfSituationOccurs(Situation situation, Level level){
+    public static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
+        List<Rule> mainRules = level.getMainRules();
+        executeRules(mainRules, level, currentKeysPressed);
+    }
+
+    public static void executePostRules(Level level, KeyPressListener currentKeysPressed){
+        List<Rule> postRules = level.getPostRules();
+        executeRules(postRules, level, currentKeysPressed);
+    }
+
+    public static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
         boolean situationOccurs = false;
-        int sparsity = 1;//TODO: integrate sparsity in input data
 
-        if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % sparsity == 0) ||
-                (situation == Situation.UP && KeyPressListener.isUpPressed()) || (situation == Situation.DOWN && KeyPressListener.isDownPressed()) ||
-                (situation == Situation.RIGHT && KeyPressListener.isRightPressed()) || (situation == Situation.LEFT && KeyPressListener.isLeftPressed()) ||
-                (situation == Situation.METAUP && KeyPressListener.isMetaUpPressed()) || (situation == Situation.METADOWN && KeyPressListener.isMetaDownPressed()) ||
-                (situation == Situation.METARIGHT && KeyPressListener.isMetaRightPressed()) || (situation == Situation.METALEFT && KeyPressListener.isMetaLeftPressed())  ) {
+        if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % level.getSparsity() == 0) ||
+                (situation == Situation.UP && currentKeysPressed.isUpPressed()) || (situation == Situation.DOWN && currentKeysPressed.isDownPressed()) ||
+                (situation == Situation.RIGHT && currentKeysPressed.isRightPressed()) || (situation == Situation.LEFT && currentKeysPressed.isLeftPressed()) ||
+                (situation == Situation.METAUP && currentKeysPressed.isMetaUpPressed()) || (situation == Situation.METADOWN && currentKeysPressed.isMetaDownPressed()) ||
+                (situation == Situation.METARIGHT && currentKeysPressed.isMetaRightPressed()) || (situation == Situation.METALEFT && currentKeysPressed.isMetaLeftPressed()) ||
+                (situation == Situation.CHANCE && giveTrueWithThreePercentChance())) {
 
             situationOccurs = true;
         }
@@ -67,14 +96,22 @@ public class LevelLogic {
         return situationOccurs;
     }
 
-    public static void executeRules(List<Regel> rules, Level level){
+    public static boolean giveTrueWithThreePercentChance(){
+        return (Math.random() <= 0.03);
+    }
 
-        for(Regel rule : rules){
+    public static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed){
+
+        if(rules == null){
+            return;
+        }
+
+        for(Rule rule : rules){
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
 
-            if(!checkIfSituationOccurs(situation, level)){
+            if(!checkIfSituationOccurs(situation, level,  currentKeysPressed)){
                 continue;
             }
 
@@ -96,25 +133,27 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleEastward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleEastward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
 
             int columnCounter = 0;
 
-            while(columnCounter + numberOfRuleComponents < numberOfColumns){
+            while(columnCounter + numberOfRuleComponents < numberOfRows){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
+
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter][columnCounter + fieldCounter];
+                    nextFields[fieldCounter] = map[columnCounter + fieldCounter][rowCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -130,25 +169,25 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleWestward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleWestward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
-        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
 
-            int columnCounter = numberOfColumns-1;
+            int columnCounter = numberOfRows-1;
 
             while(columnCounter - numberOfRuleComponents >= 0){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter][columnCounter - fieldCounter];
+                    nextFields[fieldCounter] = map[columnCounter - fieldCounter][rowCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -163,25 +202,25 @@ public class LevelLogic {
         }
     }
 
-
-    public static void executeRuleNorthward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleNorthward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
         for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
-            int rowCounter = numberOfRows-1;
+            int rowCounter = numberOfColumns-1;
 
             while(rowCounter - numberOfRuleComponents >= 0){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter - fieldCounter][columnCounter];
+                    nextFields[fieldCounter] = map[columnCounter][rowCounter - fieldCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -197,24 +236,25 @@ public class LevelLogic {
     }
 
 
-    public static void executeRuleSouthward(Regel rule, Level level){
-        List<Regelbaustein> original = rule.getOriginal();
-        List<Regelbaustein> result = rule.getResult();
+    public static void executeRuleSouthward(Rule rule, Level level){
+        List<RuleComponent> original = rule.getOriginal();
+        List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map[0].length;
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
 
         for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
             int rowCounter = 0;
 
-            while(rowCounter + numberOfRuleComponents < numberOfRows){
+            while(rowCounter + numberOfRuleComponents < numberOfColumns){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
-                    nextFields[fieldCounter] = map[rowCounter + fieldCounter][columnCounter];
+                    nextFields[fieldCounter] = map[columnCounter][rowCounter + fieldCounter];
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -230,7 +270,7 @@ public class LevelLogic {
         }
     }
 
-    public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<Regelbaustein> original){
+    public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<RuleComponent> original){
         boolean nextFieldsAndOriginalsAgree = true;
         int numberOfOriginals = original.size();
 
@@ -242,14 +282,14 @@ public class LevelLogic {
 
             if(currentOriginalToken.getClass() == Type.class){
 
-                if(!currentOriginalToken.equals('*') || !currentOriginalToken.equals(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
+                if(!((currentOriginalToken.equals(Type.CATCHALL) || currentOriginalToken.equals(currentGegenstand.getToken())) && valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList()))){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
             } else if (currentOriginalToken.getClass() == Type[].class){
 
                 if(!Arrays.asList((Type[]) currentOriginalToken).contains(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
-                        nextFieldsAndOriginalsAgree = false;
+                    nextFieldsAndOriginalsAgree = false;
                 }
 
             }
@@ -280,28 +320,29 @@ public class LevelLogic {
             }
         }
 
-       for(ValuesNames valueName: ValuesNames.values()){
-           if(fieldValues.get(valueName) < ruleComponentValues.get(valueName)){
-               fieldValuesAreGreaterOrEqualToRuleComponentValues = false;
-               break;
-           }
-       }
+        for(ValuesNames valueName: ValuesNames.values()){
+            if(fieldValues.get(valueName) < ruleComponentValues.get(valueName)){
+                fieldValuesAreGreaterOrEqualToRuleComponentValues = false;
+                break;
+            }
+        }
 
-       return (bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive));
+        return (bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive));
     }
 
 
-    public static void replaceFields(Field[] nextFields, List<Regelbaustein> result) {
+    public static void replaceFields(Field[] nextFields, List<RuleComponent> result) {
         int resultLength = result.size();
 
         for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
-            Field currentField = nextFields[resultIterator];
-            Regelbaustein currentResultComponent = result.get(resultIterator);
 
-            if(currentResultComponent.getToken() == Type.class){
+            Field currentField = nextFields[resultIterator];
+            RuleComponent currentResultComponent = result.get(resultIterator);
+
+            if(currentResultComponent.getToken().getClass() == Type.class){
                 Type newToken = (Type) currentResultComponent.getToken();
                 currentField.getGegenstand().setToken(newToken);
-            } else if (currentResultComponent.getToken() == int.class){
+            } else if (currentResultComponent.getToken().getClass() == int.class){
                 currentField.getGegenstand().setToken(nextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
             }
 
@@ -309,45 +350,19 @@ public class LevelLogic {
         }
     }
 
-    public static void replaceValues(Field currentField, Regelbaustein currentResultComponent) {
+    public static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
 
-       for(ValuesNames valueName: ValuesNames.values()){
-           int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);
-           int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
+        for(ValuesNames valueName: ValuesNames.values()){
+            int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);
+            int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
 
-           if(currentResultComponentValue == 0){
-               currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
-           } else {
-               int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
-               currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);
-           }
-       }
-    }
-
-
-
-// Methoden für Hauptregeln
-
-    // Die Spielfigur kann sich bewegen
-    // Gegner bewegen sich
-    // Verschiedene Gegenstände fallen nach unten
-    // Herunterfallende Gegenstande können Gegner sowie die Spielfigur erschlagen
-    // Schleim breitet sich aus
-    // Edelsteine können eingesammelt werden
-    // Hat man genügend Edelsteine gesammelt, so kann man ein Level durch einen Ausgang verlassen
-
-
-
-
-        /*
-        public static void printTypes (Field[][] map) {
-
-            for(int y=0; map[y].length>y; y++){
-                for (int x=0; map[x].length>x; x++){
-
-                        System.out.println(map[y][x].getType());
-                }
+            if(currentResultComponentValue == 0){
+                currentField.getGegenstand().getValues().getValueList().put(valueName, 0);
+            } else {
+                int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
+                currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);
             }
         }
-        */
+    }
+
 }

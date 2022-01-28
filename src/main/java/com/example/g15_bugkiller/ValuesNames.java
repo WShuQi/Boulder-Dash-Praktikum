@@ -13,5 +13,7 @@ public enum ValuesNames {
     B,
     C,
     D,
-    COLLECTED
+    COLLECTED,
+    ToDIAMONDS,
+    ToEXPLOSION
 }

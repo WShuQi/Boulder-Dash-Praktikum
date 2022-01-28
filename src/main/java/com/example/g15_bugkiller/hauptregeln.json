@@ -1,0 +1,480 @@
+{
+  "RemoveExplosion":[
+  { "name": "RemoveExplosion",
+    "situation":"any",
+    "direction":"east",
+    "original":[{"token":"explosion"}],
+    "result":[{"token":"path"}]
+  }
+],
+
+  "meRules":[
+    { "name": "MeMovementRight",
+      "situation":"right",
+      "direction":"east",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
+    },
+    { "name": "MeMovementLeft",
+      "situation":"left",
+      "direction":"west",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
+    },
+    { "name": "MeMovementDown",
+      "situation":"down",
+      "direction":"south",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
+    },
+    { "name": "MeMovementUp",
+      "situation":"up",
+      "direction":"north",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
+    },
+
+
+    { "name": "MeDiggingRight",
+      "situation":"metaright",
+      "direction":"east",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
+    { "name": "MeDiggingLeft",
+      "situation":"metaleft",
+      "direction":"west",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":["path"], "values":{"moved":1}}]
+    },
+    { "name": "MeDiggingDown",
+      "situation":"metadown",
+      "direction":"south",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
+    { "name": "MeDiggingUp",
+      "situation":"metaup",
+      "direction":"north",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
+
+
+    { "name": "MeCollectingDiamondToTheRight",
+      "situation":"right",
+      "direction":"east",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"diamond", "values":{"moved":0, "falling":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "collected": 1}}]
+    },
+    { "name": "MeCollectingDiamondToTheLeft",
+      "situation":"left",
+      "direction":"west",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"diamond", "values":{"moved":0, "falling":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "collected": 1}}]
+    },
+    { "name": "MeCollectingDiamondToTheDown",
+      "situation":"down",
+      "direction":"south",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"diamond", "values":{"moved":0, "falling":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "collected": 1}}]
+    },
+    { "name": "MeCollectingDiamondToTheUp",
+      "situation":"up",
+      "direction":"north",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"diamond", "values":{"moved":0, "falling":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "collected": 1}}]
+    },
+
+
+    { "name": "PushingRight",
+      "situation":"right",
+      "direction":"east",
+      "original":[{"token":["me", "xling", "blockling", "swapling"], "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"0", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable":1}}]
+    },
+    { "name": "PushingLeft",
+      "situation":"left",
+      "direction":"west",
+      "original":[{"token":["me", "xling", "blockling", "swapling"], "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"0", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable":1}}]
+    }
+  ],
+
+
+
+  "SlimeRules":[
+    { "name": "SlimeIncreasesVertical",
+      "situation":"chance",
+      "direction":"south",
+      "original":[{"token":["mud", "path"], "values":{"moved":0}},{"token":"slime", "values":{"moved":0}}, {"token":["mud", "path"], "values":{"moved":0}}],
+      "result":[{"token":"slime", "values":{"moved":1}},{"token":"slime", "values":{"moved":0}}, {"token":"slime", "values":{"moved":1}}]
+    },
+
+    { "name": "SlimeIncreasesHorizontal",
+      "situation":"chance",
+      "direction":"east",
+      "original":[{"token":["mud", "path"], "values":{"moved":0}},{"token":"slime", "values":{"moved":0}}, {"token":["mud", "path"], "values":{"moved":0}}],
+      "result":[{"token":"slime", "values":{"moved":1}},{"token":"slime", "values":{"moved":0}}, {"token":"slime", "values":{"moved":1}}]
+    }
+
+
+  ],
+
+
+  "SwaplingRules":[
+    { "name": "SwaplingMovesRight",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 1}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"swapling", "values":{"moved":1, "direction": 1}}]
+    },
+
+    { "name": "SwaplingChangesDirectionRightToLeft",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 1}},{"token":"wall"}],
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 3}},{"token":"wall"}]
+    },
+
+    { "name": "SwaplingMovesLeft",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 3}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"swapling", "values":{"moved":1, "direction": 3}}]
+    },
+
+    { "name": "SwaplingChangesDirectionLeftToRight",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 3}},{"token":"wall"}],
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 1}},{"token":"wall"}]
+    },
+
+    { "name": "SwaplingMovesDown",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 4}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"swapling", "values":{"moved":1, "direction": 4}}]
+    },
+
+    { "name": "SwaplingChangesDirectionDownToUp",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 4}},{"token":"wall"}],
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 2}},{"token":"wall"}]
+    },
+
+    { "name": "SwaplingMovesUp",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 2}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"swapling", "values":{"moved":1, "direction": 2}}]
+    },
+
+    { "name": "SwaplingChangesDirectionUpToDown",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 2}},{"token":"wall"}],
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 4}},{"token":"wall"}]
+    }
+  ],
+
+
+  "XlingRules":[
+    { "name": "SetDirectionToUp",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 2}},{"token":"wall"}]
+    },
+    { "name": "SetDirectionToDown",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 4}},{"token":"wall"}]
+    },
+    { "name": "SetDirectionToRight",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 1}},{"token":"wall"}]
+    },
+    { "name": "SetDirectionToLeft",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 3}},{"token":"wall"}]
+    },
+
+
+    { "name": "TurnToRight",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 2}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 1}}]
+    },
+    { "name": "TurnToLeft",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 4}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 3}}]
+      },
+    { "name": "TurnToDown",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 1}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 4}}]
+    },
+    { "name": "TurnToUp",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 3}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 2}}]
+    },
+
+
+    { "name": "CornerNorthEast",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 2}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 3}},{"token":"wall"}]
+    },
+    { "name": "CornerSouthWest",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 4}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 1}},{"token":"wall"}]
+    },
+    { "name": "CornerSouthEast",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 1}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 2}},{"token":"wall"}]
+    },
+    { "name": "CornerNorthWest",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 3}},{"token":"wall"}],
+      "result":[{"token":"xling", "values":{"moved":0, "direction": 4}},{"token":"wall"}]
+    },
+
+
+    { "name": "WalkingUp",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 2}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 2}}]
+    },
+    { "name": "WalkingDown",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 4}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 4}}]
+    },
+    { "name": "WalkingRight",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 1}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 1}}]
+    },
+    { "name": "WalkingLeft",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"xling", "values":{"moved":0, "direction": 3}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"xling", "values":{"moved":1, "direction": 3}}]
+    }
+  ],
+
+
+  "BlocklingRules":[
+    { "name": "SetDirectionToDown",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 4}},{"token":"wall"}]
+    },
+    { "name": "SetDirectionToUp",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 2}},{"token":"wall"}]
+    },
+    { "name": "SetDirectionToLeft",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 3}},{"token":"wall"}]
+    },
+    { "name": "SetDirectionToRight",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 0}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 1}},{"token":"wall"}]
+    },
+
+
+    { "name": "TurnToRight",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 4}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 1}}]
+    },
+    { "name": "TurnToLeft",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 2}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 3}}]
+    },
+    { "name": "TurnToDown",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 3}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 4}}]
+    },
+    { "name": "TurnToUp",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 1}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 2}}]
+    },
+
+
+    { "name": "CornerNorthEast",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 1}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 4}},{"token":"wall"}]
+    },
+    { "name": "CornerSouthWest",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 3}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 2}},{"token":"wall"}]
+    },
+    { "name": "CornerSouthEast",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 4}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 3}},{"token":"wall"}]
+    },
+    { "name": "CornerNorthWest",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 2}},{"token":"wall"}],
+      "result":[{"token":"blockling", "values":{"moved":0, "direction": 1}},{"token":"wall"}]
+    },
+
+
+    { "name": "WalkingUp",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 2}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 2}}]
+    },
+    { "name": "WalkingDown",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 4}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 4}}]
+    },
+    { "name": "WalkingRight",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 1}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 1}}]
+    },
+    { "name": "WalkingLeft",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 3}},{"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"blockling", "values":{"moved":1, "direction": 3}}]
+    }
+  ],
+
+
+  "DeathRules":[
+    { "name": "monsterRightToMe",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"me", "values":{"moved":1}},{"token":["xling", "blockling", "swapling"], "values":{"direction":3, "moved":1}}],
+      "result":[{"token":"me", "values":{"bamrich": 1}},{"token":["xling", "blockling", "swapling"]}]
+    },
+    { "name": "monsterLeftToMe",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"me", "values":{"moved":1}},{"token":["xling", "blockling", "swapling"], "values":{"direction":1, "moved":1}}],
+      "result":[{"token":"me", "values":{"bamrich": 1}},{"token":["xling", "blockling", "swapling"]}]
+    },
+    { "name": "monsterDownToMe",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"me", "values":{"moved":1}},{"token":["xling", "blockling", "swapling"], "values":{"direction":2, "moved":1}}],
+      "result":[{"token":"me", "values":{"bamrich": 1}},{"token":["xling", "blockling", "swapling"]}]
+    },
+    { "name": "monsterUpToMe",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"me", "values":{"moved":1}},{"token":["xling", "blockling", "swapling"], "values":{"direction":4, "moved":1}}],
+      "result":[{"token":"me", "values":{"bamrich": 1}},{"token":["xling", "blockling", "swapling"]}]
+    },
+
+    { "name": "FallingDeath",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":["me", "xling", "swapling"]},{"token":"*", "values":{"falling":1, "moved":1}}],
+      "result":[{"token":"me", "values":{"bamrich": 1}},{"token":["1"]}]
+    },
+    { "name": "FallingDeathBlockling",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"blockling"},{"token":"*", "values":{"falling":1, "moved":1}}],
+      "result":[{"token":"blockling", "values":{"bam": 1}},{"token":["1"]}]
+    }
+  ],
+
+
+  "BamrichBam":[
+    { "name": "setToDiamondsHorizontally",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"*"},{"token":"*", "values":{"bamrich": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toDiamonds": 1}},{"token":"1", "values":{"toDiamonds": 1}}, {"token":"2", "values":{"toDiamonds": 1}}]
+    },
+    { "name": "setToDiamondsVertically",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"*"},{"token":"*", "values":{"toDiamonds": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toDiamonds": 1}},{"token":"1", "values":{"toDiamonds": 1}}, {"token":"2", "values":{"toDiamonds": 1}}]
+    },
+
+    { "name": "setToExplosionHorizontally",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"*"},{"token":"*", "values":{"bam": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toExplosion": 1}},{"token":"1", "values":{"toExplosion": 1}}, {"token":"2", "values":{"toExplosion": 1}}]
+    },
+    { "name": "setToExplosionVertically",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"*"},{"token":"*", "values":{"toExplosion": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toExplosion": 1}},{"token":"1", "values":{"toExplosion": 1}}, {"token":"2", "values":{"toExplosion": 1}}]
+    },
+
+    { "name": "3x3Diamonds",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "norththing", "eastthing", "soutthing", "westthing"], "values":{"toDiamonds": 1}}],
+      "result":[{"token":"diamond"}]
+    },
+
+    { "name": "3x3Explosion",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "norththing", "eastthing", "soutthing", "westthing"], "values":{"toExplosion": 1}}],
+      "result":[{"token":"explosion"}]
+    }
+  ]
+}
+
+

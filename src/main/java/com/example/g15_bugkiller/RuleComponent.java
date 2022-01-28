@@ -1,16 +1,16 @@
 package com.example.g15_bugkiller;
 
-public class Regelbaustein {
+public class RuleComponent {
 
-    Object token;       // could be Type, Type[], int
+    Object token;       // could be Type (incl CATCHALL), Type[], int
     Values values;
 
-    public Regelbaustein (Object token, Values values){
+    public RuleComponent(Object token, Values values){
         this.token = token;
         this.values = values;
     }
 
-    public Regelbaustein (Object token){
+    public RuleComponent(Object token){
         this.token = token;
         this.values = new Values();
     }

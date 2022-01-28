@@ -8,10 +8,12 @@ import java.util.List;
 public class Level {
 
     String levelName;
+    int sparsity = 1;
     int[] gems;
     int[] ticks;
-    List<Regel> preRules;
-    List<Regel> postRules;
+    List<Rule> preRules;
+    List<Rule> mainRules;
+    List<Rule> postRules;
     int maxSlime;
     Field[][] levelMap;
     int collectedGems;
@@ -20,6 +22,8 @@ public class Level {
     int x;
     int y;
     int z;
+    boolean timeUp = false; //ist ticksPast <= ticks[0] ?
+    boolean passed = false;
 
     public Level(){}
 
@@ -28,6 +32,7 @@ public class Level {
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap() ;
+        this.ticks = ticks;
 
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
@@ -43,11 +48,11 @@ public class Level {
         return gems;
     }
 
-    public List<Regel> getPreRules() {
+    public List<Rule> getPreRules() {
         return preRules;
     }
 
-    public List<Regel> getPostRules() {
+    public List<Rule> getPostRules() {
         return postRules;
     }
 
@@ -83,11 +88,11 @@ public class Level {
         return z;
     }
 
-    public void setPreRules(List<Regel> preRules) {
+    public void setPreRules(List<Rule> preRules) {
         this.preRules = preRules;
     }
 
-    public void setPostRules(List<Regel> postRules) {
+    public void setPostRules(List<Rule> postRules) {
         this.postRules = postRules;
     }
 
@@ -127,4 +132,35 @@ public class Level {
         this.z = z;
     }
 
+    public void setSparsity(int sparsity) {
+        this.sparsity = sparsity;
+    }
+
+    public int getSparsity() {
+        return sparsity;
+    }
+
+    public boolean isTimeUp() {
+        return timeUp;
+    }
+
+    public void setTimeUp(boolean timeUp) {
+        this.timeUp = timeUp;
+    }
+
+    public List<Rule> getMainRules() {
+        return mainRules;
+    }
+
+    public void setMainRules(List<Rule> mainRules) {
+        this.mainRules = mainRules;
+    }
+
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public void setPassed(boolean passed) {
+        this.passed = passed;
+    }
 }
