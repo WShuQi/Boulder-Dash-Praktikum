@@ -29,7 +29,7 @@ public class Json {
      * @throws FileNotFoundException
      * @param filename must be a valid json file name with path
      */
-
+/*
     private void setFilename (String filename) throws FileNotFoundException {
         this.filename = filename;
         //Einlesen von Datei
@@ -162,5 +162,5 @@ public class Json {
         Coordinate mapsize = this.readMapdata();
         Input input = new Input(tiles,tilesAts,connectBys,defaultField,mapsize);
         return input;
-    }
+    }*/
 }
