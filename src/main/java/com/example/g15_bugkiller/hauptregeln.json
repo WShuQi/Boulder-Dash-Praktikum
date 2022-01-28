@@ -78,34 +78,19 @@
     },
 
 
-    { "name": "MePushingRight",
+    { "name": "PushingRight",
       "situation":"right",
       "direction":"east",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable":1}}]
+      "original":[{"token":["me", "xling", "blockling", "swapling"], "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"0", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable":1}}]
     },
-    { "name": "MePushingLeft",
+    { "name": "PushingLeft",
       "situation":"left",
       "direction":"west",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable":1}}]
-    },
-
-    { "name": "MePushingDown",
-      "situation":"down",
-      "direction":"south",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable": 1}}]
-    },
-
-    { "name": "MePushingUp",
-      "situation":"up",
-      "direction":"north",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable": 1}}]
+      "original":[{"token":["me", "xling", "blockling", "swapling"], "values":{"moved":0}},{"token":"*", "values":{"moved":0, "pushable":1, "falling": 0}}, {"token":"path", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"0", "values":{"moved":1}}, {"token":"1", "values":{"moved":1, "pushable":1}}]
     }
   ],
-
 
 
 
