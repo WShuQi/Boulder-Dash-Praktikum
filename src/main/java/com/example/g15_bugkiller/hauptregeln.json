@@ -8,6 +8,62 @@
   }
 ],
 
+
+  "FallingRules":[
+    { "name": "checkIfSpaceToRight",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "slippery": 1}}],
+      "result":[{"token":"path", "values":{"moved":0}},{"token":"1", "values":{"slippery": 1, "hasSpace": 1}}]
+    },
+    { "name": "giveStoneSlipDirectionRight",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"*", "values":{"moved":0, "loose":1}},{"token":"*", "values":{"moved":0, "slippery": 1, "hasSpace": 1}}],
+      "result":[{"token":"0", "values":{"moved":0, "loose":1, "direction":1}},{"token":"1", "values":{"slippery": 1, "hasSpace": 1}}]
+    },
+    { "name": "checkIfPathToRight",
+      "situation":"any",
+      "direction":"west",
+      "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1, "direction": 1}}],
+      "result":[{"token":"1", "values":{"moved":0, "loose": 1, "direction": 4}},{"token":"path", "values":{"moved": 0}}]
+    },
+
+    { "name": "checkIfSpaceToLeft",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "slippery": 1}}],
+      "result":[{"token":"path", "values":{"moved":0}},{"token":"1", "values":{"slippery": 1, "hasSpace": 3}}]
+    },
+    { "name": "giveStoneSlipDirectionLeft",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"*", "values":{"moved":0, "loose":1}},{"token":"*", "values":{"moved":0, "slippery": 1, "hasSpace": 3}}],
+      "result":[{"token":"0", "values":{"moved":0, "loose":1, "direction":3}},{"token":"1", "values":{"slippery": 1, "hasSpace": 3}}]
+    },
+    { "name": "checkIfPathToLeft",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1, "direction": 3}}],
+      "result":[{"token":"1", "values":{"moved":0, "loose": 1, "direction": 4}},{"token":"path", "values":{"moved": 0}}]
+    },
+
+    { "name": "SlippingDown",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1, "direction": 4}}],
+      "result":[{"token":"1", "values":{"moved":1, "falling": 1, "direction": 0}},{"token":"path", "values":{"moved": 1}}]
+    },
+
+    { "name": "Falling",
+      "situation":"any",
+      "direction":"north",
+      "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1}}],
+      "result":[{"token":"1", "values":{"moved":1, "falling": 1}},{"token":"path", "values":{"moved": 1}}]
+    }
+  ],
+
+
   "meRules":[
     { "name": "MeMovementRight",
       "situation":"right",
