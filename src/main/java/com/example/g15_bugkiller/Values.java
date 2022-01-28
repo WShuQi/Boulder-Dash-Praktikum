@@ -24,6 +24,8 @@ public class Values {
 
         //new values
         valueList.put(COLLECTED, 0);
+        valueList.put(ToDIAMONDS, 0);
+        valueList.put(ToEXPLOSION, 0);
     }
 
 
@@ -52,6 +54,8 @@ public class Values {
         valueList.put(BAM, 0);
         valueList.put(BAMRICH, 0);
         valueList.put(COLLECTED, 0);
+        valueList.put(ToDIAMONDS, 0);
+        valueList.put(ToEXPLOSION, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {

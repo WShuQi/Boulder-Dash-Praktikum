@@ -431,5 +431,50 @@
       "original":[{"token":"blockling"},{"token":"*", "values":{"falling":1, "moved":1}}],
       "result":[{"token":"blockling", "values":{"bam": 1}},{"token":["1"]}]
     }
+  ],
+
+
+  "BamrichBam":[
+    { "name": "setToDiamondsHorizontally",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"*"},{"token":"*", "values":{"bamrich": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toDiamonds": 1}},{"token":"1", "values":{"toDiamonds": 1}}, {"token":"2", "values":{"toDiamonds": 1}}]
+    },
+    { "name": "setToDiamondsVertically",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"*"},{"token":"*", "values":{"toDiamonds": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toDiamonds": 1}},{"token":"1", "values":{"toDiamonds": 1}}, {"token":"2", "values":{"toDiamonds": 1}}]
+    },
+
+    { "name": "setToExplosionHorizontally",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":"*"},{"token":"*", "values":{"bam": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toExplosion": 1}},{"token":"1", "values":{"toExplosion": 1}}, {"token":"2", "values":{"toExplosion": 1}}]
+    },
+    { "name": "setToExplosionVertically",
+      "situation":"any",
+      "direction":"south",
+      "original":[{"token":"*"},{"token":"*", "values":{"toExplosion": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toExplosion": 1}},{"token":"1", "values":{"toExplosion": 1}}, {"token":"2", "values":{"toExplosion": 1}}]
+    },
+
+    { "name": "3x3Diamonds",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "norththing", "eastthing", "soutthing", "westthing"], "values":{"toDiamonds": 1}}],
+      "result":[{"token":"diamond"}]
+    },
+
+    { "name": "3x3Explosion",
+      "situation":"any",
+      "direction":"east",
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "norththing", "eastthing", "soutthing", "westthing"], "values":{"toExplosion": 1}}],
+      "result":[{"token":"explosion"}]
+    }
   ]
 }
+
+
