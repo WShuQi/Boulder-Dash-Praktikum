@@ -2,6 +2,8 @@ package MapGeneration;
 
 
 import com.example.g15_bugkiller.Field;
+import com.example.g15_bugkiller.Gegenstand;
+import com.example.g15_bugkiller.Type;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -17,6 +19,7 @@ public class Json {
 
     String filename;
     JSONObject json;
+    JSONObject tilesListJson;
 
     public Json (String filename) {this.filename = filename;}
 
@@ -34,12 +37,21 @@ public class Json {
         this.json = new JSONObject(new JSONTokener(file));
     }
 
+
+    private Coordinate readMapdata() throws JSONException{
+        JSONObject mapDataJson = json.getJSONObject("mapdata");
+        int width = mapDataJson.getInt("width");
+        int height = mapDataJson.getInt("height");
+        Coordinate mapsize = new Coordinate(width, height);
+        tilesListJson = mapDataJson.getJSONObject("tiles");
+        return mapsize;
+    }
+
     private ArrayList<Tile> readTiles() throws JSONException{
         //Parsen Variante von Tiles und in Liste speichern
         ArrayList<Tile> tiles =new ArrayList<>();
         String tileName;
 
-        JSONObject tilesListJson = json.getJSONObject("tiles");
         for (String name : tilesListJson.keySet()) {
             tileName = name;
             JSONArray tileJson = tilesListJson.getJSONArray(name);
@@ -56,7 +68,9 @@ public class Json {
                     JSONArray fieldListJson = versionJson.getJSONArray(j);
 
                     for (int k = 0; k < fieldListJson.length(); k++){
-                        Field field = new Field(fieldListJson.getString(k));
+                        Type token = Type.valueOf(fieldListJson.getString(k));  //LOCH? nicht in Enum Type
+                        Gegenstand gegenstand = new Gegenstand(token,0);  //todo
+                        Field field = new Field(gegenstand);
                         fieldsList.add(field);
                     }entries.add(fieldsList);
                 }
@@ -69,11 +83,7 @@ public class Json {
         return tiles;
     }
 
-    //todo
-    private void readMapdata() throws JSONException{
-        JSONObject mapDataJson = json.getJSONObject("mapdata");
 
-    }
 
     private ArrayList<TilesAt> readTilesAts() throws JSONException{
 
@@ -122,7 +132,9 @@ public class Json {
                 JSONArray usesJson = obj.getJSONArray("uses");
                 List<Field> uses = new ArrayList<>();
                 for (int j = 0; j< usesJson.length(); j++){
-                    Field field = new Field(usesJson.getString(j));
+                    Type token = Type.valueOf(usesJson.getString(j));
+                    Gegenstand gegenstand = new Gegenstand(token,); //todo
+                    Field field = new Field();
                     uses.add(field);
                 }
                 ConnectBy connectBy = new ConnectBy(from,to,uses);
@@ -135,7 +147,9 @@ public class Json {
     private Field readDefaultField() throws JSONException{
         //Parsen default Tile ("Wiese")
         String defaultField = json.getString("default");
-        Field field = new Field(defaultField);
+        Type token = Type.valueOf(defaultField);
+        Gegenstand gegenstand = new Gegenstand(token,); //todo
+        Field field = new Field(gegenstand);
         return field;
     }
 
@@ -145,7 +159,7 @@ public class Json {
         List<TilesAt> tilesAts = this.readTilesAts();
         List<ConnectBy> connectBys = this.readConnectby();
         Field defaultField = this.readDefaultField();
-        Coordinate mapsize =;
+        Coordinate mapsize = this.readMapdata();
         Input input = new Input(tiles,tilesAts,connectBys,defaultField,mapsize);
         return input;
     }
