@@ -45,7 +45,7 @@ public class Values {
         valueList.put(COLLECTED, initalValueList.getOrDefault(COLLECTED,0));
         valueList.put(ToDIAMONDS, initalValueList.getOrDefault(ToDIAMONDS,0));
         valueList.put(ToEXPLOSION, initalValueList.getOrDefault(ToEXPLOSION, 0));
-
+        valueList.put(ToEXPLOSION, initalValueList.getOrDefault(ToEXPLOSION,0));
     }
 
     public void resetValues(){
