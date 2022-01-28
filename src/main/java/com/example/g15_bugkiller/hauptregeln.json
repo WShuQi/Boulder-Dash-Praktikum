@@ -1,4 +1,13 @@
 {
+  "RemoveExplosion":[
+  { "name": "RemoveExplosion",
+    "situation":"any",
+    "direction":"east",
+    "original":[{"token":"explosion"}],
+    "result":[{"token":"path"}]
+  }
+],
+
   "meRules":[
     { "name": "MeMovementRight",
       "situation":"right",
