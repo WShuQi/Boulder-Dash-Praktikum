@@ -1,7 +1,10 @@
 package com.example.g15_bugkiller;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import static com.example.g15_bugkiller.GUIApplication.SCREEN_HEIGHT;
 import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
@@ -16,6 +19,7 @@ public class GUIView {
 
     public int ticksCounter;
 
+
     private GraphicsContext gc;
 
     public GUIView(GraphicsContext gc) {
@@ -28,12 +32,25 @@ public class GUIView {
         Field[][] fields = level.getLevelMap();
 
         /**Graphische Grundlage für den Counter
-        //Image counterBackground = new Image("Counter_Vorlage.png");
+        ImageView counterBackground = new ImageView("Counter_Vorlage.png");
+
+         Image counterBackground = new Image(getClass().getResourceAsStream("Counter_Vorlage.png"));
+         counterBackground.getHeight();
+         counterBackground.getWidth();
+
+        counterBackground.fitHeightProperty();
+        counterBackground.fitWidthProperty();
          **/
+
+
+
 
         drawGemCounter(level.getCollectedGems());
 
         drawTimePassed(level.getTicksPast());
+
+
+
 
         for(int zeile = 0; zeile < fields.length; zeile++){
             for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
@@ -47,11 +64,26 @@ public class GUIView {
             }
         }
 
+
+
+
+
     }
 
     private void drawGemCounter (int gemCounter)  {
 
+        Image counterBackground;
+        counterBackground = PictureRepo.getImage("Counter_Vorlage_small.png");
+        gc.drawImage(counterBackground, 220.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
+
         gc.fillText("GEMS: " + gemCounter, 240.0D, 20.0D);
+        gc.setFill(Color.YELLOWGREEN);
+
+
+        TextField gemCounterText = new TextField();
+
+
+
 
     }
 
