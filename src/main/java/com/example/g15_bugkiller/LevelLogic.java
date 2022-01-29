@@ -27,7 +27,7 @@ public class LevelLogic {
         checkIfTimeIsUp(level);
     }
 
-    public static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+    private static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
         int rowLength = map.length;
         int columnLength = map[0].length;
@@ -42,13 +42,13 @@ public class LevelLogic {
     }
 
 
-    public static void checkIfTimeIsUp(Level level){
+    private static void checkIfTimeIsUp(Level level){
         int maxTicks = level.getTicks()[0];
         int ticksPast = level.getTicksPast();
         level.setTimeUp(ticksPast <= maxTicks);
     }
 
-    public static void computeScoredPoints(Level level){
+    private static void computeScoredPoints(Level level){
         int[] gems = level.getGems();
         int[] ticks = level.getTicks();
         int collectedGems = level.getCollectedGems();
@@ -65,22 +65,26 @@ public class LevelLogic {
         }
     }
 
-    public static void executePreRules(Level level, KeyPressListener currentKeysPressed){
+    private static void executePreRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> preRules = level.getPreRules();
         executeRules(preRules, level, currentKeysPressed);
     }
 
-    public static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
+    private static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> mainRules = level.getMainRules();
         executeRules(mainRules, level, currentKeysPressed);
+
+        slimeCheck(level);
+        collectedDiamondCheck(level);
+        playerAliveCheck(level);
     }
 
-    public static void executePostRules(Level level, KeyPressListener currentKeysPressed){
+    private static void executePostRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> postRules = level.getPostRules();
         executeRules(postRules, level, currentKeysPressed);
     }
 
-    public static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
+    private static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
         boolean situationOccurs = false;
 
         if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % level.getSparsity() == 0) ||
@@ -96,11 +100,11 @@ public class LevelLogic {
         return situationOccurs;
     }
 
-    public static boolean giveTrueWithThreePercentChance(){
+    private static boolean giveTrueWithThreePercentChance(){
         return (Math.random() <= 0.03);
     }
 
-    public static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed){
+    private static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed){
 
         if(rules == null){
             return;
@@ -133,7 +137,7 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleEastward(Rule rule, Level level){
+    private static void executeRuleEastward(Rule rule, Level level){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -169,7 +173,7 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleWestward(Rule rule, Level level){
+    private static void executeRuleWestward(Rule rule, Level level){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -202,7 +206,7 @@ public class LevelLogic {
         }
     }
 
-    public static void executeRuleNorthward(Rule rule, Level level){
+    private static void executeRuleNorthward(Rule rule, Level level){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -236,7 +240,7 @@ public class LevelLogic {
     }
 
 
-    public static void executeRuleSouthward(Rule rule, Level level){
+    private static void executeRuleSouthward(Rule rule, Level level){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -270,7 +274,7 @@ public class LevelLogic {
         }
     }
 
-    public static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<RuleComponent> original){
+    private static boolean checkIfNextFieldsAndOriginalsAgree(Field[] nextFields, List<RuleComponent> original){
         boolean nextFieldsAndOriginalsAgree = true;
         int numberOfOriginals = original.size();
 
@@ -298,7 +302,7 @@ public class LevelLogic {
         return nextFieldsAndOriginalsAgree;
     }
 
-    public static boolean valuesAgree(HashMap<ValuesNames, Integer> fieldValues, HashMap<ValuesNames, Integer> ruleComponentValues){
+    private static boolean valuesAgree(HashMap<ValuesNames, Integer> fieldValues, HashMap<ValuesNames, Integer> ruleComponentValues){
 
         boolean bothAreZero = true;
         boolean ruleComponentValuesArePositive = true;
@@ -331,7 +335,7 @@ public class LevelLogic {
     }
 
 
-    public static void replaceFields(Field[] nextFields, List<RuleComponent> result) {
+    private static void replaceFields(Field[] nextFields, List<RuleComponent> result) {
         int resultLength = result.size();
 
         for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
@@ -350,7 +354,7 @@ public class LevelLogic {
         }
     }
 
-    public static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
+    private static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
 
         for(ValuesNames valueName: ValuesNames.values()){
             int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);
@@ -365,4 +369,16 @@ public class LevelLogic {
         }
     }
 
+    //mainRules
+    private static void slimeCheck(Level level){
+
+    }
+
+    private static void collectedDiamondCheck(Level level){
+
+    }
+
+    private static void playerAliveCheck(Level level){
+
+    }
 }
