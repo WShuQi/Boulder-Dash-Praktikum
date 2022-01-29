@@ -615,17 +615,17 @@
 
 
   "BamrichBam":[
-    { "name": "setToDiamondsHorizontally",
+    { "name": "setToGemsHorizontally",
       "situation":"any",
       "direction":"east",
       "original":[{"token":"*"},{"token":"*", "values":{"bamrich": 1}},{"token":"*"}],
-      "result":[{"token":"0", "values":{"toDiamonds": 1}},{"token":"1", "values":{"toDiamonds": 1}}, {"token":"2", "values":{"toDiamonds": 1}}]
+      "result":[{"token":"0", "values":{"toGem": 1}},{"token":"1", "values":{"toGem": 1}}, {"token":"2", "values":{"toGem": 1}}]
     },
-    { "name": "setToDiamondsVertically",
+    { "name": "setToGemsVertically",
       "situation":"any",
       "direction":"south",
-      "original":[{"token":"*"},{"token":"*", "values":{"toDiamonds": 1}},{"token":"*"}],
-      "result":[{"token":"0", "values":{"toDiamonds": 1}},{"token":"1", "values":{"toDiamonds": 1}}, {"token":"2", "values":{"toDiamonds": 1}}]
+      "original":[{"token":"*"},{"token":"*", "values":{"toGem": 1}},{"token":"*"}],
+      "result":[{"token":"0", "values":{"toGem": 1}},{"token":"1", "values":{"toGem": 1}}, {"token":"2", "values":{"toGem": 1}}]
     },
 
     { "name": "setToExplosionHorizontally",
@@ -644,7 +644,7 @@
     { "name": "3x3Diamonds",
       "situation":"any",
       "direction":"east",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling"], "values":{"toDiamonds": 1}}],
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling"], "values":{"toGem": 1}}],
       "result":[{"token":"diamond"}]
     },
 

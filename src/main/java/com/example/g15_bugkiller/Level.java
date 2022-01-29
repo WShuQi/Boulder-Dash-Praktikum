@@ -25,6 +25,16 @@ public class Level {
     boolean timeUp = false; //ist ticksPast <= ticks[0] ?
     boolean passed = false;
 
+    public boolean isPlayerDead() {
+        return playerDead;
+    }
+
+    public void setPlayerDead(boolean playerDead) {
+        this.playerDead = playerDead;
+    }
+
+    boolean playerDead = false;
+
     public Level(){}
 
     public Level(String levelName, int[] gems, Input mapData, int[] ticks) {

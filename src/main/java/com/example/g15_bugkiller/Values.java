@@ -24,7 +24,7 @@ public class Values {
 
         //new values
         valueList.put(COLLECTED, 0);
-        valueList.put(ToDIAMONDS, 0);
+        valueList.put(ToGEM, 0);
         valueList.put(ToEXPLOSION, 0);
         valueList.put(HasSPACE, 0);
     }
@@ -44,9 +44,8 @@ public class Values {
         valueList.put(C, initalValueList.getOrDefault(C, 0));
         valueList.put(D, initalValueList.getOrDefault(D, 0));
         valueList.put(COLLECTED, initalValueList.getOrDefault(COLLECTED,0));
-        valueList.put(ToDIAMONDS, initalValueList.getOrDefault(ToDIAMONDS,0));
+        valueList.put(ToGEM, initalValueList.getOrDefault(ToGEM,0));
         valueList.put(ToEXPLOSION, initalValueList.getOrDefault(ToEXPLOSION, 0));
-        valueList.put(ToEXPLOSION, initalValueList.getOrDefault(ToEXPLOSION,0));
         valueList.put(HasSPACE, initalValueList.getOrDefault(HasSPACE, 0));
     }
 
@@ -59,7 +58,7 @@ public class Values {
         valueList.put(BAM, 0);
         valueList.put(BAMRICH, 0);
         valueList.put(COLLECTED, 0);
-        valueList.put(ToDIAMONDS, 0);
+        valueList.put(ToGEM, 0);
         valueList.put(ToEXPLOSION, 0);
         valueList.put(HasSPACE, 0);
     }

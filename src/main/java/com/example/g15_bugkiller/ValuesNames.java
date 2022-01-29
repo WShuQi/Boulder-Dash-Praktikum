@@ -14,7 +14,7 @@ public enum ValuesNames {
     C,
     D,
     COLLECTED,
-    ToDIAMONDS,
+    ToGEM,
     ToEXPLOSION,
     HasSPACE
 }

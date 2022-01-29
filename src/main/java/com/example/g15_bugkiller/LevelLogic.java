@@ -75,8 +75,8 @@ public class LevelLogic {
         executeRules(mainRules, level, currentKeysPressed);
 
         slimeCheck(level);
-        collectedDiamondCheck(level);
-        playerAliveCheck(level);
+        collectedGemCheck(level);
+        playerDeadCheck(level);
     }
 
     private static void executePostRules(Level level, KeyPressListener currentKeysPressed){
@@ -372,13 +372,36 @@ public class LevelLogic {
     //mainRules
     private static void slimeCheck(Level level){
 
-    }
 
-    private static void collectedDiamondCheck(Level level){
 
     }
 
-    private static void playerAliveCheck(Level level){
+    private static void collectedGemCheck(Level level){
+        Field[][] map = level.getLevelMap();
 
+        for (int x = 0; x<map.length; x++){
+            for (int y = 0; y<map[x].length; y++){
+                if (map[x][y].getGegenstand().getValues().getValueList().get(ValuesNames.COLLECTED) == 1){
+                    level.setCollectedGems(level.getCollectedGems() + 1);
+                }
+            }
+        }
+    }
+
+    private static void playerDeadCheck(Level level){
+        Field[][] map = level.getLevelMap();
+        boolean playerIsDead = true;
+
+        for (int x = 0; x<map.length; x++){
+            for (int y = 0; y<map[x].length; y++){
+                if (map[x][y].getType() == Type.ME){
+                    playerIsDead = false;
+                }
+            }
+        }
+
+        level.setPlayerDead(playerIsDead);
     }
 }
+
+
