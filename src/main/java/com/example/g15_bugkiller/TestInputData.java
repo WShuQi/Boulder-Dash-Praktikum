@@ -238,7 +238,7 @@ public class TestInputData {
                                         )
                         ),
                         new RuleComponent(
-                                Type.PATH,
+                                new Type[]{Type.PATH,Type.MUD},
                                 new Values(
                                         new HashMap<>(){
                                             {put(ValuesNames.MOVED, 0); }
@@ -280,7 +280,7 @@ public class TestInputData {
                                                 )
                                         ),
                                         new RuleComponent(
-                                                Type.PATH,
+                                                new Type[]{Type.PATH,Type.MUD},
                                                 new Values(
                                                         new HashMap<>() {
                                                             {
@@ -328,7 +328,7 @@ public class TestInputData {
                                                 )
                                         ),
                                         new RuleComponent(
-                                                Type.PATH,
+                                                new Type[]{Type.PATH,Type.MUD},
                                                 new Values(
                                                         new HashMap<>() {
                                                             {
@@ -376,7 +376,7 @@ public class TestInputData {
                                                 )
                                         ),
                                         new RuleComponent(
-                                                Type.PATH,
+                                                new Type[]{Type.PATH,Type.MUD},
                                                 new Values(
                                                         new HashMap<>() {
                                                             {
