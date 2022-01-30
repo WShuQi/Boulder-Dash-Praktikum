@@ -16,5 +16,6 @@ public enum ValuesNames {
     COLLECTED,
     ToGEM,
     ToEXPLOSION,
-    HasSPACE
+    HasSPACE,
+    CanGROW
 }

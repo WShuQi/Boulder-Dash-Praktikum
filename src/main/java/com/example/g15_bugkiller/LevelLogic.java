@@ -354,8 +354,9 @@ public class LevelLogic {
         }
     }
 
+    private static boolean valuesWereReplaced = false;
     private static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
-
+        valuesWereReplaced = true;
         for(ValuesNames valueName: ValuesNames.values()){
             int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);
             int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
@@ -369,11 +370,90 @@ public class LevelLogic {
         }
     }
 
-    //mainRules
+    //Methods for mainRules
+    private static RuleComponent spaceToGrow = new RuleComponent(new Type[]{Type.PATH, Type.BLOCKLING, Type.SWAPLING, Type.XLING, Type.MUD}, new Values());
+    private static RuleComponent spaceToGrowTo = new RuleComponent(1, new Values());
+    private static RuleComponent slimeWithCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CanGROW, 1);}}));
+    private static RuleComponent slimeWithoutCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CanGROW, 0);}}));
+
+    private static Rule setSlimeCanGrowRuleEast = new Rule(Situation.ANY, Direction.EAST, List.of(slimeWithoutCanGrow, spaceToGrow), List.of(slimeWithCanGrow, spaceToGrowTo));
+    private static Rule setSlimeCanGrowRuleNorth = new Rule(Situation.ANY, Direction.NORTH, List.of(slimeWithoutCanGrow, spaceToGrow), List.of(slimeWithCanGrow, spaceToGrowTo));
+    private static Rule setSlimeCanGrowRuleWest = new Rule(Situation.ANY, Direction.WEST, List.of(slimeWithoutCanGrow, spaceToGrow), List.of(slimeWithCanGrow, spaceToGrowTo));
+    private static Rule setSlimeCanGrowRuleSouth = new Rule(Situation.ANY, Direction.SOUTH, List.of(slimeWithoutCanGrow, spaceToGrow), List.of(slimeWithCanGrow, spaceToGrowTo));
+
+    private static Rule spreadSlimeCanGrowRuleEast = new Rule(Situation.ANY, Direction.EAST, List.of(slimeWithCanGrow, slimeWithoutCanGrow), List.of(slimeWithCanGrow, slimeWithCanGrow));
+    private static Rule spreadSlimeCanGrowRuleNorth = new Rule(Situation.ANY, Direction.NORTH, List.of(slimeWithCanGrow, slimeWithoutCanGrow), List.of(slimeWithCanGrow, slimeWithCanGrow));
+    private static Rule spreadSlimeCanGrowRuleWest = new Rule(Situation.ANY, Direction.WEST, List.of(slimeWithCanGrow, slimeWithoutCanGrow), List.of(slimeWithCanGrow, slimeWithCanGrow));
+    private static Rule spreadSlimeCanGrowRuleSouth = new Rule(Situation.ANY, Direction.SOUTH, List.of(slimeWithCanGrow, slimeWithoutCanGrow), List.of(slimeWithCanGrow, slimeWithCanGrow));
+
     private static void slimeCheck(Level level){
+        if(maxSlimeCheck(level)){
+            setSlimesToStone(level);
+            return;
+        }
 
+        //set if slimes can grow
+        executeRuleEastward(setSlimeCanGrowRuleEast, level);
+        executeRuleNorthward(setSlimeCanGrowRuleNorth, level);
+        executeRuleWestward(setSlimeCanGrowRuleWest, level);
+        executeRuleSouthward(setSlimeCanGrowRuleSouth, level);
 
+        //spread canGrow to neighbour slimes
+        valuesWereReplaced = true;
 
+        while(valuesWereReplaced){
+            valuesWereReplaced = false;
+
+            executeRuleEastward(spreadSlimeCanGrowRuleEast, level);
+            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, level);
+            executeRuleWestward(spreadSlimeCanGrowRuleWest, level);
+            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, level);
+        }
+
+        setSlimesToGem(level);
+    }
+
+    private static boolean maxSlimeCheck(Level level){
+        if(level.getMaxSlime() == 0){
+            return false;
+        }
+        Field[][] map = level.getLevelMap();
+
+        int totalSlimes = 0;
+
+        for (int x = 0; x<map.length; x++){
+            for (int y = 0; y<map[x].length; y++){
+                if(map[x][y].getType() == Type.SLIME){
+                    totalSlimes++;
+                }
+            }
+        }
+        return totalSlimes > level.getMaxSlime();
+    }
+
+    private static void setSlimesToStone(Level level){
+        Field[][] map = level.getLevelMap();
+
+        for (int x = 0; x<map.length; x++){
+            for (int y = 0; y<map[x].length; y++){
+                if(map[x][y].getType() == Type.SLIME){
+                    map[x][y].getGegenstand().setToken(Type.STONE);
+                }
+            }
+        }
+    }
+
+    private static void setSlimesToGem(Level level){
+        Field[][] map = level.getLevelMap();
+
+        for (int x = 0; x<map.length; x++){
+            for (int y = 0; y<map[x].length; y++){
+                Gegenstand gegenstand = map[x][y].getGegenstand();
+                if(gegenstand.getToken() == Type.SLIME && gegenstand.getValues().getValueList().get(ValuesNames.CanGROW) == 0){
+                    map[x][y].getGegenstand().setToken(Type.GEM);
+                }
+            }
+        }
     }
 
     private static void collectedGemCheck(Level level){

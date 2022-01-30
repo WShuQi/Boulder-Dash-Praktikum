@@ -27,6 +27,7 @@ public class Values {
         valueList.put(ToGEM, 0);
         valueList.put(ToEXPLOSION, 0);
         valueList.put(HasSPACE, 0);
+        valueList.put(CanGROW, 0);
     }
 
 
@@ -47,6 +48,8 @@ public class Values {
         valueList.put(ToGEM, initalValueList.getOrDefault(ToGEM,0));
         valueList.put(ToEXPLOSION, initalValueList.getOrDefault(ToEXPLOSION, 0));
         valueList.put(HasSPACE, initalValueList.getOrDefault(HasSPACE, 0));
+        valueList.put(CanGROW, initalValueList.getOrDefault(CanGROW, 0));
+
     }
 
     public void resetValues(){
@@ -61,6 +64,7 @@ public class Values {
         valueList.put(ToGEM, 0);
         valueList.put(ToEXPLOSION, 0);
         valueList.put(HasSPACE, 0);
+        valueList.put(CanGROW, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {
