@@ -16,19 +16,13 @@ import java.util.Locale;
 
 public class Json {
 
-    String filename;
     JSONObject json;
     JSONObject tilesListJson;
 
-    public Json (String filename) {this.filename = filename;}
-
-    private void setFilename (String filename) throws FileNotFoundException {
-        this.filename = filename;
-        //Einlesen von Datei
-        InputStream file = new FileInputStream(this.filename);
+    public Json (String filename)throws FileNotFoundException {
+        InputStream file = new FileInputStream(filename);
         this.json = new JSONObject(new JSONTokener(file));
     }
-
 
     private Coordinate readMapdata() throws JSONException{
         JSONObject mapDataJson = json.getJSONObject("mapdata");
@@ -163,8 +157,7 @@ public class Json {
         return field;
     }
 
-    public Input getInput () throws FileNotFoundException {
-        this.setFilename(filename);
+    public Input getInput () {
         List<Tile> tiles = this.readTiles();
         List<TilesAt> tilesAts = this.readTilesAts();
         List<ConnectBy> connectBys = this.readConnectby();
@@ -172,5 +165,27 @@ public class Json {
         Coordinate mapsize = this.readMapdata();
         Input input = new Input(tiles,tilesAts,connectBys,defaultField,mapsize);
         return input;
+    }
+
+
+    public Level getLevel () throws JSONException{
+        String levelName = json.getString("name");
+
+        int[] gems = new int[3];
+        JSONArray gemsJson = json.getJSONArray("gems");
+        for(int i = 0; i < gemsJson.length(); i++){
+            gems[i] = gemsJson.getInt(i);
+        }
+
+        int[] ticks = new int[3];
+        JSONArray ticksJson = json.getJSONArray("ticks");
+        for(int j = 0; j < ticksJson.length(); j++){
+            ticks[j] = ticksJson.getInt(j);
+        }
+
+        Input mapdata = this.getInput();
+
+        Level level = new Level(levelName,gems,mapdata,ticks);
+        return level;
     }
 }
