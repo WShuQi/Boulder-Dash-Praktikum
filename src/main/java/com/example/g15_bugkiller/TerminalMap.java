@@ -27,7 +27,7 @@ public class TerminalMap {
             put(Type.POT, "Ս");
             put(Type.SIEVE, "֍");
             put(Type.SAND, "҈");
-
+            put(Type.LOCH, " ");
             put(Type.NORTHTHING, "↑");
             put(Type.EASTTHING, "→");
             put(Type.SOUTHTHING, "↓");

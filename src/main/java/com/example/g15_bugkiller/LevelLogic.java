@@ -17,6 +17,7 @@ public class LevelLogic {
     // Grundablauf pro Tick
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
 
+        System.out.println("mapData: " + level.levelMap);
         level.setTicksPast(level.getTicksPast()+1);
 
         resetValues(level);
