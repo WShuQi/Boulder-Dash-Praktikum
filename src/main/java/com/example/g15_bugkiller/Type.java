@@ -29,6 +29,8 @@ public enum Type {
     SOUTHTHING,
     WESTTHING,
 
+    LOCH,
+
     CATCHALL
 
 }

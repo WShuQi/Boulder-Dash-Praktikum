@@ -74,4 +74,10 @@ public class Values {
     public void setValueList(HashMap<ValuesNames, Integer> valueList) {
         this.valueList = valueList;
     }
+
+    public void setSpecificValue(ValuesNames valuesNames, int valuewert) {
+        valueList.replace(valuesNames,valuewert);
+    }
+
 }
+
