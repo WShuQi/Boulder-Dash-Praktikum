@@ -69,10 +69,12 @@ public class Json {
                             JSONObject tokenAndValues = fieldListJson.getJSONObject(k);
                             token = Type.valueOf(tokenAndValues.getString("token").toUpperCase(Locale.ROOT));
                             values = new Values();
-                            JSONObject valueJson = tokenAndValues.getJSONObject("values");
-                            ValuesNames valuesNames = ValuesNames.DIRECTION;
-                            int valuewert = valueJson.getInt("direction");
-                            values.setSpecificValue(valuesNames,valuewert);
+                            JSONObject valuesJson = tokenAndValues.getJSONObject("values");
+                            for(String valueName : valuesJson.keySet()) {
+                                ValuesNames valuesNames = ValuesNames.valueOf(valueName.toUpperCase());
+                                int valuewert = valuesJson.getInt(valueName);
+                                values.setSpecificValue(valuesNames, valuewert);
+                            }
                         }
                         Gegenstand gegenstand = new Gegenstand(token,values);
                         Field field = new Field(gegenstand);
@@ -87,8 +89,6 @@ public class Json {
         }
         return tiles;
     }
-
-
 
     private ArrayList<TilesAt> readTilesAts() throws JSONException{
 
@@ -171,8 +171,107 @@ public class Json {
         return input;
     }
 
+    public List<Rule> getPreRules(){
+        List<Rule> preRules = new ArrayList<>();
+        JSONArray prelistJson = json.getJSONArray("pre");
+        for(int i = 0; i < prelistJson.length(); i++){
+            JSONObject preJson = prelistJson.getJSONObject(i);
+            Situation situation = Situation.valueOf(preJson.getString("situation").toUpperCase());
+            Direction direction = Direction.valueOf(preJson.getString("direction").toUpperCase());
 
-    public Level getLevel () throws JSONException{
+            List<RuleComponent> original = new ArrayList<>();
+            JSONArray originalListJson = preJson.getJSONArray("original");
+            for(int j = 0; j < originalListJson.length(); j++){
+                JSONObject originalJson = originalListJson.getJSONObject(j);
+                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
+                Values values = new Values();
+                if(originalJson.has("values")) {
+                    JSONObject valuesJson = originalJson.getJSONObject("values");
+                    for(String name : valuesJson.keySet()) {
+                        ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
+                        int valuewert = valuesJson.getInt(name);
+                        values.setSpecificValue(valuesNames, valuewert);
+                    }
+                }
+                RuleComponent ruleComponent = new RuleComponent(token,values);
+                original.add(ruleComponent);
+            }
+
+            List<RuleComponent> result = new ArrayList<>();
+            JSONArray resultListJson = preJson.getJSONArray("result");
+            for(int j = 0; j < resultListJson.length(); j++){
+                JSONObject originalJson = originalListJson.getJSONObject(j);
+                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
+                Values values = new Values();
+                if(originalJson.has("values")){
+                    JSONObject valuesJson = originalJson.getJSONObject("values");
+                    for(String name : valuesJson.keySet()) {
+                        ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
+                        int valuewert = valuesJson.getInt(name);
+                        values.setSpecificValue(valuesNames, valuewert);
+                    }
+                }
+                RuleComponent ruleComponent = new RuleComponent(token,values);
+                result.add(ruleComponent);
+            }
+
+            Rule prerule = new Rule(situation,direction,original,result);
+            preRules.add(prerule);
+        }
+        return preRules;
+    }
+
+    public List<Rule> getPostRules(){
+        List<Rule> postRules = new ArrayList<>();
+        JSONArray postlistJson = json.getJSONArray("post");
+        for(int i = 0; i < postlistJson.length(); i++){
+            JSONObject postJson = postlistJson.getJSONObject(i);
+            Situation situation = Situation.valueOf(postJson.getString("situation").toUpperCase());
+            Direction direction = Direction.valueOf(postJson.getString("direction").toUpperCase());
+
+            List<RuleComponent> original = new ArrayList<>();
+            JSONArray originalListJson = postJson.getJSONArray("original");
+            for(int j = 0; j < originalListJson.length(); j++){
+                JSONObject originalJson = originalListJson.getJSONObject(j);
+                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
+                Values values = new Values();
+                if(originalJson.has("values")) {
+                    JSONObject valuesJson = originalJson.getJSONObject("values");
+                    for(String name : valuesJson.keySet()) {
+                        ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
+                        int valuewert = valuesJson.getInt(name);
+                        values.setSpecificValue(valuesNames, valuewert);
+                    }
+                }
+                RuleComponent ruleComponent = new RuleComponent(token,values);
+                original.add(ruleComponent);
+            }
+
+            List<RuleComponent> result = new ArrayList<>();
+            JSONArray resultListJson = postJson.getJSONArray("result");
+            for(int j = 0; j < resultListJson.length(); j++){
+                JSONObject originalJson = originalListJson.getJSONObject(j);
+                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
+                Values values = new Values();
+                if(originalJson.has("values")){
+                    JSONObject valuesJson = originalJson.getJSONObject("values");
+                    for(String name : valuesJson.keySet()) {
+                        ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
+                        int valuewert = valuesJson.getInt(name);
+                        values.setSpecificValue(valuesNames, valuewert);
+                    }
+                }
+                RuleComponent ruleComponent = new RuleComponent(token,values);
+                result.add(ruleComponent);
+            }
+
+            Rule postrule = new Rule(situation,direction,original,result);
+            postRules.add(postrule);
+        }
+        return postRules;
+    }
+
+    public Level getLevel() throws JSONException{
         String levelName = json.getString("name");
 
         int[] gems = new int[3];
@@ -197,6 +296,13 @@ public class Json {
         Input mapdata = this.getInput();
 
         Level level = new Level(levelName,gems,mapdata,ticks);
+
+        if (json.has("pre")){
+            level.setPreRules(this.getPreRules());
+        }
+        if (json.has("post")){
+            level.setPostRules(this.getPostRules());
+        }
         return level;
     }
 }
