@@ -1,5 +1,6 @@
 package com.example.g15_bugkiller;
 
+import MapGeneration.Json;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -24,7 +25,9 @@ public class GUIApplication extends Application {
         stage.setTitle("Boulder Dash!");
         stage.setScene(scene);
 
-        Level level = TestInputData.createLevelData();
+        Json json = new Json("src/main/java/com/example/g15_bugkiller/level/text.json");
+        Level level = json.getLevel();
+        //Level level = TestInputData.createLevelData();
 
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();

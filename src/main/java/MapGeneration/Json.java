@@ -17,7 +17,7 @@ import java.util.Locale;
 public class Json {
 
     JSONObject json;
-    JSONObject tilesListJson;
+
 
     public Json (String filename)throws FileNotFoundException {
         InputStream file = new FileInputStream(filename);
@@ -29,11 +29,12 @@ public class Json {
         int width = mapDataJson.getInt("width");
         int height = mapDataJson.getInt("height");
         Coordinate mapsize = new Coordinate(width, height);
-        tilesListJson = mapDataJson.getJSONObject("tiles");
         return mapsize;
     }
 
     private ArrayList<Tile> readTiles(){
+        JSONObject mapDataJson = json.getJSONObject("mapdata");
+        JSONObject tilesListJson = mapDataJson.getJSONObject("tiles");
         //Parsen Variante von Tiles und in Liste speichern
         ArrayList<Tile> tiles =new ArrayList<>();
         String tileName;
@@ -70,7 +71,7 @@ public class Json {
                             values = new Values();
                             JSONObject valueJson = tokenAndValues.getJSONObject("values");
                             ValuesNames valuesNames = ValuesNames.DIRECTION;
-                            int valuewert = tokenAndValues.getInt("direction");
+                            int valuewert = valueJson.getInt("direction");
                             values.setSpecificValue(valuesNames,valuewert);
                         }
                         Gegenstand gegenstand = new Gegenstand(token,values);
@@ -95,7 +96,8 @@ public class Json {
         int defaultValue;
 
         //Parsen TilesAt und in einer Liste speichern
-        JSONArray tilesAtJson = json.getJSONArray("tilesat");
+        JSONObject mapDataJson = json.getJSONObject("mapdata");
+        JSONArray tilesAtJson = mapDataJson.getJSONArray("tilesat");
         ArrayList<TilesAt> tilesAts = new ArrayList<>();
 
         for(int i = 0; i < tilesAtJson.length(); i++){
@@ -116,9 +118,10 @@ public class Json {
         //falls connectby nicht existiert?  --> returns an empty list
         //Bitte bei Formulierung von Logik nicht vergessen zu prüfen, ob connectby existiert
 
+        JSONObject mapDataJson = json.getJSONObject("mapdata");
         List<ConnectBy> connectbys = new ArrayList<>();
-        if (json.has("connectby")) {
-            JSONArray connectbyJson = json.getJSONArray("connectby");
+        if (mapDataJson.has("connectby")) {
+            JSONArray connectbyJson = mapDataJson.getJSONArray("connectby");
             for(int i = 0; i < connectbyJson.length(); i++){
 
                 JSONObject obj = connectbyJson.getJSONObject(i);
@@ -150,7 +153,8 @@ public class Json {
     }
 
     private Field readDefaultField() throws JSONException{
-        Type token = Type.valueOf(json.getString("default").toUpperCase());
+        JSONObject mapDataJson = json.getJSONObject("mapdata");
+        Type token = Type.valueOf(mapDataJson.getString("default").toUpperCase());
         Values values = new Values();
         Gegenstand gegenstand = new Gegenstand(token,values);
         Field field = new Field(gegenstand);
@@ -178,11 +182,18 @@ public class Json {
         }
 
         int[] ticks = new int[3];
-        JSONArray ticksJson = json.getJSONArray("ticks");
-        for(int j = 0; j < ticksJson.length(); j++){
+        try{
+            JSONArray ticksJson = json.getJSONArray("ticks");
+            for(int j = 0; j < ticksJson.length(); j++){
             ticks[j] = ticksJson.getInt(j);
+            }
         }
-
+        catch (JSONException e){
+            JSONArray ticksJson = json.getJSONArray("time");
+            for(int j = 0; j < ticksJson.length(); j++){
+                ticks[j] = ticksJson.getInt(j);
+            }
+        }
         Input mapdata = this.getInput();
 
         Level level = new Level(levelName,gems,mapdata,ticks);
