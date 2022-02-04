@@ -106,9 +106,7 @@ public class Level {
         this.postRules = postRules;
     }
 
-    public void setMaxSlime(int maxSlime) {
-        this.maxSlime = maxSlime;
-    }
+    public void setMaxSlime(int maxSlime) { this.maxSlime = maxSlime;}
 
     public void setCollectedGems(int collectedGems) {
         this.collectedGems = collectedGems;

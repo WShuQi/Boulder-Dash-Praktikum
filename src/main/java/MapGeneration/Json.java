@@ -161,7 +161,7 @@ public class Json {
         return field;
     }
 
-    public Input getInput () {
+    private Input getInput () {
         List<Tile> tiles = this.readTiles();
         List<TilesAt> tilesAts = this.readTilesAts();
         List<ConnectBy> connectBys = this.readConnectby();
@@ -171,7 +171,7 @@ public class Json {
         return input;
     }
 
-    public List<Rule> getPreRules(){
+    private List<Rule> getPreRules(){
         List<Rule> preRules = new ArrayList<>();
         JSONArray prelistJson = json.getJSONArray("pre");
         for(int i = 0; i < prelistJson.length(); i++){
@@ -221,7 +221,7 @@ public class Json {
         return preRules;
     }
 
-    public List<Rule> getPostRules(){
+    private List<Rule> getPostRules(){
         List<Rule> postRules = new ArrayList<>();
         JSONArray postlistJson = json.getJSONArray("post");
         for(int i = 0; i < postlistJson.length(); i++){
