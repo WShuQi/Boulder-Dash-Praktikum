@@ -1,0 +1,43 @@
+{
+  "gems":[8,12,16],
+  "name":"Trichter",
+  "time":[130,50,25],
+  "mapdata": {
+    
+    "width" : 23,
+    "height" : 25,
+    "tiles" : {
+      "main" : [
+        [ ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
+          ["wall",  "gem",  "gem",  "gem",  {"token": "swapling", "values":{"direction": 1}},"gem",  "mud",  "mud",  "mud",  "mud",  "mud",  "mud",  "mud",  "mud",  "mud",  "mud",  "path",   "path", "mud","gem",  "gem",  "slime", "wall"],
+          ["wall",  "gem", "gem", "wall", "wall", "mud", "mud", "mud", "mud", "mud", "mud", "me", "mud", "mud", "mud", "path", "path", "path", "path", "mud", "slime", "slime", "wall"],
+          ["wall",  "gem", "wall", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "mud", "path", "path", "path", "stone", "path", "path", "path", "path", "wall"],
+          ["wall",  "wall", "mud", "mud", "path", "path", "path", "mud", "path", "mud", "mud", "mud", "mud", "path", "path", "path", "path", "mud", "mud", "mud", "path", "path", "wall"],
+          ["wall",  "mud", "path", "path", "path", "path", "gem", "gem", "path", "path", "mud", "mud", "mud", "path", "path", "gem", "gem", "path", "path", "path", "mud", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "gem", "wall", "wall", "gem", "path", "path", "mud", "path", "path", "gem", "wall", "wall", "gem", "path", "path", "path", "mud", "wall"],
+          ["wall",  "path", "path", "path", "path", "mud", "path", "path", "mud", "path", "path", "path", "path", "path", "mud", "path", "path", "mud", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "mud", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "path", "path", "wall"],
+          ["wall",  "path", "xling", "mud", "mud", "path", "path", "path", "path", "path", "gem", "gem", "path", "path", "path", "path", "path", "path", "mud", "mud", "blockling", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "gem", "wall", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "gem", "wall", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
+          ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "wall"],
+          ["wall",  "mud", "path", "path", "path", "path", "stone", "path", "path", "path", "path", "path", "path", "path", "path", "path", "stone", "path", "path", "path", "mud", {"token": "swapling", "values":{"direction": 1}}, "wall"],
+          ["wall",  "gem", "mud", "path", "path", "path", "mud", "stone", "path", {"token": "swapling", "values":{"direction": 1}}, "path", "path", "path", {"token": "swapling", "values":{"direction": 3}}, "path", "stone", "mud", "path", "path", "mud", {"token": "swapling", "values":{"direction": 1}}, {"token": "swapling", "values":{"direction": 2}}, "wall"],
+          ["wall",  "gem", "gem", "mud", "path", "path", "path", "mud", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "mud", "path", "path", "mud", {"token": "swapling", "values":{"direction": 3}}, {"token": "swapling", "values":{"direction": 2}}, "gem", "wall"],
+          ["wall",  "gem", "gem", "path", "mud", "path", "path", "path", "mud", "mud", "mud", "mud", "gem", "gem", "mud", "path", "path", "path", "wall", {"token": "swapling", "values":{"direction": 2}}, "gem", "gem", "wall"],
+          ["wall",  "gem", "gem", "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "mud", "path", "path", "path", "path", "wall", "gem", "gem", "gem", "wall"],
+          ["wall",  "slime", "slime", "path", "path", "mud", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall", "wall", "wall", "wall", "wall"],
+          ["wall",  "slime", "slime", "path", "path", "mud", "path", "path", "path", {"token": "swapling", "values":{"direction": 3}}, "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "mud", "mud", "exit"],
+          ["wall",  "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"] ]
+        ]
+    },
+    "tilesat" : [
+      {"x" : 0, "y" : 0, "kind" : "main", "default" : 0}
+    ],
+    "default" : "wall"
+  }
+}
