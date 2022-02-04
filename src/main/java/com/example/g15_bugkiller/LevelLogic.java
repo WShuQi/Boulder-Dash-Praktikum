@@ -325,8 +325,8 @@ public class LevelLogic {
             }
         }
 
-        for(ValuesNames valueName: ValuesNames.values()){
-            if(fieldValues.get(valueName) < ruleComponentValues.get(valueName)){
+        for(ValuesNames valueName: ruleComponentValues.keySet()){
+            if(fieldValues.getOrDefault(valueName, 0) < ruleComponentValues.get(valueName)){
                 fieldValuesAreGreaterOrEqualToRuleComponentValues = false;
                 break;
             }
@@ -358,8 +358,8 @@ public class LevelLogic {
     private static boolean valuesWereReplaced = false;
     private static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
         valuesWereReplaced = true;
-        for(ValuesNames valueName: ValuesNames.values()){
-            int currentFieldValue = currentField.getGegenstand().getValues().getValueList().get(valueName);
+        for(ValuesNames valueName: currentResultComponent.getValues().getValueList().keySet()){
+            int currentFieldValue = currentField.getGegenstand().getValues().getValueList().getOrDefault(valueName, 0);
             int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
 
             if(currentResultComponentValue == 0){
@@ -462,7 +462,7 @@ public class LevelLogic {
 
         for (int x = 0; x<map.length; x++){
             for (int y = 0; y<map[x].length; y++){
-                if (map[x][y].getGegenstand().getValues().getValueList().get(ValuesNames.COLLECTED) == 1){
+                if (map[x][y].getGegenstand().getValues().getValueList().getOrDefault(ValuesNames.COLLECTED, 0) == 1){
                     level.setCollectedGems(level.getCollectedGems() + 1);
                 }
             }
