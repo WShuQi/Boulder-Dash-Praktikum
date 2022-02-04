@@ -25,7 +25,7 @@ public class GUIApplication extends Application {
         stage.setTitle("Boulder Dash!");
         stage.setScene(scene);
 
-        Json json = new Json("src/main/java/com/example/g15_bugkiller/level/bereiche.json");
+        Json json = new Json("src/main/java/com/example/g15_bugkiller/level/smiley.json");
         Level level = json.getLevel();
         //Level level = TestInputData.createLevelData();
 
