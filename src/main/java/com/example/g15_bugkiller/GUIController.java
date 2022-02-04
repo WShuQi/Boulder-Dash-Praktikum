@@ -35,7 +35,7 @@ public class GUIController {
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
                 LevelLogic.tick(level, currentKeysPressed);
-                TerminalMap.drawMap(level.levelMap);
+                //TerminalMap.drawMap(level.levelMap);
                 updateView();
             }
         };

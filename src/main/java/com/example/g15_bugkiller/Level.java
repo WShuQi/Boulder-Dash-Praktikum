@@ -47,7 +47,7 @@ public class Level {
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
         System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
-        TerminalMap.drawMap(this.levelMap);
+        //TerminalMap.drawMap(this.levelMap);
     }
 
     public String getLevelName() {
