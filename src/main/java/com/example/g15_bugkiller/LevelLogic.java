@@ -374,8 +374,8 @@ public class LevelLogic {
     //Methods for mainRules
     private static RuleComponent spaceToGrow = new RuleComponent(new Type[]{Type.PATH, Type.BLOCKLING, Type.SWAPLING, Type.XLING, Type.MUD}, new Values());
     private static RuleComponent spaceToGrowTo = new RuleComponent(1, new Values());
-    private static RuleComponent slimeWithCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CanGROW, 1);}}));
-    private static RuleComponent slimeWithoutCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CanGROW, 0);}}));
+    private static RuleComponent slimeWithCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CANGROW, 1);}}));
+    private static RuleComponent slimeWithoutCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CANGROW, 0);}}));
 
     private static Rule setSlimeCanGrowRuleEast = new Rule(Situation.ANY, Direction.EAST, List.of(slimeWithoutCanGrow, spaceToGrow), List.of(slimeWithCanGrow, spaceToGrowTo));
     private static Rule setSlimeCanGrowRuleNorth = new Rule(Situation.ANY, Direction.NORTH, List.of(slimeWithoutCanGrow, spaceToGrow), List.of(slimeWithCanGrow, spaceToGrowTo));
@@ -450,7 +450,7 @@ public class LevelLogic {
         for (int x = 0; x<map.length; x++){
             for (int y = 0; y<map[x].length; y++){
                 Gegenstand gegenstand = map[x][y].getGegenstand();
-                if(gegenstand.getToken() == Type.SLIME && gegenstand.getValues().getValueList().get(ValuesNames.CanGROW) == 0){
+                if(gegenstand.getToken() == Type.SLIME && gegenstand.getValues().getValueList().get(ValuesNames.CANGROW) == 0){
                     map[x][y].getGegenstand().setToken(Type.GEM);
                 }
             }

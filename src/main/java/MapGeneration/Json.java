@@ -200,11 +200,11 @@ public class Json {
             List<RuleComponent> result = new ArrayList<>();
             JSONArray resultListJson = preJson.getJSONArray("result");
             for(int j = 0; j < resultListJson.length(); j++){
-                JSONObject originalJson = originalListJson.getJSONObject(j);
-                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
+                JSONObject resultJson = resultListJson.getJSONObject(j);
+                Type token = Type.valueOf(resultJson.getString("token").toUpperCase());
                 Values values = new Values();
-                if(originalJson.has("values")){
-                    JSONObject valuesJson = originalJson.getJSONObject("values");
+                if(resultJson.has("values")){
+                    JSONObject valuesJson = resultJson.getJSONObject("values");
                     for(String name : valuesJson.keySet()) {
                         ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
                         int valuewert = valuesJson.getInt(name);
@@ -250,11 +250,11 @@ public class Json {
             List<RuleComponent> result = new ArrayList<>();
             JSONArray resultListJson = postJson.getJSONArray("result");
             for(int j = 0; j < resultListJson.length(); j++){
-                JSONObject originalJson = originalListJson.getJSONObject(j);
-                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
+                JSONObject resultJson = resultListJson.getJSONObject(j);
+                Type token = Type.valueOf(resultJson.getString("token").toUpperCase());
                 Values values = new Values();
-                if(originalJson.has("values")){
-                    JSONObject valuesJson = originalJson.getJSONObject("values");
+                if(resultJson.has("values")){
+                    JSONObject valuesJson = resultJson.getJSONObject("values");
                     for(String name : valuesJson.keySet()) {
                         ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
                         int valuewert = valuesJson.getInt(name);

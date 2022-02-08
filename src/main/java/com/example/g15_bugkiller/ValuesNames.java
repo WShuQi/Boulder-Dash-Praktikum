@@ -14,8 +14,8 @@ public enum ValuesNames {
     C,
     D,
     COLLECTED,
-    ToGEM,
-    ToEXPLOSION,
-    HasSPACE,
-    CanGROW
+    TOGEM,
+    TOEXPLOSION,
+    HASSPACE,
+    CANGROW
 }
