@@ -30,7 +30,6 @@ public enum Type {
     WESTTHING,
 
     LOCH,
-    DIAMOND,
 
     CATCHALL
 
