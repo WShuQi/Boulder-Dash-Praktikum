@@ -37,9 +37,11 @@ public class GUIController {
 
                 if(level.isTimeUp() | level.isExitReached()){
                     LevelLogic.resetLevel(level);
-                    //return to level overview
+
+                    game.updateTotalPoints();
                     game.unlockNextLevelAsNecessary();
-                    //timer.stop();
+                    //GUI: return to level overview
+                    //stop timeline
                 }
             }
         };

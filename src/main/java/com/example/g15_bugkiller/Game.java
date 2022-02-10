@@ -8,6 +8,7 @@ public class Game {
     List<Level> levels;
     int numberOfUnlockedLevels = 1;
     int necessaryRatioOfTotalPoints;
+    int totalPoints = 0;
 
     public Game(List<Level> levels, int necessaryRatioOfTotalPoints) {
         this.levels = levels;
@@ -25,11 +26,6 @@ public class Game {
         if(numberOfUnlockedLevels < numberOfLevels) {
             int indexOfNextUnlockedLevel = numberOfUnlockedLevels;
             int necessaryPoints = (int) Math.floor(necessaryRatioOfTotalPoints * numberOfLevels * 3);
-            int totalPoints = 0;
-
-            for (Level level : levels) {
-                totalPoints = totalPoints + level.getScoredPoints();
-            }
 
             if (totalPoints >= necessaryPoints) {
                 levels.get(indexOfNextUnlockedLevel).setUnlocked(true);
@@ -38,7 +34,21 @@ public class Game {
         }
     }
 
+    public void updateTotalPoints(){
+        int totalPoints = 0;
+
+        for (Level level : levels) {
+            totalPoints = totalPoints + level.getScoredPoints();
+        }
+
+        this.totalPoints = totalPoints;
+    }
+
     public void setLevels(List<Level> levels) {
         this.levels = levels;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
     }
 }
