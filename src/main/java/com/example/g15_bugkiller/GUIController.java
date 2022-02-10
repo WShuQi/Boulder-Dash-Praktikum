@@ -4,30 +4,27 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
-import org.json.JSONObject;
 
 public class GUIController {
 
     private GUIView view;
-    private Level level;
+    private Game game;
     private KeyPressListener keyPressListener;
 
-    public GUIController(GUIView view, Level level, KeyPressListener keyPressListener) {
+    public GUIController(GUIView view, Game game, KeyPressListener keyPressListener) {
         this.view = view;
-        this.level = level;
+        this.game = game;
         this.keyPressListener = keyPressListener;
 
-        executeTimeline();
+        playLevel(0);  //TODO: delete if level overview is implemented
     }
 
-    private void updateView() {
+    private void updateView(Level level) {
         view.drawLevel(level);
     }
 
-    public void executeTimeline(){
+    public void executeTimeline(Level level){
 
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 
@@ -35,8 +32,15 @@ public class GUIController {
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
                 LevelLogic.tick(level, currentKeysPressed);
-                //TerminalMap.drawMap(level.levelMap);
-                updateView();
+                TerminalMap.drawMap(level.getLevelMap());
+                updateView(level);
+
+                if(level.isTimeUp() | level.isExitReached()){
+                    LevelLogic.resetLevel(level);
+                    //return to level overview
+                    game.unlockNextLevelAsNecessary();
+                    //timer.stop();
+                }
             }
         };
 
@@ -46,5 +50,8 @@ public class GUIController {
         timer.play();
     }
 
+    public void playLevel(int indexOfSelectedLevel){
+        executeTimeline(game.getLevels().get(indexOfSelectedLevel));
+    }
 
 }

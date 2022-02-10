@@ -24,6 +24,8 @@ public class Level {
     int z;
     boolean timeUp = false; //ist ticksPast <= ticks[0] ?
     boolean passed = false;
+    boolean unlocked = false;
+    boolean exitReached = false;
 
     public boolean isPlayerDead() {
         return playerDead;
@@ -231,5 +233,21 @@ public class Level {
 
     public void setPassed(boolean passed) {
         this.passed = passed;
+    }
+
+    public boolean isUnlocked() {
+        return unlocked;
+    }
+
+    public void setUnlocked(boolean unlocked) {
+        this.unlocked = unlocked;
+    }
+
+    public boolean isExitReached() {
+        return exitReached;
+    }
+
+    public void setExitReached(boolean exitReached) {
+        this.exitReached = exitReached;
     }
 }

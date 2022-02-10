@@ -6,29 +6,23 @@ import java.util.List;
 
 public class LevelLogic {
 
-// TODO: Fragen fürs Tutorium:
-//  Sparsity  -> wsl auf der obersten Ebene gespeichert
-//  Kann ein Feld pro Tick mehrmals geändert werden? -> Ja!
-//  Levelübersicht? -> Sinnvoll, Gui bauen
-//  Integration von Keypresslistener?, -> am besten in Timeline, übergeben als Parameter
-//  Klasse von Token bestimmen? (Unterschied String/int, Wie sieht Stringarray aus?) -> siehe Seite 15 oben
-
-
     // Grundablauf pro Tick
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
 
         System.out.println("mapData: " + level.levelMap);
         level.setTicksPast(level.getTicksPast()+1);
 
-        resetValues(level);
+        resetLevel(level);
         executePreRules(level, currentKeysPressed);
         executeMainRules(level, currentKeysPressed);
         executePostRules(level, currentKeysPressed);
         computeScoredPoints(level);
+        checkIfExitIsReached(level);
+        checkIfLevelIsPassed(level);
         checkIfTimeIsUp(level);
     }
 
-    private static Level resetValues(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+    public static void resetLevel(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
         Field[][] map = level.getLevelMap();
         int rowLength = map.length;
         int columnLength = map[0].length;
@@ -38,8 +32,16 @@ public class LevelLogic {
                 map[rowIterator][columnIterator].getGegenstand().resetValues();
             }
         }
-        level.setLevelMap(map);
-        return level;
+        level.setLevelMap(map); //@Charis: Why?
+
+        level.setTicksPast(0);
+        level.setExitReached(false);
+        level.setTimeUp(false);
+        level.setCollectedGems(0);
+
+        if(!level.isPassed()){
+            level.setScoredPoints(0);
+        }
     }
 
 
@@ -63,6 +65,33 @@ public class LevelLogic {
             level.setScoredPoints(1);
         } else {
             level.setScoredPoints(0);
+        }
+    }
+
+    private static void checkIfExitIsReached(Level level){
+        boolean exitOnMap = false;
+        Field[][] map = level.getLevelMap();
+
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+            for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+
+                if(map[columnCounter][rowCounter].getType() == Type.EXIT){
+                    exitOnMap = true;
+                }
+            }
+        }
+
+        if(!exitOnMap) {
+            level.setExitReached(true);
+        }
+    }
+
+    private static void checkIfLevelIsPassed(Level level){
+        if(level.getScoredPoints() > 0 && !level.isTimeUp() && level.isExitReached()){
+            level.setPassed(true);
         }
     }
 

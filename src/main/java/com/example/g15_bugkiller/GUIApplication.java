@@ -1,7 +1,6 @@
 package com.example.g15_bugkiller;
 
 import MapGeneration.Json;
-import MapGeneration.MainRulesJson;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,6 +11,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GUIApplication extends Application {
 
@@ -26,12 +27,14 @@ public class GUIApplication extends Application {
         stage.setTitle("Boulder Dash!");
         stage.setScene(scene);
 
-        Json json = new Json("src/main/java/com/example/g15_bugkiller/level/text.json");
+        Json json = new Json("src/main/java/com/example/g15_bugkiller/level/smiley.json");
         Level level = json.getLevel();
         //Level level = TestInputData.createLevelData();
 
-        MainRulesJson mainRulesJson = new MainRulesJson("src/main/java/com/example/g15_bugkiller/mainRules.json");
-        level.setMainRules(mainRulesJson.readMainRules());
+
+        List<Level> levels = new ArrayList<Level>();
+        levels.add(level);
+        Game game = new Game(levels, 2/3);
 
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -45,7 +48,7 @@ public class GUIApplication extends Application {
         stage.addEventFilter(KeyEvent.KEY_PRESSED, keyPressListener.keyPressed);
         stage.addEventFilter(KeyEvent.KEY_RELEASED, keyPressListener.keyReleased);
 
-        GUIController controller = new GUIController(view, level, keyPressListener);
+        GUIController controller = new GUIController(view, game, keyPressListener);
 
         stage.show();
     }
