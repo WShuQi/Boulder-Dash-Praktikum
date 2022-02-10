@@ -99,7 +99,21 @@ public class Level {
     }
 
     public void setPreRules(List<Rule> preRules) {
+
         this.preRules = preRules;
+
+        System.out.println("Printing Pre Rule Values");
+        for (int i = 0; i < preRules.size(); i++) {
+            System.out.println("Original Values:");
+            for (int j = 0; j < preRules.get(i).getOriginal().size(); j++) {
+                System.out.println(preRules.get(i).getOriginal().get(j).getValues().getValueList());
+            }
+
+            System.out.println("Result Values:");
+            for (int j = 0; j < preRules.get(i).getResult().size(); j++) {
+                System.out.println(preRules.get(i).getResult().get(j).getValues().getValueList());
+            }
+        }
     }
 
     public void setPostRules(List<Rule> postRules) {
@@ -162,6 +176,53 @@ public class Level {
 
     public void setMainRules(List<Rule> mainRules) {
         this.mainRules = mainRules;
+
+        System.out.println("Printing main rules");
+
+        for (int i = 0; i < mainRules.size(); i++) {
+            System.out.println("Rule nummer " + i);
+            System.out.println("");
+            System.out.println("Situation: " + mainRules.get(i).getSituation());
+            System.out.println("Direction: " + mainRules.get(i).getDirection());
+            System.out.println("");
+
+            for (int j = 0; j < mainRules.get(i).getOriginal().size(); j++) {
+
+                System.out.println("Token " + mainRules.get(i).getOriginal().get(j).getToken());
+                if(mainRules.get(i).getResult().get(j).getToken() == Type[].class){
+                    System.out.println("is a type array");
+                }else if(mainRules.get(i).getResult().get(j).getToken() == Type.class){
+                    System.out.println("is a type");
+                }else if(mainRules.get(i).getResult().get(j).getToken() == int.class){
+                    System.out.println("is a int");
+                }else{
+                    System.out.println("is NOT a type array or type or int");
+                }
+
+                System.out.println("Values:");
+                System.out.println(mainRules.get(i).getOriginal().get(j).getValues().getValueList());
+
+            }
+
+            System.out.println("");
+            System.out.println("Result Values:");
+            for (int j = 0; j < mainRules.get(i).getResult().size(); j++) {
+                System.out.println("Token " + mainRules.get(i).getResult().get(j).getToken());
+
+                if(mainRules.get(i).getResult().get(j).getToken() == Type[].class){
+                    System.out.println("is a type array");
+                }else if(mainRules.get(i).getResult().get(j).getToken() == Type.class){
+                    System.out.println("is a type");
+                }else if(mainRules.get(i).getResult().get(j).getToken() == int.class){
+                    System.out.println("is a int");
+                }else{
+                    System.out.println("is NOT a type array or type or int");
+                }
+
+                System.out.println("Values:");
+                System.out.println(mainRules.get(i).getResult().get(j).getValues().getValueList());
+            }
+        }
     }
 
     public boolean isPassed() {
