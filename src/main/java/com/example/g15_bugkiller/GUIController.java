@@ -22,7 +22,7 @@ public class GUIController {
 
     private void updateView(Level level) {
         view.drawLevel(level);
-    }
+    }       //Todo: Game(davon List<Level>)anpassen
 
     public void executeTimeline(Level level){
 
