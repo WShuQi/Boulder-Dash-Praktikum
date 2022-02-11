@@ -34,7 +34,7 @@ public class Game {
         }
     }
 
-    public void updateTotalPoints(){
+    public void updateTotalPoints() {
         int totalPoints = 0;
 
         for (Level level : levels) {
@@ -44,8 +44,8 @@ public class Game {
         this.totalPoints = totalPoints;
     }
 
-    public void setLevels(List<Level> levels) {
-        this.levels = levels;
+    public void setLevel(Level level) {
+        this.levels.add(level);
     }
 
     public int getTotalPoints() {
