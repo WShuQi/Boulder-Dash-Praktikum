@@ -182,9 +182,13 @@ public class Json {
                             values = new Values();
                             JSONObject valuesJson = tokenAndValues.getJSONObject("values");
                             for(String valueName : valuesJson.keySet()) {
-                                ValuesNames valuesNames = ValuesNames.valueOf(valueName.toUpperCase());
-                                int valuewert = valuesJson.getInt(valueName);
-                                values.setSpecificValue(valuesNames, valuewert);
+                                try {
+                                    ValuesNames valuesNames = ValuesNames.valueOf(valueName.toUpperCase());
+                                    int valuewert = valuesJson.getInt(valueName);
+                                    values.setSpecificValue(valuesNames, valuewert);
+                                } catch (IllegalArgumentException exc) {
+                                    System.out.println(valueName);
+                                }
                             }
                         }
                         Gegenstand gegenstand = new Gegenstand(token,values);

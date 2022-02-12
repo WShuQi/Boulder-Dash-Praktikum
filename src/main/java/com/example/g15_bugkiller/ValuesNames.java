@@ -17,5 +17,9 @@ public enum ValuesNames {
     TOGEM,
     TOEXPLOSION,
     HASSPACE,
-    CANGROW
+    CANGROW,
+
+    X,
+    Y,
+    Z
 }

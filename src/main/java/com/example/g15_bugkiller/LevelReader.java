@@ -4,6 +4,7 @@ import MapGeneration.Json;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LevelReader {
@@ -16,7 +17,7 @@ public class LevelReader {
     }
 
     public Map<String, Level> readLevel() throws FileNotFoundException {
-        Map<String, Level> levels = null;
+        Map<String, Level> levels = new HashMap<>();
         File file = new File(path);
         File[] levelfiles = file.listFiles();
         for (File f : levelfiles) {
@@ -24,6 +25,7 @@ public class LevelReader {
             System.out.println("current file: ");
             System.out.println(f.getPath());
             Level level = json.getLevel();
+            System.out.println(level);
             level.setMainRules(mainRulesJson.getMainRules());
             String fileName = f.getName();  //Kann auch mit "String levelName = level.getname();" replace, jedoch finde ich, dass so mit filename zu speichern eleganter ist.
             String levelName = fileName.substring(0, fileName.lastIndexOf("."));
