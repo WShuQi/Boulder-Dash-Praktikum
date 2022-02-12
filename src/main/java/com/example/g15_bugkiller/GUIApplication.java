@@ -30,7 +30,7 @@ public class GUIApplication extends Application {
         LevelReader levelReader = new LevelReader("src/main/java/com/example/g15_bugkiller/level");
         Map<String, Level> levels = levelReader.readLevel();
 
-        Game game = new Game(levels, 100); //Todo: zweite Wert habe ich nur random gewaehlt
+        Game game = new Game(levels, 0.5);
 
 
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);

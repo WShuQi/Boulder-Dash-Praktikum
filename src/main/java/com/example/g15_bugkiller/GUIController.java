@@ -11,6 +11,7 @@ public class GUIController {
     private GUIView view;
     private Game game;
     private KeyPressListener keyPressListener;
+    private Timeline timer;
 
     public GUIController(GUIView view, Game game, KeyPressListener keyPressListener) {
         this.view = view;
@@ -35,19 +36,21 @@ public class GUIController {
                 TerminalMap.drawMap(level.getLevelMap());
                 updateView(level);
 
-                if(level.isTimeUp() | level.isExitReached()){
+                if(level.isTimeUp() | level.isExitReached() | level.isPlayerDead()){
                     LevelLogic.resetLevel(level);
 
                     game.updateTotalPoints();
                     game.unlockNextLevelAsNecessary();
                     //GUI: return to level overview
-                    //stop timeline
+                    timer.stop();
+                    timer.getKeyFrames().clear();
+                    timer = null;
                 }
             }
         };
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), handler);
-        Timeline timer = new Timeline(keyFrame);
+        timer = new Timeline(keyFrame);
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }

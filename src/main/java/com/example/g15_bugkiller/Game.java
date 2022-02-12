@@ -9,13 +9,13 @@ public class Game {
     Map<String, Level> levels;
     List<Rule> mainRules;
     int numberOfUnlockedLevels = 1;
-    int necessaryRatioOfTotalPoints;
+    double necessaryRatioOfTotalPoints;
     int totalPoints = 0;
 
-    public Game(Map<String, Level> levels, int necessaryRatioOfTotalPoints) {
+    public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints) {
         this.levels = levels;
         this.necessaryRatioOfTotalPoints = necessaryRatioOfTotalPoints;
-        levels.get(0).setUnlocked(true);
+        levels.get(0).setUnlocked(true);     //TODO: modify
     }
 
     public Map<String, Level> getLevels() {
@@ -28,7 +28,7 @@ public class Game {
 
         if(numberOfUnlockedLevels < numberOfLevels) {
             int indexOfNextUnlockedLevel = numberOfUnlockedLevels;
-            int necessaryPoints = (int) Math.floor(necessaryRatioOfTotalPoints * numberOfLevels * 3);
+            int necessaryPoints = (int) Math.floor(necessaryRatioOfTotalPoints * numberOfUnlockedLevels * 3);
 
             if (totalPoints >= necessaryPoints) {
                 levels.get(indexOfNextUnlockedLevel).setUnlocked(true);
@@ -41,7 +41,10 @@ public class Game {
         int totalPoints = 0;
 
         for (Level level : levels.values()) {
-            totalPoints = totalPoints + level.getScoredPoints();
+
+            if(level.isPassed()) {
+                totalPoints = totalPoints + level.getScoredPoints();
+            }
         }
 
         this.totalPoints = totalPoints;

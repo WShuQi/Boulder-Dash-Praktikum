@@ -12,11 +12,14 @@ public class LevelLogic {
         System.out.println("mapData: " + level.getLevelMap());
         level.setTicksPast(level.getTicksPast() + 1);
 
-        resetLevel(level);
         executePreRules(level, currentKeysPressed);
         executeMainRules(level, currentKeysPressed);
         executePostRules(level, currentKeysPressed);
+
         computeScoredPoints(level);
+        slimeCheck(level);
+        collectedGemCheck(level);
+        playerDeadCheck(level);
         checkIfExitIsReached(level);
         checkIfLevelIsPassed(level);
         checkIfTimeIsUp(level);
@@ -27,21 +30,22 @@ public class LevelLogic {
         int rowLength = map.length;
         int columnLength = map[0].length;
 
-        for(int rowIterator=0; rowIterator < rowLength; rowIterator++) {
+        for(int rowIterator = 0; rowIterator < rowLength; rowIterator++) {
             for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
                 map[rowIterator][columnIterator].getGegenstand().resetValues();
             }
         }
-        level.setLevelMap(map); //@Charis: Why?
 
         level.setTicksPast(0);
         level.setExitReached(false);
         level.setTimeUp(false);
         level.setCollectedGems(0);
+        level.setPlayerDead(false);
 
         if(!level.isPassed()){
             level.setScoredPoints(0);
         }
+
     }
 
 
@@ -68,6 +72,8 @@ public class LevelLogic {
         }
     }
 
+    //TODO: check this in a new mainRule
+
     private static void checkIfExitIsReached(Level level){
 
         Field[][] map = level.getLevelMap();
@@ -87,7 +93,7 @@ public class LevelLogic {
     }
 
     private static void checkIfLevelIsPassed(Level level){
-        if(level.getScoredPoints() > 0 && !level.isTimeUp() && level.isExitReached()){
+        if(level.getScoredPoints() > 0 && !level.isTimeUp() && level.isExitReached() && !level.isPlayerDead()){
             level.setPassed(true);
         }
     }
@@ -100,10 +106,6 @@ public class LevelLogic {
     private static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> mainRules = level.getMainRules();
         executeRules(mainRules, level, currentKeysPressed);
-
-        slimeCheck(level);
-        collectedGemCheck(level);
-        playerDeadCheck(level);
     }
 
     private static void executePostRules(Level level, KeyPressListener currentKeysPressed){
