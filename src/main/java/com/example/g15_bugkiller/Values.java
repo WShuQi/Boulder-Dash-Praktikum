@@ -32,8 +32,12 @@ public class Values {
         valueList.put(HASSPACE, 0);
         valueList.put(CANGROW, 0);
         valueList.put(EXITREACHED, 0);
+        valueList.put(X, 0);
+        valueList.put(Y, 0);
+        valueList.put(Z, 0);
+        valueList.put(GEMS, 0);
+        valueList.put(TICKS, 0);
         valueList.put(STOP, 0);
-        valueList.put(STOPBUTTONPRESSED,0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {

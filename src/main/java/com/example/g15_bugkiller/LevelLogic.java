@@ -152,7 +152,6 @@ public class LevelLogic {
                 continue;
             }
 
-
             switch(direction) {
                 case EAST:
                     executeRuleEastward(rule, level);
@@ -168,7 +167,7 @@ public class LevelLogic {
                     break;
             }
 
-            if(rule.result.){
+            if(rule.getRuleName().equals("StopButtonRight") | rule.getRuleName().equals("StopButtonLeft") | rule.getRuleName().equals("StopButtonDown") | rule.getRuleName().equals("StopButtonUp")){
                 level.setStopped(true);
                 level.setStopCounter(5*5);
             }
@@ -521,18 +520,15 @@ public class LevelLogic {
 
         if(playerIsDead){
             level.setCurrentLives(level.getCurrentLives()-1);
+            Coordinate originalMePosition = level.getOriginalMePosition();
 
             if(level.getCurrentLives() == 0){
                 level.setPlayerDead(true);
+            } else {
+                map[originalMePosition.getY()][originalMePosition.getX()].getGegenstand().setToken(Type.ME);
             }
 
-            Coordinate originalMePosition = level.getOriginalMePosition();
-
-            map[originalMePosition.getY()][originalMePosition.getX()].getGegenstand().setToken(Type.ME);
-
         }
-
-
     }
 
     public static Coordinate computeMePosition(Field[][] map){;
@@ -556,7 +552,7 @@ public class LevelLogic {
         return mePosition;
     }
 
-    private void updateStopCounter(Level level){
+    private static void updateStopCounter(Level level){
         int stopCounter = level.getStopCounter();
 
         if(level.isStopped() && stopCounter > 0){
@@ -566,7 +562,6 @@ public class LevelLogic {
         if(stopCounter == 0){
             level.setStopped(false);
         }
-
     }
 }
 

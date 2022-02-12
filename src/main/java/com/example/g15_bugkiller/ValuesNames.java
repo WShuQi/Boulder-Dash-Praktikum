@@ -13,6 +13,11 @@ public enum ValuesNames {
     B,
     C,
     D,
+    X,
+    Y,
+    Z,
+    GEMS,
+    TICKS,
     COLLECTED,
     TOGEM,
     TOEXPLOSION,
@@ -20,6 +25,5 @@ public enum ValuesNames {
     CANGROW,
 
     EXITREACHED,
-    STOP,
-    STOPBUTTONPRESSED
+    STOP
 }

@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Rule {
 
+    String ruleName;
     Situation situation;
     Direction direction;
     List<RuleComponent> original;
     List<RuleComponent> result;
-    boolean executedWhenStopped = true;
     boolean collectsStop = false;
 
     public Rule(Situation situation, Direction direction, List<RuleComponent> original, List<RuleComponent> result){
@@ -18,12 +18,11 @@ public class Rule {
         this.result = result;
     }
 
-    public Rule(Situation situation, Direction direction, List<RuleComponent> original, List<RuleComponent> result, boolean executedWhenStopped, boolean collectsStop) {
+    public Rule(Situation situation, Direction direction, List<RuleComponent> original, List<RuleComponent> result, boolean collectsStop) {
         this.situation = situation;
         this.direction = direction;
         this.original = original;
         this.result = result;
-        this.executedWhenStopped = executedWhenStopped;
         this.collectsStop = collectsStop;
     }
 
@@ -43,13 +42,6 @@ public class Rule {
         return result;
     }
 
-    public boolean isExecutedWhenStopped() {
-        return executedWhenStopped;
-    }
-
-    public void setExecutedWhenStopped(boolean executedWhenStopped) {
-        this.executedWhenStopped = executedWhenStopped;
-    }
 
     public boolean isCollectsStop() {
         return collectsStop;
@@ -57,5 +49,13 @@ public class Rule {
 
     public void setCollectsStop(boolean collectsStop) {
         this.collectsStop = collectsStop;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
     }
 }

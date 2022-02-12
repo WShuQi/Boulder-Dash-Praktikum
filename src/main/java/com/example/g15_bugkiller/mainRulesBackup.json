@@ -13,25 +13,25 @@
       "situation":"right",
       "direction":"east",
       "original":[{"token":"me", "values":{"moved":0}},{"token":"stopbutton", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "stopbuttonpressed": 1}}]
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
     },
-    { "name": "MeExitLeft",
+    { "name": "StopButtonLeft",
       "situation":"left",
       "direction":"west",
       "original":[{"token":"me", "values":{"moved":0}},{"token":"stopbutton", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "stopbuttonpressed":  1}}]
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
     },
-    { "name": "MeExitDown",
+    { "name": "StopButtonDown",
       "situation":"down",
       "direction":"south",
       "original":[{"token":"me", "values":{"moved":0}},{"token":"stopbutton", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "stopbuttonpressed":  1}}]
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
     },
-    { "name": "MeExitUp",
+    { "name": "StopButtonUp",
       "situation":"up",
       "direction":"north",
       "original":[{"token":"me", "values":{"moved":0}},{"token":"stopbutton", "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "stopbuttonpressed":  1}}]
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
     },
 
 
