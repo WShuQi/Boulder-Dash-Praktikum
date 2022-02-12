@@ -32,6 +32,7 @@ public class MainRulesJson {
     public List<Rule> readMainRules() throws JSONException{
         List<Rule> mainRulesList = new ArrayList<>();
         JSONArray mainRulesListArr = mainRulesListJson.getJSONArray("MainRules");
+
         for(int i = 0; i < mainRulesListArr.length(); i++){
             JSONObject mainRuleJson = mainRulesListArr.getJSONObject(i);
             Situation situation = Situation.valueOf(mainRuleJson.getString("situation").toUpperCase());

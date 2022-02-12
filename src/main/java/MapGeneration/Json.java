@@ -16,15 +16,124 @@ import java.util.Locale;
 
 public class Json {
 
-    JSONObject json;
+    private JSONObject json;
 
 
-    public Json (String filename)throws FileNotFoundException {
+    public Json(String filename) throws FileNotFoundException {
         InputStream file = new FileInputStream(filename);
         this.json = new JSONObject(new JSONTokener(file));
     }
 
-    private Coordinate readMapdata() throws JSONException{
+    private boolean isType(String text) {
+        boolean boo = false;
+        if (text.toUpperCase().equals("ME") || text.toUpperCase().equals("MUD") || text.toUpperCase().equals("STONE") || text.toUpperCase().equals("BRICKS") || text.toUpperCase().equals("PATH") || text.toUpperCase().equals("EXIT") || text.toUpperCase().equals("WALL") || text.toUpperCase().equals("EXPLOSION") || text.toUpperCase().equals("FIRE") || text.toUpperCase().equals("POT") || text.toUpperCase().equals("SIEVE") || text.toUpperCase().equals("SAND") || text.toUpperCase().equals("SLIME") || text.toUpperCase().equals("SWAPLING") || text.toUpperCase().equals("BLOCKLING") || text.toUpperCase().equals("XLING") || text.toUpperCase().equals("GHOSTLING") || text.toUpperCase().equals("NORTHTHING") || text.toUpperCase().equals("CATCHALL") | text.toUpperCase().equals("LOCH") || text.toUpperCase().equals("WESTTHING") || text.toUpperCase().equals("SOUTHTHING") || text.toUpperCase().equals("EASTTHING")) {
+            boo = true;
+        }
+        return boo;
+    }
+
+    private Object readToken(JSONObject jObjToken) throws JSONException {
+        Object token = new Object();
+        try {
+            JSONArray tokenArr = jObjToken.getJSONArray("token");
+            System.out.println("This token contains a list.");
+            List<Object> tokenList = new ArrayList<>();
+            for (int g = 0; g < tokenArr.length(); g++) {
+                Object thisToken = new Object();
+                if (tokenArr.get(g) instanceof Integer) {
+                    System.out.println("This Token is Int.");
+                    thisToken = tokenArr.getInt(g);
+                    System.out.println(thisToken);
+                } else {
+                    String thisTokenStr = tokenArr.getString(g);
+                    if (this.isType(thisTokenStr)) {
+                        System.out.println("This token is Type");
+                        thisToken = Type.valueOf(thisTokenStr.toUpperCase());
+                        System.out.println(thisToken);
+                    } else if (thisTokenStr.equals("*")) {
+                        System.out.println("This token is *");
+                        thisToken = Type.CATCHALL;
+                        System.out.println(thisToken);
+                    } else if (thisTokenStr.matches("[0-9]")) {
+                        System.out.println("This token is a string of number");
+                        thisToken = Integer.parseInt(thisTokenStr);
+                        System.out.println(thisToken);
+                    } else {
+                        System.out.println("This token is not Type or * or \"integer\"");
+                    }
+                }
+                tokenList.add(thisToken);
+            }
+            System.out.println(tokenList);
+        } catch (JSONException e) {
+            if (jObjToken.get("token") instanceof Integer) {
+                token = jObjToken.getInt("token");
+                System.out.println("Token is a int");
+                System.out.println(token);
+            } else {
+                String tokenStr = jObjToken.getString("token");
+                System.out.println("Token is a String...");
+                System.out.println(token);
+                if (this.isType(tokenStr)) {
+                    token = Type.valueOf(tokenStr.toUpperCase());
+                    System.out.println("Token is a Type");
+                    System.out.println(token);
+                } else if (tokenStr.equals("*")) {
+                    token = Type.CATCHALL;
+                    System.out.println("Token is *");
+                    System.out.println(token);
+                } else if (tokenStr.matches("[0-9]")) {
+                    System.out.println("Token is a string of number");
+                    token = Integer.parseInt(tokenStr);
+                    System.out.println(token);
+                } else {
+                    System.out.println("Token is not Type or * or \"integer\"");
+                }
+            }
+        }
+        return token;
+    }
+
+    private Values readValues(JSONObject jobjValues) throws JSONException {
+        Values values = new Values();
+        JSONObject valuesJson = jobjValues.getJSONObject("values");
+        for (String name : valuesJson.keySet()) {
+            ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
+            int valuewert = valuesJson.getInt(name);
+            values.setSpecificValue(valuesNames, valuewert);
+        }
+        return values;
+    }
+
+    private List<RuleComponent> readOriginalOrResult(JSONObject jobj, String keyword) {
+        List<RuleComponent> ruleComponentList = new ArrayList<>();
+        JSONArray keywordListJson = jobj.getJSONArray(keyword);
+        for (int j = 0; j < keywordListJson.length(); j++) {
+            JSONObject keywordJson = keywordListJson.getJSONObject(j);
+            Object token = this.readToken(keywordJson);
+            RuleComponent ruleComponent;
+            if (keywordJson.has("values")) {
+                Values values = this.readValues(keywordJson);
+                ruleComponent = new RuleComponent(token, values);
+            } else {
+                ruleComponent = new RuleComponent(token);
+            }
+            ruleComponentList.add(ruleComponent);
+        }
+        return ruleComponentList;
+    }
+
+    private Situation readSituation(JSONObject jsonObject) {
+        Situation situation = Situation.valueOf(jsonObject.getString("situation").toUpperCase());
+        return situation;
+    }
+
+    private Direction readDirection(JSONObject jsonObject) {
+        Direction direction = Direction.valueOf(jsonObject.getString("direction").toUpperCase());
+        return direction;
+    }
+
+    private Coordinate readMapdata() throws JSONException {
         JSONObject mapDataJson = json.getJSONObject("mapdata");
         int width = mapDataJson.getInt("width");
         int height = mapDataJson.getInt("height");
@@ -32,7 +141,7 @@ public class Json {
         return mapsize;
     }
 
-    private ArrayList<Tile> readTiles(){
+    private ArrayList<Tile> readTiles() {
         JSONObject mapDataJson = json.getJSONObject("mapdata");
         JSONObject tilesListJson = mapDataJson.getJSONObject("tiles");
         //Parsen Variante von Tiles und in Liste speichern
@@ -174,11 +283,14 @@ public class Json {
     private List<Rule> getPreRules(){
         List<Rule> preRules = new ArrayList<>();
         JSONArray prelistJson = json.getJSONArray("pre");
-        for(int i = 0; i < prelistJson.length(); i++){
+        for(int i = 0; i < prelistJson.length(); i++) {
             JSONObject preJson = prelistJson.getJSONObject(i);
-            Situation situation = Situation.valueOf(preJson.getString("situation").toUpperCase());
-            Direction direction = Direction.valueOf(preJson.getString("direction").toUpperCase());
+            Situation situation = this.readSituation(preJson);
+            Direction direction = this.readDirection(preJson);
 
+            List<RuleComponent> original = this.readOriginalOrResult(preJson, "original");
+            List<RuleComponent> result = this.readOriginalOrResult(preJson, "result");
+            /*
             List<RuleComponent> original = new ArrayList<>();
             JSONArray originalListJson = preJson.getJSONArray("original");
             for(int j = 0; j < originalListJson.length(); j++){
@@ -213,7 +325,7 @@ public class Json {
                 }
                 RuleComponent ruleComponent = new RuleComponent(token,values);
                 result.add(ruleComponent);
-            }
+            }*/
 
             Rule prerule = new Rule(situation,direction,original,result);
             preRules.add(prerule);
@@ -224,11 +336,12 @@ public class Json {
     private List<Rule> getPostRules(){
         List<Rule> postRules = new ArrayList<>();
         JSONArray postlistJson = json.getJSONArray("post");
-        for(int i = 0; i < postlistJson.length(); i++){
+        for(int i = 0; i < postlistJson.length(); i++) {
             JSONObject postJson = postlistJson.getJSONObject(i);
-            Situation situation = Situation.valueOf(postJson.getString("situation").toUpperCase());
-            Direction direction = Direction.valueOf(postJson.getString("direction").toUpperCase());
+            Situation situation = this.readSituation(postJson);
+            Direction direction = this.readDirection(postJson);
 
+            /*
             List<RuleComponent> original = new ArrayList<>();
             JSONArray originalListJson = postJson.getJSONArray("original");
             for(int j = 0; j < originalListJson.length(); j++){
@@ -263,9 +376,11 @@ public class Json {
                 }
                 RuleComponent ruleComponent = new RuleComponent(token,values);
                 result.add(ruleComponent);
-            }
+            }*/
+            List<RuleComponent> original = this.readOriginalOrResult(postJson, "original");
+            List<RuleComponent> result = this.readOriginalOrResult(postJson, "result");
 
-            Rule postrule = new Rule(situation,direction,original,result);
+            Rule postrule = new Rule(situation, direction, original, result);
             postRules.add(postrule);
         }
         return postRules;
@@ -308,5 +423,16 @@ public class Json {
             level.setPostRules(this.getPostRules());
         }
         return level;
+    }
+
+    public List<Rule> getMainRules() throws JSONException {
+        List<Rule> mainrules = new ArrayList<>();
+        JSONArray meinRulesArr = json.getJSONArray("MainRules");
+        for (int i = 0; i < meinRulesArr.length(); i++) {
+            JSONObject mainruleJson = meinRulesArr.getJSONObject(i);
+            Rule mainRule = new Rule(this.readSituation(mainruleJson), this.readDirection(mainruleJson), this.readOriginalOrResult(mainruleJson, "original"), this.readOriginalOrResult(mainruleJson, "result"));
+            mainrules.add(mainRule);
+        }
+        return mainrules;
     }
 }
