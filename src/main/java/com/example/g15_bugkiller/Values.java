@@ -31,6 +31,7 @@ public class Values {
         valueList.put(TOEXPLOSION, 0);
         valueList.put(HASSPACE, 0);
         valueList.put(CANGROW, 0);
+        valueList.put(EXITREACHED, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {

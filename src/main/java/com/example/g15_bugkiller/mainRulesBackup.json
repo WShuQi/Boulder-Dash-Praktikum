@@ -610,6 +610,32 @@
       "direction":"east",
       "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling"], "values":{"toExplosion": 1}}],
       "result":[{"token":"explosion"}]
+    },
+
+
+    { "name": "MeExitRight",
+      "situation":"right",
+      "direction":"east",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"exit", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "exitreached":  1}}]
+    },
+    { "name": "MeExitLeft",
+      "situation":"left",
+      "direction":"west",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"exit", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "exitreached":  1}}]
+    },
+    { "name": "MeExitDown",
+      "situation":"down",
+      "direction":"south",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"exit", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "exitreached":  1}}]
+    },
+    { "name": "MeExitUp",
+      "situation":"up",
+      "direction":"north",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"exit", "values":{"moved":0}}],
+      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1, "exitreached":  1}}]
     }
   ]
 }
