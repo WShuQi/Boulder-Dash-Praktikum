@@ -42,7 +42,7 @@ public class Values {
     }
 
     public void setSpecificValue(ValuesNames valuesNames, int valuewert) {
-        valueList.replace(valuesNames,valuewert);
+        valueList.put(valuesNames, valuewert);
     }
 
 }

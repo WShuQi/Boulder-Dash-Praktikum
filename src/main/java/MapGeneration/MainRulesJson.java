@@ -106,11 +106,9 @@ public class MainRulesJson {
                     }
                     token = tokenList;
 
-                }
-                else if(resultJson.get("token") instanceof Integer){
+                } else if (resultJson.get("token") == int.class) {
                     token = resultJson.getInt("token");
-                }
-                else {
+                } else {
                     String tokenStr = resultJson.getString("token");
                     if (this.isType(tokenStr)) {
                         token = Type.valueOf(tokenStr.toUpperCase());

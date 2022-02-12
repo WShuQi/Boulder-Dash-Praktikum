@@ -3,6 +3,7 @@ package com.example.g15_bugkiller;
 import MapGeneration.Input;
 import MapGeneration.MapGeneration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Level {
@@ -191,13 +192,13 @@ public class Level {
             for (int j = 0; j < mainRules.get(i).getOriginal().size(); j++) {
 
                 System.out.println("Token " + mainRules.get(i).getOriginal().get(j).getToken());
-                if(mainRules.get(i).getResult().get(j).getToken() == Type[].class){
+                if (mainRules.get(i).getResult().get(j).getToken() instanceof ArrayList) {
                     System.out.println("is a type array");
-                }else if(mainRules.get(i).getResult().get(j).getToken() == Type.class){
+                } else if (mainRules.get(i).getResult().get(j).getToken() instanceof Type) {
                     System.out.println("is a type");
-                }else if(mainRules.get(i).getResult().get(j).getToken() == int.class){
+                } else if (mainRules.get(i).getResult().get(j).getToken() == int.class) {
                     System.out.println("is a int");
-                }else{
+                } else {
                     System.out.println("is NOT a type array or type or int");
                 }
 

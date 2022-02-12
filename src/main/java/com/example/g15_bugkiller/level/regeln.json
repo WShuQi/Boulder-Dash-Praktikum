@@ -1,0 +1,726 @@
+{
+  "gems": [
+    1,
+    2,
+    4
+  ],
+  "name": "Regeln",
+  "ticks": [
+    2000,
+    1600,
+    1100
+  ],
+  "pre": [
+    {
+      "situation": "any",
+      "direction": "east",
+      "original": [
+        {
+          "token": [
+            "pot",
+            "sieve",
+            "sand"
+          ]
+        }
+      ],
+      "result": [
+        {
+          "token": "0",
+          "values": {
+            "loose": 1,
+            "slippery": 1,
+            "pushable": 1
+          }
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "me"
+        }
+      ],
+      "result": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "me",
+          "values": {
+            "bam": 1
+          }
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire",
+          "values": {
+            "X": 1
+          }
+        },
+        {
+          "token": "pot"
+        }
+      ],
+      "result": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "gem"
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire",
+          "values": {
+            "Y": 1
+          }
+        },
+        {
+          "token": "sieve"
+        }
+      ],
+      "result": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "gem"
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire",
+          "values": {
+            "Z": 1
+          }
+        },
+        {
+          "token": "sand"
+        }
+      ],
+      "result": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "gem"
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "gem"
+        }
+      ],
+      "result": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "gem",
+          "values": {
+            "A": 1
+          }
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "east",
+      "original": [
+        {
+          "token": "path",
+          "values": {
+            "A": 1
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "path",
+          "values": {
+            "A": 0
+          }
+        }
+      ]
+    }
+  ],
+  "post": [
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": [
+            "pot",
+            "sieve",
+            "sand"
+          ],
+          "values": {
+            "falling": 1
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "1"
+        },
+        {
+          "token": "path"
+        }
+      ]
+    },
+    {
+      "situation": "any",
+      "direction": "east",
+      "original": [
+        {
+          "token": "gem",
+          "values": {
+            "A": 30
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "explosion"
+        }
+      ]
+    }
+  ],
+  "mapdata": {
+    "width": 23,
+    "height": 18,
+    "tiles": {
+      "regel": [
+        [
+          [
+            {
+              "token": "wall",
+              "values": {
+                "X": 1
+              }
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "token": "wall",
+              "values": {
+                "Y": 1
+              }
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "token": "wall",
+              "values": {
+                "Z": 1
+              }
+            }
+          ]
+        ]
+      ],
+      "spielfeld": [
+        [
+          [
+            "-",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall"
+          ],
+          [
+            "wall",
+            "pot",
+            "sieve",
+            "sand",
+            "pot",
+            "sieve",
+            "sand",
+            "pot",
+            "sieve",
+            "sand",
+            "pot",
+            "sieve",
+            "sand",
+            "pot",
+            "sieve",
+            "sand",
+            "pot",
+            "sieve",
+            "sand",
+            "pot",
+            "sieve",
+            "sand",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "me",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "exit",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "wall",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "fire",
+            "wall"
+          ],
+          [
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall"
+          ]
+        ]
+      ]
+    },
+    "tilesat": [
+      {
+        "x": 0,
+        "y": 0,
+        "kind": "spielfeld",
+        "default": 0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "kind": "regel",
+        "default": 0
+      }
+    ],
+    "default": "wall"
+  }
+}

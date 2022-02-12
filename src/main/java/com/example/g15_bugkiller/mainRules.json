@@ -13,7 +13,20 @@
       "situation":"left",
       "direction":"west",
       "original":[{"token":"me", "values":{"moved":0}},{"token":["path","mud"], "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
+      "result": [
+        {
+          "token": "ME",
+          "values": {
+            "moved": 1
+          }
+        },
+        {
+          "token": "me",
+          "values": {
+            "moved": 1
+          }
+        }
+      ]
     },
     { "name": "MeMovementDown",
       "situation":"down",

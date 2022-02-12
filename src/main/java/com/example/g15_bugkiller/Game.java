@@ -2,24 +2,27 @@ package com.example.g15_bugkiller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 
-    List<Level> levels;
+    Map<String, Level> levels;
+    List<Rule> mainRules;
     int numberOfUnlockedLevels = 1;
     int necessaryRatioOfTotalPoints;
     int totalPoints = 0;
 
-    public Game(List<Level> levels, int necessaryRatioOfTotalPoints) {
+    public Game(Map<String, Level> levels, int necessaryRatioOfTotalPoints) {
         this.levels = levels;
         this.necessaryRatioOfTotalPoints = necessaryRatioOfTotalPoints;
         levels.get(0).setUnlocked(true);
     }
 
-    public List<Level> getLevels() {
+    public Map<String, Level> getLevels() {
         return levels;
     }
 
+    //Todo:Habe ein HashMap geplant, so kann man laut Namen die Reihenfolge von Leveln bestimmen. Bitte noch anpassen.
     public void unlockNextLevelAsNecessary(){
         int numberOfLevels = levels.size();
 
@@ -37,15 +40,15 @@ public class Game {
     public void updateTotalPoints() {
         int totalPoints = 0;
 
-        for (Level level : levels) {
+        for (Level level : levels.values()) {
             totalPoints = totalPoints + level.getScoredPoints();
         }
 
         this.totalPoints = totalPoints;
     }
 
-    public void setLevel(Level level) {
-        this.levels.add(level);
+    public void setLevel(String name, Level level) {
+        this.levels.put(name, level);
     }
 
     public int getTotalPoints() {
