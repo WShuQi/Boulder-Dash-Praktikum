@@ -26,7 +26,8 @@ public class LevelReader {
             System.out.println(f.getPath());
             Level level = json.getLevel();
             level.setMainRules(mainRulesJson.readMainRules());
-            String levelName = level.getLevelName();
+            String fileName = f.getName();  //Kann auch mit "String levelName = level.getname();" replace, jedoch finde ich, dass so mit filename zu speichern eleganter ist.
+            String levelName = fileName.substring(0, fileName.lastIndexOf("."));
             System.out.println("levelname: ");
             System.out.println(levelName);
             levels.put(levelName, level);

@@ -286,21 +286,25 @@ public class Json {
             for(int j = 0; j < ticksJson.length(); j++){
             ticks[j] = ticksJson.getInt(j);
             }
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             JSONArray ticksJson = json.getJSONArray("time");
-            for(int j = 0; j < ticksJson.length(); j++){
+            for (int j = 0; j < ticksJson.length(); j++) {
                 ticks[j] = ticksJson.getInt(j);
             }
         }
         Input mapdata = this.getInput();
 
-        Level level = new Level(levelName,gems,mapdata,ticks);
+        Level level = new Level(levelName, gems, mapdata, ticks);
 
-        if (json.has("pre")){
+        if (json.has("maxsilme")) {
+            int maxslime = json.getInt("maxsilme");
+            level.setMaxSlime(maxslime);
+        }
+
+        if (json.has("pre")) {
             level.setPreRules(this.getPreRules());
         }
-        if (json.has("post")){
+        if (json.has("post")) {
             level.setPostRules(this.getPostRules());
         }
         return level;
