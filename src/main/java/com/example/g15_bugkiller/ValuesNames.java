@@ -19,5 +19,7 @@ public enum ValuesNames {
     HASSPACE,
     CANGROW,
 
-    EXITREACHED
+    EXITREACHED,
+    STOP,
+    STOPBUTTONPRESSED
 }

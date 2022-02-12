@@ -20,6 +20,7 @@ public class LevelLogic {
 
         computeScoredPoints(level);
         slimeCheck(level);
+        updateStopCounter(level);
         collectedGemCheck(level);
         playerDeadCheck(level);
         checkIfExitIsReached(level);
@@ -146,16 +147,11 @@ public class LevelLogic {
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
-            boolean executedWhenStopped = rule.isExecutedWhenStopped();
-            boolean collectsStop = rule.isCollectsStop();
 
             if(!checkIfSituationOccurs(situation, level,  currentKeysPressed)){
                 continue;
             }
 
-            if(!executedWhenStopped && level.isStopped()){
-                continue;
-            }
 
             switch(direction) {
                 case EAST:
@@ -172,7 +168,7 @@ public class LevelLogic {
                     break;
             }
 
-            if(collectsStop){
+            if(rule.result.){
                 level.setStopped(true);
                 level.setStopCounter(5*5);
             }

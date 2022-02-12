@@ -32,6 +32,8 @@ public class Values {
         valueList.put(HASSPACE, 0);
         valueList.put(CANGROW, 0);
         valueList.put(EXITREACHED, 0);
+        valueList.put(STOP, 0);
+        valueList.put(STOPBUTTONPRESSED,0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {
