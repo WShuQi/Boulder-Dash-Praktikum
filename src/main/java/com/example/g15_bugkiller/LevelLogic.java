@@ -1,5 +1,7 @@
 package com.example.g15_bugkiller;
 
+import MapGeneration.Coordinate;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +42,7 @@ public class LevelLogic {
         level.setExitReached(false);
         level.setTimeUp(false);
         level.setCollectedGems(0);
+        level.setStopped(false);
         level.setPlayerDead(false);
 
         if(!level.isPassed()){
@@ -143,8 +146,14 @@ public class LevelLogic {
 
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
+            boolean executedWhenStopped = rule.isExecutedWhenStopped();
+            boolean collectsStop = rule.isCollectsStop();
 
             if(!checkIfSituationOccurs(situation, level,  currentKeysPressed)){
+                continue;
+            }
+
+            if(!executedWhenStopped && level.isStopped()){
                 continue;
             }
 
@@ -161,6 +170,11 @@ public class LevelLogic {
                 case SOUTH:
                     executeRuleSouthward(rule, level);
                     break;
+            }
+
+            if(collectsStop){
+                level.setStopped(true);
+                level.setStopCounter(5*5);
             }
 
         }
@@ -509,7 +523,54 @@ public class LevelLogic {
             }
         }
 
-        level.setPlayerDead(playerIsDead);
+        if(playerIsDead){
+            level.setCurrentLives(level.getCurrentLives()-1);
+
+            if(level.getCurrentLives() == 0){
+                level.setPlayerDead(true);
+            }
+
+            Coordinate originalMePosition = level.getOriginalMePosition();
+
+            map[originalMePosition.getY()][originalMePosition.getX()].getGegenstand().setToken(Type.ME);
+
+        }
+
+
+    }
+
+    public static Coordinate computeMePosition(Field[][] map){;
+        Coordinate mePosition = new Coordinate();
+
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++) {
+
+            for (int columnCounter = 0; columnCounter < numberOfRows; columnCounter++) {
+
+                if(map[columnCounter][rowCounter].getType() == Type.ME){
+                    mePosition.setX(rowCounter);
+                    mePosition.setY(columnCounter);
+                }
+            }
+
+        }
+
+        return mePosition;
+    }
+
+    private void updateStopCounter(Level level){
+        int stopCounter = level.getStopCounter();
+
+        if(level.isStopped() && stopCounter > 0){
+            stopCounter--;
+        }
+
+        if(stopCounter == 0){
+            level.setStopped(false);
+        }
+
     }
 }
 

@@ -56,7 +56,8 @@ public class GUIController {
     }
 
     public void playLevel(int indexOfSelectedLevel){
-        executeTimeline(game.getLevels().get(indexOfSelectedLevel));
+        Level selectedLevel = game.getLevels().get(indexOfSelectedLevel);
+        executeTimeline(selectedLevel);
     }
 
 }

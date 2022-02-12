@@ -2,6 +2,7 @@ package com.example.g15_bugkiller;
 
 import MapGeneration.Input;
 import MapGeneration.MapGeneration;
+import MapGeneration.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,20 +24,16 @@ public class Level {
     private int x;
     private int y;
     private int z;
+    private int lives = 1;
+    private int currentLives;
+    private Coordinate originalMePosition;
+    private int stopCounter = 0;
     private boolean timeUp = false; //ist ticksPast <= ticks[0] ?
     private boolean passed = false;
     private boolean unlocked = false;
     private boolean exitReached = false;
-
-    public boolean isPlayerDead() {
-        return playerDead;
-    }  //todo
-
-    public void setPlayerDead(boolean playerDead) {
-        this.playerDead = playerDead;
-    }
-
-    boolean playerDead = false;
+    private boolean playerDead = false;
+    private boolean stopped = false;
 
     public Level(){}
 
@@ -46,6 +43,22 @@ public class Level {
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap() ;
         this.ticks = ticks;
+        this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
+
+        System.out.println(levelName);
+        System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
+        System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
+        //TerminalMap.drawMap(this.levelMap);
+    }
+
+    public Level(String levelName, int[] gems, Input mapData, int[] ticks, int lives) {
+        this.levelName = levelName;
+        this.gems = gems;
+        MapGeneration map = new MapGeneration(mapData, 1000);
+        this.levelMap = map.generateMap() ;
+        this.ticks = ticks;
+        this.lives = lives;
+        this.currentLives = lives;
 
         System.out.println(levelName);
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
@@ -250,5 +263,54 @@ public class Level {
 
     public void setExitReached(boolean exitReached) {
         this.exitReached = exitReached;
+    }
+
+
+    public boolean isPlayerDead() {
+        return playerDead;
+    }
+
+    public void setPlayerDead(boolean playerDead) {
+        this.playerDead = playerDead;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public int getCurrentLives() {
+        return currentLives;
+    }
+
+    public void setCurrentLives(int currentLives) {
+        this.currentLives = currentLives;
+    }
+
+    public Coordinate getOriginalMePosition() {
+        return originalMePosition;
+    }
+
+    public void setOriginalMePosition(Coordinate originalMePosition) {
+        this.originalMePosition = originalMePosition;
+    }
+
+    public boolean isStopped() {
+        return stopped;
+    }
+
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
+    }
+
+    public int getStopCounter() {
+        return stopCounter;
+    }
+
+    public void setStopCounter(int stopCounter) {
+        this.stopCounter = stopCounter;
     }
 }
