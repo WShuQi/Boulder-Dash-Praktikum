@@ -69,7 +69,7 @@ public class LevelLogic {
     }
 
     private static void checkIfExitIsReached(Level level){
-        boolean exitOnMap = false;
+
         Field[][] map = level.getLevelMap();
 
         int numberOfRows = map.length;
@@ -78,14 +78,11 @@ public class LevelLogic {
         for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
             for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
-                if(map[columnCounter][rowCounter].getType() == Type.EXIT){
-                    exitOnMap = true;
+                if(map[columnCounter][rowCounter].getGegenstand().getValues().getValueList().getOrDefault(ValuesNames.EXITREACHED, 0) == 1){
+                    level.setExitReached(true);
+                    return;
                 }
             }
-        }
-
-        if(!exitOnMap) {
-            level.setExitReached(true);
         }
     }
 
