@@ -8,29 +8,29 @@ import java.util.List;
 
 public class Level {
 
-    String levelName;
-    int sparsity = 1;
-    int[] gems;
-    int[] ticks;
-    List<Rule> preRules;
-    List<Rule> mainRules;
-    List<Rule> postRules;
-    int maxSlime;
-    Field[][] levelMap;
-    int collectedGems;
-    int ticksPast;  //schon vergangene Ticks
-    int scoredPoints;
-    int x;
-    int y;
-    int z;
-    boolean timeUp = false; //ist ticksPast <= ticks[0] ?
-    boolean passed = false;
-    boolean unlocked = false;
-    boolean exitReached = false;
+    private String levelName;
+    private int sparsity = 1;
+    private int[] gems;
+    private int[] ticks;
+    private List<Rule> preRules;
+    private List<Rule> mainRules;
+    private List<Rule> postRules;
+    private int maxSlime;
+    private Field[][] levelMap;
+    private int collectedGems;
+    private int ticksPast;  //schon vergangene Ticks
+    private int scoredPoints;
+    private int x;
+    private int y;
+    private int z;
+    private boolean timeUp = false; //ist ticksPast <= ticks[0] ?
+    private boolean passed = false;
+    private boolean unlocked = false;
+    private boolean exitReached = false;
 
     public boolean isPlayerDead() {
         return playerDead;
-    }
+    }  //todo
 
     public void setPlayerDead(boolean playerDead) {
         this.playerDead = playerDead;
