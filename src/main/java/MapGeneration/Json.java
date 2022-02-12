@@ -26,7 +26,7 @@ public class Json {
 
     private boolean isType(String text) {
         boolean boo = false;
-        if (text.toUpperCase().equals("ME") || text.toUpperCase().equals("MUD") || text.toUpperCase().equals("STONE") || text.toUpperCase().equals("BRICKS") || text.toUpperCase().equals("PATH") || text.toUpperCase().equals("EXIT") || text.toUpperCase().equals("WALL") || text.toUpperCase().equals("EXPLOSION") || text.toUpperCase().equals("FIRE") || text.toUpperCase().equals("POT") || text.toUpperCase().equals("SIEVE") || text.toUpperCase().equals("SAND") || text.toUpperCase().equals("SLIME") || text.toUpperCase().equals("SWAPLING") || text.toUpperCase().equals("BLOCKLING") || text.toUpperCase().equals("XLING") || text.toUpperCase().equals("GHOSTLING") || text.toUpperCase().equals("NORTHTHING") || text.toUpperCase().equals("CATCHALL") | text.toUpperCase().equals("LOCH") || text.toUpperCase().equals("WESTTHING") || text.toUpperCase().equals("SOUTHTHING") || text.toUpperCase().equals("EASTTHING")) {
+        if (text.toUpperCase().equals("ME") || text.toUpperCase().equals("MUD") || text.toUpperCase().equals("STONE") || text.toUpperCase().equals("BRICKS") || text.toUpperCase().equals("PATH") || text.toUpperCase().equals("EXIT") || text.toUpperCase().equals("WALL") || text.toUpperCase().equals("EXPLOSION") || text.toUpperCase().equals("FIRE") || text.toUpperCase().equals("POT") || text.toUpperCase().equals("SIEVE") || text.toUpperCase().equals("SAND") || text.toUpperCase().equals("SLIME") || text.toUpperCase().equals("SWAPLING") || text.toUpperCase().equals("BLOCKLING") || text.toUpperCase().equals("XLING") || text.toUpperCase().equals("GHOSTLING") || text.toUpperCase().equals("NORTHTHING") || text.toUpperCase().equals("CATCHALL") | text.toUpperCase().equals("LOCH") || text.toUpperCase().equals("WESTTHING") || text.toUpperCase().equals("SOUTHTHING") || text.toUpperCase().equals("EASTTHING") || text.toUpperCase().equals("GEM")) {
             boo = true;
         }
         return boo;
@@ -36,29 +36,30 @@ public class Json {
         Object token = new Object();
         try {
             JSONArray tokenArr = jObjToken.getJSONArray("token");
-            System.out.println("This token contains a list.");
+            //System.out.println("This token contains a list.");
             List<Object> tokenList = new ArrayList<>();
             for (int g = 0; g < tokenArr.length(); g++) {
                 Object thisToken = new Object();
                 if (tokenArr.get(g) instanceof Integer) {
-                    System.out.println("This Token is Int.");
+                    //System.out.println("This Token is Int.");
                     thisToken = tokenArr.getInt(g);
-                    System.out.println(thisToken);
+                    //System.out.println(thisToken);
                 } else {
                     String thisTokenStr = tokenArr.getString(g);
                     if (this.isType(thisTokenStr)) {
-                        System.out.println("This token is Type");
+                        //  System.out.println("This token is Type");
                         thisToken = Type.valueOf(thisTokenStr.toUpperCase());
-                        System.out.println(thisToken);
+                        // System.out.println(thisToken);
                     } else if (thisTokenStr.equals("*")) {
-                        System.out.println("This token is *");
+                        // System.out.println("This token is *");
                         thisToken = Type.CATCHALL;
-                        System.out.println(thisToken);
+                        // System.out.println(thisToken);
                     } else if (thisTokenStr.matches("[0-9]")) {
-                        System.out.println("This token is a string of number");
+                        // System.out.println("This token is a string of number");
                         thisToken = Integer.parseInt(thisTokenStr);
-                        System.out.println(thisToken);
+                        // System.out.println(thisToken);
                     } else {
+                        System.out.println(thisTokenStr);
                         System.out.println("This token is not Type or * or \"integer\"");
                     }
                 }
@@ -68,25 +69,26 @@ public class Json {
         } catch (JSONException e) {
             if (jObjToken.get("token") instanceof Integer) {
                 token = jObjToken.getInt("token");
-                System.out.println("Token is a int");
-                System.out.println(token);
+                //System.out.println("Token is a int");
+                //System.out.println(token);
             } else {
                 String tokenStr = jObjToken.getString("token");
-                System.out.println("Token is a String...");
-                System.out.println(token);
+                //System.out.println("Token is a String...");
+                //System.out.println(token);
                 if (this.isType(tokenStr)) {
                     token = Type.valueOf(tokenStr.toUpperCase());
-                    System.out.println("Token is a Type");
-                    System.out.println(token);
+                    // System.out.println("Token is a Type");
+                    // System.out.println(token);
                 } else if (tokenStr.equals("*")) {
                     token = Type.CATCHALL;
-                    System.out.println("Token is *");
-                    System.out.println(token);
+                    // System.out.println("Token is *");
+                    // System.out.println(token);
                 } else if (tokenStr.matches("[0-9]")) {
-                    System.out.println("Token is a string of number");
+                    //System.out.println("Token is a string of number");
                     token = Integer.parseInt(tokenStr);
-                    System.out.println(token);
+                    //System.out.println(token);
                 } else {
+                    System.out.println(tokenStr);
                     System.out.println("Token is not Type or * or \"integer\"");
                 }
             }
