@@ -3,11 +3,41 @@
 
 
 
-    { "name": "MeMovementRight",
-      "situation":"right",
-      "direction":"east",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":["path","mud"], "values":{"moved":0}}],
-      "result":[{"token":"path", "values":{"moved":1}},{"token":"me", "values":{"moved":1}}]
+    {
+      "name": "MeMovementRight",
+      "situation": "right",
+      "direction": "east",
+      "original": [
+        {
+          "token": "1",
+          "values": {
+            "moved": 0
+          }
+        },
+        {
+          "token": [
+            "path",
+            "mud"
+          ],
+          "values": {
+            "moved": 0
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": 1,
+          "values": {
+            "moved": 1
+          }
+        },
+        {
+          "token": "me",
+          "values": {
+            "moved": 1
+          }
+        }
+      ]
     },
     { "name": "MeMovementLeft",
       "situation":"left",
