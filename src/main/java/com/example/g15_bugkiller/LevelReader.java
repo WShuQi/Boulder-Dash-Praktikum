@@ -1,7 +1,6 @@
 package com.example.g15_bugkiller;
 
 import MapGeneration.Json;
-import MapGeneration.MainRulesJson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
