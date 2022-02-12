@@ -1,19 +1,16 @@
 package com.example.g15_bugkiller;
 
-import MapGeneration.Json;
-import MapGeneration.MainRulesJson;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Map;
 
 public class GUIApplication extends Application {

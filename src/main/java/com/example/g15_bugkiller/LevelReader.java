@@ -5,7 +5,6 @@ import MapGeneration.MainRulesJson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Map;
 
 public class LevelReader {
