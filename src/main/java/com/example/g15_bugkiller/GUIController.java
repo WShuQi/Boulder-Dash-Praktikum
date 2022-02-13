@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
+import java.util.List;
+
 public class GUIController {
 
     private GUIView view;
@@ -14,17 +16,32 @@ public class GUIController {
     private KeyPressListener keyPressListener;
     private Timeline timer;
 
+    private List<LevelButtonSelector> levelButtonSelectorList;
+
     public GUIController(GUIView view, Game game, KeyPressListener keyPressListener) {
         this.view = view;
         this.game = game;
         this.keyPressListener = keyPressListener;
 
-        playLevel(0);  //TODO: delete if level overview is implemented
+        this.levelButtonSelectorList = view.drawLevelOverview(game.levels);
+        //playLevel("trichter");  //TODO: delete if level overview is implemented
     }
 
     private void updateView(Level level) {
         view.drawLevel(level);
     }       //Todo: Game(davon List<Level>)anpassen
+
+    public void mousePressed(double x, double y) {
+        if (this.levelButtonSelectorList == null) {
+            return;
+        }
+        for (LevelButtonSelector selector : this.levelButtonSelectorList) {
+            if (selector.contains(x, y)) {
+                playLevel(selector.getLevelName());
+                return;
+            }
+        }
+    }
 
     public void executeTimeline(Level level){
 
@@ -33,7 +50,7 @@ public class GUIController {
             @Override
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
-                LevelLogic.tick(level, currentKeysPressed);
+                //LevelLogic.tick(level, currentKeysPressed); // TODO rule Ausführung führt nur zu Explosionen
                 TerminalMap.drawMap(level.getLevelMap());
                 GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
@@ -60,8 +77,9 @@ public class GUIController {
         timer.play();
     }
 
-    public void playLevel(int indexOfSelectedLevel){
-        Level selectedLevel = game.getLevels().get(indexOfSelectedLevel);
+    public void playLevel(String selectedLevelName){
+        this.levelButtonSelectorList = null;
+        Level selectedLevel = game.getLevels().get(selectedLevelName);
         executeTimeline(selectedLevel);
     }
 

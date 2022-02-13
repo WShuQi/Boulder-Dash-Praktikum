@@ -15,7 +15,7 @@ public class Game {
     public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints) {
         this.levels = levels;
         this.necessaryRatioOfTotalPoints = necessaryRatioOfTotalPoints;
-        levels.get(0).setUnlocked(true);     //TODO: modify
+        levels.values().iterator().next().setUnlocked(true);     //TODO: modify
     }
 
     public Map<String, Level> getLevels() {

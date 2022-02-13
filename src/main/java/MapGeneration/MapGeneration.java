@@ -99,7 +99,7 @@ public class MapGeneration {
          }
 
         if(!defaultMapIsValid){
-            newMap = null;
+            //newMap = null;
         }
 
         return newMap;
