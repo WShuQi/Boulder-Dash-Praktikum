@@ -1,5 +1,6 @@
 package com.example.g15_bugkiller;
 
+import com.example.g15_bugkiller.GameReplay.GameReplay;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -25,6 +26,8 @@ public class GUIApplication extends Application {
         Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
         stage.setTitle("Boulder Dash!");
         stage.setScene(scene);
+
+
 
 
         LevelReader levelReader = new LevelReader("src/main/java/com/example/g15_bugkiller/level");

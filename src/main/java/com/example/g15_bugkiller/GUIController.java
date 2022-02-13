@@ -1,5 +1,6 @@
 package com.example.g15_bugkiller;
 
+import com.example.g15_bugkiller.GameReplay.GameReplay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class GUIController {
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
                 LevelLogic.tick(level, currentKeysPressed);
                 TerminalMap.drawMap(level.getLevelMap());
+                GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
 
                 if(level.isTimeUp() | level.isExitReached() | level.isPlayerDead()){
@@ -45,6 +47,9 @@ public class GUIController {
                     timer.stop();
                     timer.getKeyFrames().clear();
                     timer = null;
+
+                    //just for testing
+                    GameReplay.openReplayWindow();
                 }
             }
         };
