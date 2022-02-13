@@ -167,7 +167,7 @@ public class LevelLogic {
                     break;
             }
 
-            if(rule.getRuleName().equals("StopButtonRight") | rule.getRuleName().equals("StopButtonLeft") | rule.getRuleName().equals("StopButtonDown") | rule.getRuleName().equals("StopButtonUp")){
+            if(rule.getRuleName() != null && (rule.getRuleName().equals("StopButtonRight") | rule.getRuleName().equals("StopButtonLeft") | rule.getRuleName().equals("StopButtonDown") | rule.getRuleName().equals("StopButtonUp"))){
                 level.setStopped(true);
                 level.setStopCounter(5*5);
             }
