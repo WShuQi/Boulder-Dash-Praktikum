@@ -82,11 +82,27 @@ public class GUIView {
     }
 
 
+
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        gc.fillText("freigeschaltene Level: " + "        gesammelte Punkte: ", 100.0d, 40.0d);
-            // TODO: Level isUnlocked Anzahl und Gesampunkzahl aus allen Leveln
+
+        int unlockedLevels = 0;
+        int gesamtePunkte = 0;
+        int gesamteLevel = 0;
+
+        for(Level level: levels.values()){
+            if (level.isUnlocked()) {
+                unlockedLevels++;
+            }
+            gesamtePunkte += level.getScoredPoints();
+            gesamteLevel++;
+        }
+
+
+        gc.fillText("freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
+                "    gesammelte Punkte: " + gesamtePunkte , 330.0d, 40.0d);
+
         double x = 100.0d;
         double y = 80.0d;
 
