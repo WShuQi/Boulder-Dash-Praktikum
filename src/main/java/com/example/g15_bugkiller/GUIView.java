@@ -21,6 +21,8 @@ public class GUIView {
 
     public final int START_FIELD_Y = 30;
 
+
+
     private GraphicsContext gc;
 
     public GUIView(GraphicsContext gc) {
@@ -28,9 +30,13 @@ public class GUIView {
     }
 
     public void drawLevel(Level level) {
-        this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         Field[][] fields = level.getLevelMap();
+        double startX = 500 - 0.5 * BLOCK_SIZE * fields.length;
+        double startY = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
+
+        this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 
         /**Graphische Grundlage für den Counter
         ImageView counterBackground = new ImageView("Counter_Vorlage.png");
@@ -51,8 +57,8 @@ public class GUIView {
             for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
                 Field field = fields[zeile][spalte];
 
-                int y = BLOCK_SIZE * spalte + START_FIELD_Y;
-                int x = BLOCK_SIZE * zeile;
+                double y = BLOCK_SIZE * spalte + startY - START_FIELD_Y;
+                double x = BLOCK_SIZE * zeile + startX;
 
                 Image image = PictureRepo.getImage(field.getType().name());
                 gc.drawImage(image, x, y, BLOCK_SIZE, BLOCK_SIZE);
@@ -64,9 +70,9 @@ public class GUIView {
 
         Image counterBackground;
         counterBackground = PictureRepo.getImage("Counter_Vorlage_small.png");
-        gc.drawImage(counterBackground, 220.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
+        gc.drawImage(counterBackground, 450.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
 
-        gc.fillText("GEMS: " + gemCounter, 240.0D, 20.0D);
+        gc.fillText("GEMS: " + gemCounter, 470.0D, 20.0D);
         gc.setFill(Color.YELLOWGREEN);
     }
 
@@ -75,10 +81,13 @@ public class GUIView {
 
     }
 
+
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        double x = 20.0d;
+        gc.fillText("freigeschaltene Level: " + "        gesammelte Punkte: ", 100.0d, 40.0d);
+            // TODO: Level isUnlocked Anzahl und Gesampunkzahl aus allen Leveln
+        double x = 100.0d;
         double y = 80.0d;
 
         boolean odd = true;
@@ -90,7 +99,7 @@ public class GUIView {
                 x = 480;
             }
             else {
-                x = 20.d;
+                x = 100.0d;
                 y += 80;
             }
             odd = !odd;
@@ -105,11 +114,13 @@ public class GUIView {
         gc.setFill(Color.BLACK);
 
         gc.strokeText(level.getLevelName(), startX, startY);
+
+        gc.setFill(Color.DARKGREY);
         gc.fillText("Edelsteine: " + level.getCollectedGems() + "     " + "Bestzeit: " + level.getTicksPast()
                 + "     " + "erreichte Punkte: "+ level.getScoredPoints(), startX , startY + 20);
 
         if (level.isUnlocked()) {
-            gc.setFill(Color.YELLOW);
+            gc.setFill(Color.LIGHTBLUE);
             double x = startX + 100;
             double y = startY + 30;
             int w = 80;
