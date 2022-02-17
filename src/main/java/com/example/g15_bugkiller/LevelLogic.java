@@ -335,7 +335,7 @@ public class LevelLogic {
 
             } else if (currentOriginalToken instanceof ArrayList){
 
-                if(!Arrays.asList(currentOriginalToken).contains(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
+                if(!((ArrayList) currentOriginalToken).contains(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
