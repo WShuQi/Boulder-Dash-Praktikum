@@ -28,20 +28,11 @@ public class LevelLogic {
         checkIfLevelIsPassed(level);
         checkIfTimeIsUp(level);
 
-        resetLevel(level);
+        resetValues(level);
     }
 
     public static void resetLevel(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
-        Field[][] map = level.getLevelMap();
-        int rowLength = map.length;
-        int columnLength = map[0].length;
-
-        for(int rowIterator = 0; rowIterator < rowLength; rowIterator++) {
-            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
-                map[rowIterator][columnIterator].getGegenstand().resetValues();
-            }
-        }
-
+        resetValues(level);
         level.setTicksPast(0);
         level.setExitReached(false);
         level.setTimeUp(false);
@@ -52,7 +43,18 @@ public class LevelLogic {
         if(!level.isPassed()){
             level.setScoredPoints(0);
         }
+    }
 
+    public static void resetValues(Level level){
+        Field[][] map = level.getLevelMap();
+        int rowLength = map.length;
+        int columnLength = map[0].length;
+
+        for(int rowIterator = 0; rowIterator < rowLength; rowIterator++) {
+            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
+                map[rowIterator][columnIterator].getGegenstand().resetValues();
+            }
+        }
     }
 
 
