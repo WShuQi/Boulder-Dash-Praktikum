@@ -345,6 +345,17 @@ public class LevelLogic {
 
     private static boolean valuesAgree(HashMap<ValuesNames, Integer> fieldValues, HashMap<ValuesNames, Integer> ruleComponentValues){
 
+        boolean valuesAgree = true;
+
+        for(ValuesNames valueName: ruleComponentValues.keySet()){
+            if(fieldValues.get(valueName) != ruleComponentValues.get(valueName)){
+                valuesAgree = false;
+            }
+        }
+
+        return valuesAgree;
+
+        /*
         boolean bothAreZero = true;
         boolean ruleComponentValuesArePositive = true;
         boolean fieldValuesAreGreaterOrEqualToRuleComponentValues = true;
@@ -373,6 +384,7 @@ public class LevelLogic {
         }
 
         return (bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive));
+        */
     }
 
 
