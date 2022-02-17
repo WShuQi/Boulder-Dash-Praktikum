@@ -2,6 +2,7 @@ package com.example.g15_bugkiller;
 
 import MapGeneration.Coordinate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +12,11 @@ public class LevelLogic {
     // Grundablauf pro Tick
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
 
-        System.out.println("mapData: " + level.getLevelMap());
+        //System.out.println("mapData: " + level.getLevelMap());
         level.setTicksPast(level.getTicksPast() + 1);
 
         executePreRules(level, currentKeysPressed);
-        //executeMainRules(level, currentKeysPressed); // TODO: macht den Grossteil der Felder zu EXPLOSION
+        executeMainRules(level, currentKeysPressed);
         executePostRules(level, currentKeysPressed);
 
         computeScoredPoints(level);
@@ -26,19 +27,12 @@ public class LevelLogic {
         checkIfExitIsReached(level);
         checkIfLevelIsPassed(level);
         checkIfTimeIsUp(level);
+
+        resetValues(level);
     }
 
     public static void resetLevel(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
-        Field[][] map = level.getLevelMap();
-        int rowLength = map.length;
-        int columnLength = map[0].length;
-
-        for(int rowIterator = 0; rowIterator < rowLength; rowIterator++) {
-            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
-                map[rowIterator][columnIterator].getGegenstand().resetValues();
-            }
-        }
-
+        resetValues(level);
         level.setTicksPast(0);
         level.setExitReached(false);
         level.setTimeUp(false);
@@ -49,7 +43,18 @@ public class LevelLogic {
         if(!level.isPassed()){
             level.setScoredPoints(0);
         }
+    }
 
+    public static void resetValues(Level level){
+        Field[][] map = level.getLevelMap();
+        int rowLength = map.length;
+        int columnLength = map[0].length;
+
+        for(int rowIterator = 0; rowIterator < rowLength; rowIterator++) {
+            for (int columnIterator = 0; columnIterator < columnLength; columnIterator++) {
+                map[rowIterator][columnIterator].getGegenstand().resetValues();
+            }
+        }
     }
 
 
@@ -322,15 +327,15 @@ public class LevelLogic {
             Object currentOriginalToken = original.get(componentCounter).getToken();
             Values currentOriginalValues = original.get(componentCounter).getValues();
 
-            if(currentOriginalToken.getClass() == Type.class){
+            if(currentOriginalToken instanceof Type){
 
                 if(!((currentOriginalToken.equals(Type.CATCHALL) || currentOriginalToken.equals(currentGegenstand.getToken())) && valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList()))){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
-            } else if (currentOriginalToken.getClass() == Type[].class){
+            } else if (currentOriginalToken instanceof ArrayList){
 
-                if(!Arrays.asList((Type[]) currentOriginalToken).contains(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
+                if(!Arrays.asList(currentOriginalToken).contains(currentGegenstand.getToken()) || !valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList())){
                     nextFieldsAndOriginalsAgree = false;
                 }
 
@@ -342,6 +347,17 @@ public class LevelLogic {
 
     private static boolean valuesAgree(HashMap<ValuesNames, Integer> fieldValues, HashMap<ValuesNames, Integer> ruleComponentValues){
 
+        boolean valuesAgree = true;
+
+        for(ValuesNames valueName: ruleComponentValues.keySet()){
+            if(fieldValues.get(valueName) != ruleComponentValues.get(valueName)){
+                valuesAgree = false;
+            }
+        }
+
+        return valuesAgree;
+
+        /*
         boolean bothAreZero = true;
         boolean ruleComponentValuesArePositive = true;
         boolean fieldValuesAreGreaterOrEqualToRuleComponentValues = true;
@@ -370,6 +386,7 @@ public class LevelLogic {
         }
 
         return (bothAreZero || (fieldValuesAreGreaterOrEqualToRuleComponentValues && ruleComponentValuesArePositive));
+        */
     }
 
 
@@ -381,10 +398,10 @@ public class LevelLogic {
             Field currentField = nextFields[resultIterator];
             RuleComponent currentResultComponent = result.get(resultIterator);
 
-            if(currentResultComponent.getToken().getClass() == Type.class){
+            if(currentResultComponent.getToken() instanceof Type){
                 Type newToken = (Type) currentResultComponent.getToken();
                 currentField.getGegenstand().setToken(newToken);
-            } else if (currentResultComponent.getToken().getClass() == int.class){
+            } else if (currentResultComponent.getToken() instanceof Integer){
                 currentField.getGegenstand().setToken(nextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
             }
 

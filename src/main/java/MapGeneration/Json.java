@@ -66,6 +66,7 @@ public class Json {
                 tokenList.add(thisToken);
             }
             System.out.println(tokenList);
+            token = tokenList;
         } catch (JSONException e) {
             if (jObjToken.get("token") instanceof Integer) {
                 token = jObjToken.getInt("token");

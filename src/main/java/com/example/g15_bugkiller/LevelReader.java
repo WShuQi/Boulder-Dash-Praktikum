@@ -10,7 +10,7 @@ import java.util.Map;
 public class LevelReader {
 
     private String path;
-    private Json mainRulesJson = new Json("src/main/java/com/example/g15_bugkiller/mainRulesBackup.json");
+    private Json mainRulesJson = new Json("src/main/java/com/example/g15_bugkiller/mainRules.json");
 
     public LevelReader(String path) throws FileNotFoundException {
         this.path = path;
