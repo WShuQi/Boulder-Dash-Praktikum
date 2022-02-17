@@ -59,11 +59,10 @@ public class GUIController {
 
                     game.updateTotalPoints();
                     game.unlockNextLevelAsNecessary();
-                    //GUI: return to level overview
                     timer.stop();
                     timer.getKeyFrames().clear();
                     timer = null;
-
+                    returnToOverview();
                     //just for testing
                     // GameReplay.openReplayWindow();
                 }
@@ -80,6 +79,9 @@ public class GUIController {
         this.levelButtonSelectorList = null;
         Level selectedLevel = game.getLevels().get(selectedLevelName);
         executeTimeline(selectedLevel);
+    }
+    public void returnToOverview (){
+        this.levelButtonSelectorList = view.drawLevelOverview(game.levels);
     }
 
 }

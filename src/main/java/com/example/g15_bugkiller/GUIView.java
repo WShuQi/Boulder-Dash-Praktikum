@@ -68,12 +68,12 @@ public class GUIView {
 
     private void drawGemCounter (int gemCounter)  {
 
-        Image counterBackground;
+       Image counterBackground;
         counterBackground = PictureRepo.getImage("Counter_Vorlage_small.png");
         gc.drawImage(counterBackground, 400.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
-
-        gc.fillText("GEMS: " + gemCounter, 420.0D, 20.0D);
         gc.setFill(Color.YELLOWGREEN);
+        gc.fillText("GEMS: " + gemCounter, 420.0D, 20.0D);
+
     }
 
     private void drawTimePassed (int ticksCounter) {
