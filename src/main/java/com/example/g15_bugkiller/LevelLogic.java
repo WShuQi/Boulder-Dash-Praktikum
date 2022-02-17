@@ -15,7 +15,7 @@ public class LevelLogic {
         level.setTicksPast(level.getTicksPast() + 1);
 
         executePreRules(level, currentKeysPressed);
-        executeMainRules(level, currentKeysPressed);
+        //executeMainRules(level, currentKeysPressed); // TODO: macht den Grossteil der Felder zu EXPLOSION
         executePostRules(level, currentKeysPressed);
 
         computeScoredPoints(level);
@@ -56,7 +56,7 @@ public class LevelLogic {
     private static void checkIfTimeIsUp(Level level){
         int maxTicks = level.getTicks()[0];
         int ticksPast = level.getTicksPast();
-        level.setTimeUp(ticksPast <= maxTicks);
+        level.setTimeUp(ticksPast >= maxTicks);
     }
 
     private static void computeScoredPoints(Level level){

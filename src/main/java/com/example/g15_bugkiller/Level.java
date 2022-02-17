@@ -133,6 +133,7 @@ public class Level {
         }
     }
 
+
     public void setPostRules(List<Rule> postRules) {
         this.postRules = postRules;
     }

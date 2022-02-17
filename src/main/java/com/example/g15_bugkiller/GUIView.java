@@ -70,14 +70,15 @@ public class GUIView {
 
         Image counterBackground;
         counterBackground = PictureRepo.getImage("Counter_Vorlage_small.png");
-        gc.drawImage(counterBackground, 450.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
+        gc.drawImage(counterBackground, 400.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
 
-        gc.fillText("GEMS: " + gemCounter, 470.0D, 20.0D);
+        gc.fillText("GEMS: " + gemCounter, 420.0D, 20.0D);
         gc.setFill(Color.YELLOWGREEN);
     }
 
     private void drawTimePassed (int ticksCounter) {
-
+       gc.setFill(Color.BLACK);
+        gc.fillText("Zeit: " + ticksCounter, 500, 20.D);
 
     }
 
@@ -116,7 +117,7 @@ public class GUIView {
             }
             else {
                 x = 100.0d;
-                y += 80;
+                y += 120;
             }
             odd = !odd;
             if (selector != null) {
@@ -141,10 +142,10 @@ public class GUIView {
             double y = startY + 30;
             int w = 80;
             int h = 20;
-            gc.fillRect(x, y, w, h);
-
+            // gc.fillRect(x, y, w, h);
+            gc.fillOval(x, y, w, h);
             gc.setFill(Color.BLACK);
-            gc.fillText("Play", startX + 125, startY + 45);
+            gc.fillText("Play", startX + 128, startY + 44);
             gc.fillText("     ", startX, startY + 50);
 
             return new LevelButtonSelector(levelName, x, y, w, h);

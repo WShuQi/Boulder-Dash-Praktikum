@@ -1,6 +1,6 @@
 package com.example.g15_bugkiller;
 
-import com.example.g15_bugkiller.GameReplay.GameReplay;
+// import com.example.g15_bugkiller.GameReplay.GameReplay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -24,7 +24,6 @@ public class GUIController {
         this.keyPressListener = keyPressListener;
 
         this.levelButtonSelectorList = view.drawLevelOverview(game.levels);
-        //playLevel("trichter");  //TODO: delete if level overview is implemented
     }
 
     private void updateView(Level level) {
@@ -50,9 +49,9 @@ public class GUIController {
             @Override
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
-                //LevelLogic.tick(level, currentKeysPressed); // TODO rule Ausführung führt nur zu Explosionen
+                LevelLogic.tick(level, currentKeysPressed); // TODO rule Ausführung führt nur zu Explosionen
                 TerminalMap.drawMap(level.getLevelMap());
-                GameReplay.saveMapFrame(level.getLevelMap());
+                // GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
 
                 if(level.isTimeUp() | level.isExitReached() | level.isPlayerDead()){
@@ -66,7 +65,7 @@ public class GUIController {
                     timer = null;
 
                     //just for testing
-                    GameReplay.openReplayWindow();
+                    // GameReplay.openReplayWindow();
                 }
             }
         };
