@@ -504,7 +504,8 @@ public class LevelLogic {
         for (int x = 0; x<map.length; x++){
             for (int y = 0; y<map[x].length; y++){
                 Gegenstand gegenstand = map[x][y].getGegenstand();
-                if(gegenstand.getToken() == Type.SLIME && gegenstand.getValues().getValueList().get(ValuesNames.CANGROW) == 0){
+                Integer canGrow = gegenstand.getValues().getValueList().get(ValuesNames.CANGROW);
+                if(gegenstand.getToken() == Type.SLIME && canGrow != null && canGrow == 0){
                     map[x][y].getGegenstand().setToken(Type.GEM);
                 }
             }

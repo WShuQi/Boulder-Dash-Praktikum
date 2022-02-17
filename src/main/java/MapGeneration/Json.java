@@ -131,6 +131,13 @@ public class Json {
         return situation;
     }
 
+    private String readRuleName(JSONObject jsonObject) {
+        if (jsonObject.has("name")) {
+            return jsonObject.getString("name");
+        }
+        return null;
+    }
+
     private Direction readDirection(JSONObject jsonObject) {
         Direction direction = Direction.valueOf(jsonObject.getString("direction").toUpperCase());
         return direction;
@@ -335,6 +342,7 @@ public class Json {
             }*/
 
             Rule prerule = new Rule(situation,direction,original,result);
+            prerule.setRuleName(readRuleName(preJson));
             preRules.add(prerule);
         }
         return preRules;
@@ -388,6 +396,7 @@ public class Json {
             List<RuleComponent> result = this.readOriginalOrResult(postJson, "result");
 
             Rule postrule = new Rule(situation, direction, original, result);
+            postrule.setRuleName(readRuleName(postJson));
             postRules.add(postrule);
         }
         return postRules;
@@ -438,6 +447,7 @@ public class Json {
         for (int i = 0; i < meinRulesArr.length(); i++) {
             JSONObject mainruleJson = meinRulesArr.getJSONObject(i);
             Rule mainRule = new Rule(this.readSituation(mainruleJson), this.readDirection(mainruleJson), this.readOriginalOrResult(mainruleJson, "original"), this.readOriginalOrResult(mainruleJson, "result"));
+            mainRule.setRuleName(readRuleName(mainruleJson));
             mainrules.add(mainRule);
         }
         return mainrules;
