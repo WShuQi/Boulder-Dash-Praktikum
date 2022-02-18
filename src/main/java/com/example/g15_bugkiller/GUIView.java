@@ -121,9 +121,9 @@ public class GUIView {
 
         gc.setFill(Color.WHITE);
         gc.fillText("freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
-                "    gesammelte Punkte: " + gesamtePunkte , 330.0d, 25.0d);
+                "    gesammelte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
 
-        double x = 100.0d;
+        double x = 140.0d;
         double y = 80.0d;
 
         boolean odd = true;
@@ -132,11 +132,11 @@ public class GUIView {
             final Level level = levels.get(levelName);
             LevelButtonSelector selector = drawLevelSelection(levelName, level, x, y);
             if (odd) {
-                x = 480;
+                x = 600;
             }
             else {
-                x = 100.0d;
-                y += 120;
+                x = 140.0d;
+                y += 110;
             }
             odd = !odd;
             if (selector != null) {
