@@ -77,7 +77,7 @@ public class GUIView {
         counterBackground = PictureRepo.getImage("GemCounter_Background_large");
         gc.drawImage(counterBackground, 440.0D, 0.0D, 120, 40);
         gc.setFill(Color.WHITE);
-        gc.fillText("GEMS: " + gemCounter, 473.0D, 25.0D);
+        gc.fillText("GEMS: " + gemCounter, 467.0D, 25.0D);
 
     }
 
