@@ -102,10 +102,15 @@ public class GUIView {
 
     }
 
+    private void graueLeiste(){
+        gc.setFill(Color.DARKGRAY);
+        gc.fillRect(0, 0 , 1000, 40);
+
+    }
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        schwarzeLeiste();
+        graueLeiste();
 
         int unlockedLevels = 0;
         int gesamtePunkte = 0;
