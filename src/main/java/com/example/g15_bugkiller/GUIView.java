@@ -53,6 +53,8 @@ public class GUIView {
 
         drawTimePassed(level.getTicksPast());
 
+        drawLives(level.getCurrentLives(), level.getLives());
+
         for(int zeile = 0; zeile < fields.length; zeile++){
             for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
                 Field field = fields[zeile][spalte];
@@ -68,17 +70,30 @@ public class GUIView {
 
     private void drawGemCounter (int gemCounter)  {
 
-       Image counterBackground;
-        counterBackground = PictureRepo.getImage("Counter_Vorlage_small.png");
+        Image counterBackground;
+        counterBackground = PictureRepo.getImage("Counter_Vorlage_small");
         gc.drawImage(counterBackground, 400.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
-        gc.setFill(Color.YELLOWGREEN);
-        gc.fillText("GEMS: " + gemCounter, 420.0D, 20.0D);
+        gc.setFill(Color.BLACK);
+        gc.fillText("GEMS: " + gemCounter, 425.0D, 21.0D);
 
     }
 
     private void drawTimePassed (int ticksCounter) {
        gc.setFill(Color.BLACK);
         gc.fillText("Zeit: " + ticksCounter, 500, 20.D);
+
+    }
+
+    private void drawLives (int livesLeft, int lives) {
+        Image heart = PictureRepo.getImage("HEART");
+        int xKoord = 625;
+        gc.setFill(Color.BLACK);
+        gc.fillText("Leben übrig: ", 550, 20.0D);
+        for (int i = 1; i <= livesLeft; i ++) {
+            gc.drawImage(heart, xKoord, 0.0D);
+            xKoord += 25;
+        }
+
 
     }
 

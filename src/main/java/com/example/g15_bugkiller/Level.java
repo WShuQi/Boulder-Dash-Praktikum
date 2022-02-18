@@ -24,8 +24,8 @@ public class Level {
     private int x;
     private int y;
     private int z;
-    private int lives = 1;
-    private int currentLives;
+    private int lives = 3;
+    private int currentLives = lives;
     private Coordinate originalMePosition;
     private int stopCounter = 0;
     private boolean timeUp = false; //ist ticksPast <= ticks[0] ?
