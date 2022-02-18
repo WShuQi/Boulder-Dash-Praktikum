@@ -427,8 +427,8 @@ public class Json {
 
         Level level = new Level(levelName, gems, mapdata, ticks);
 
-        if (json.has("maxsilme")) {
-            int maxslime = json.getInt("maxsilme");
+        if (json.has("maxslime")) {
+            int maxslime = json.getInt("maxslime");
             level.setMaxSlime(maxslime);
         }
 

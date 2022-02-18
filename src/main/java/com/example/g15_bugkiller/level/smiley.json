@@ -2,6 +2,7 @@
   "gems":[8,12,16],
   "name":"Smiley",
   "time":[1500,900,500],
+  "maxslime": 30,
   "mapdata": {
     
     "width" : 23,
