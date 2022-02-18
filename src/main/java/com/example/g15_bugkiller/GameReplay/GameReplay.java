@@ -28,6 +28,8 @@ public class GameReplay {
 
     static List<Field[][]> savedMapData = new ArrayList<>();
     static GraphicsContext gc;
+    static int currentFrame = 0;
+    static Timeline timer;
 
     public static void saveMapFrame(Field[][] map){
         Field[][] mapCopy = new Field[map.length][map[0].length];
@@ -35,7 +37,7 @@ public class GameReplay {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 Field fieldToCopy = map[i][j];
-                mapCopy[i][j] = new Field(new Gegenstand(fieldToCopy.getType(), new Values(fieldToCopy.getGegenstand().getValues().getValueList())));
+                mapCopy[i][j] = new Field(new Gegenstand(fieldToCopy.getType(), new Values()));
             }
         }
 
@@ -60,6 +62,7 @@ public class GameReplay {
         Button replayButton = new Button("Watch Again");
         replayButton.setOnAction(actionEvent -> {
             currentFrame = 0;
+            timer.stop();
             replay();
         });
 
@@ -70,9 +73,6 @@ public class GameReplay {
         stage.show();
         replay();
     }
-
-    static int currentFrame = 0;
-    static Timeline timer;
 
     private static void replay(){
         int totalMapFrames = savedMapData.size();
@@ -87,16 +87,12 @@ public class GameReplay {
                 currentFrame++;
 
                 //System.out.println("Replay currentFrame: " + currentFrame);
-
-                if(currentFrame >= totalMapFrames - 1){
-                    timer.stop();
-                }
             }
         };
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), handler);
         timer = new Timeline(keyFrame);
-        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.setCycleCount(totalMapFrames);
         timer.play();
     }
 

@@ -51,7 +51,7 @@ public class GUIController {
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
                 LevelLogic.tick(level, currentKeysPressed);
-                TerminalMap.drawMap(level.getLevelMap());
+                //TerminalMap.drawMap(level.getLevelMap());
                 GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
 
@@ -67,7 +67,7 @@ public class GUIController {
                     timer = null;
                     returnToOverview();
 
-                    //GameReplay.openReplayWindow(level.getReplaySaveData()); //todo: add a button to overview to watch replay
+                    GameReplay.openReplayWindow(level.getReplaySaveData()); //todo: add a button to overview to watch replay
                 }
             }
         };
