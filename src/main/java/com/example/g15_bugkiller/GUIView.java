@@ -89,7 +89,7 @@ public class GUIView {
 
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
-        int xKoord = 640;
+        int xKoord = 650;
         gc.setFill(Color.WHITE);
         gc.fillText("Leben übrig: ", 570, 25.0D);
         for (int i = 1; i <= livesLeft; i ++) {
@@ -165,7 +165,7 @@ public class GUIView {
         gc.fillText("Edelsteine: " + level.getCollectedGems() + "        " + "Bestzeit: " + level.getTicksPast()
                 + "        " + "erreichte Punkte: "+ level.getScoredPoints(), startX , startY + 30);
 
-        if (level.isUnlocked()) {
+        if (level.isUnlocked()||!level.isUnlocked()) {
             gc.setFill(Color.DARKGRAY);
             double x = startX + 95;
             double y = startY + 40;
