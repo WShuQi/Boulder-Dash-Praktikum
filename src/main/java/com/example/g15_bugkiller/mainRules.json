@@ -562,13 +562,13 @@
       "situation":"any",
       "direction":"north",
       "original":[{"token":["me", "xling", "swapling"]},{"token":"*", "values":{"falling":1, "moved":1}}],
-      "result":[{"token":"me", "values":{"bamrich": 1}},{"token":["1"]}]
+      "result":[{"token":"0", "values":{"bamrich": 1}},{"token":"1"}]
     },
     { "name": "DeathRules: FallingDeathBlockling",
       "situation":"any",
       "direction":"north",
       "original":[{"token":"blockling"},{"token":"*", "values":{"falling":1, "moved":1}}],
-      "result":[{"token":"blockling", "values":{"bam": 1}},{"token":["1"]}]
+      "result":[{"token":"blockling", "values":{"bam": 1}},{"token":"1"}]
     },
 
 
@@ -582,7 +582,7 @@
       "situation":"any",
       "direction":"south",
       "original":[{"token":"*"},{"token":"*", "values":{"toGem": 1}},{"token":"*"}],
-      "result":[{"token":"0", "values":{"toGem": 1}},{"token":"1", "values":{"toGem": 1}}, {"token":"2", "values":{"toGem": 1}}]
+      "result":[{"token":"gem"},{"token":"gem"},{"token":"gem"}]
     },
 
     { "name": "Bam: setToExplosionHorizontally",
@@ -595,21 +595,7 @@
       "situation":"any",
       "direction":"south",
       "original":[{"token":"*"},{"token":"*", "values":{"toExplosion": 1}},{"token":"*"}],
-      "result":[{"token":"0", "values":{"toExplosion": 1}},{"token":"1", "values":{"toExplosion": 1}}, {"token":"2", "values":{"toExplosion": 1}}]
-    },
-
-    { "name": "3x3GEM",
-      "situation":"any",
-      "direction":"east",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling"], "values":{"toGem": 1}}],
-      "result":[{"token":"gem"}]
-    },
-
-    { "name": "3x3Explosion",
-      "situation":"any",
-      "direction":"east",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling"], "values":{"toExplosion": 1}}],
-      "result":[{"token":"explosion"}]
+      "result":[{"token":"explosion"},{"token":"explosion"}, {"token":"explosion"}]
     },
 
 

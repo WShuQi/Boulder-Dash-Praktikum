@@ -35,6 +35,8 @@ public class Level {
     private boolean playerDead = false;
     private boolean stopped = false;
 
+    private List<Field[][]> replaySaveData = new ArrayList<>();
+
     public Level(){}
 
     public Level(String levelName, int[] gems, Input mapData, int[] ticks) {
@@ -319,5 +321,13 @@ public class Level {
 
     public void setStopCounter(int stopCounter) {
         this.stopCounter = stopCounter;
+    }
+
+    public List<Field[][]> getReplaySaveData() {
+        return replaySaveData;
+    }
+
+    public void setReplaySaveData(List<Field[][]> replaySaveData) {
+        this.replaySaveData = replaySaveData;
     }
 }
