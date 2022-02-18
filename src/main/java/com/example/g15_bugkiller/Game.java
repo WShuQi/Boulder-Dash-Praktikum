@@ -1,6 +1,7 @@
 package com.example.g15_bugkiller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +12,16 @@ public class Game {
     int numberOfUnlockedLevels = 1;
     double necessaryRatioOfTotalPoints;
     int totalPoints = 0;
+    boolean freePlay= true;
 
     public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints) {
         this.levels = levels;
         this.necessaryRatioOfTotalPoints = necessaryRatioOfTotalPoints;
         levels.values().iterator().next().setUnlocked(true);     //TODO: modify
+    if (freePlay){
+        freePlay();
+        }
+
     }
 
     public Map<String, Level> getLevels() {
@@ -56,5 +62,11 @@ public class Game {
 
     public int getTotalPoints() {
         return totalPoints;
+    }
+
+    public void freePlay(){
+        for (Level level: levels.values()) {
+            level.setUnlocked(true);
+        }
     }
 }
