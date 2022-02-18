@@ -159,14 +159,14 @@ public class GUIView {
                 + "        " + "erreichte Punkte: "+ level.getScoredPoints(), startX , startY + 30);
 
         if (level.isUnlocked()) {
-            gc.setFill(Color.LIGHTBLUE);
+            gc.setFill(Color.DARKGRAY);
             double x = startX + 95;
             double y = startY + 40;
             int w = 80;
             int h = 20;
             // gc.fillRect(x, y, w, h);
             gc.fillOval(x, y, w, h);
-            gc.setFill(Color.BLACK);
+            gc.setFill(Color.WHITE);
             gc.fillText("Play", startX + 123, startY + 54);
             gc.fillText("     ", startX, startY + 50);
 
