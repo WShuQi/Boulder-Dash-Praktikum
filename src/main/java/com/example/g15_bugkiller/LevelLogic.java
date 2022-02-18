@@ -413,6 +413,9 @@ public class LevelLogic {
     private static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
         valuesWereReplaced = true;
         for(ValuesNames valueName: currentResultComponent.getValues().getValueList().keySet()){
+            int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
+            currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
+            /*
             int currentFieldValue = currentField.getGegenstand().getValues().getValueList().getOrDefault(valueName, 0);
             int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
 
@@ -421,7 +424,7 @@ public class LevelLogic {
             } else {
                 int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
                 currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);
-            }
+            }*/
         }
     }
 
