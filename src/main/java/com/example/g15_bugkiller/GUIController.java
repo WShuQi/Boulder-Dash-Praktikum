@@ -1,6 +1,7 @@
 package com.example.g15_bugkiller;
 
 // import com.example.g15_bugkiller.GameReplay.GameReplay;
+import com.example.g15_bugkiller.GameReplay.GameReplay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -49,13 +50,15 @@ public class GUIController {
             @Override
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
-                LevelLogic.tick(level, currentKeysPressed); // TODO rule Ausführung führt nur zu Explosionen
+                LevelLogic.tick(level, currentKeysPressed);
                 TerminalMap.drawMap(level.getLevelMap());
-                // GameReplay.saveMapFrame(level.getLevelMap());
+                GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
 
                 if(level.isTimeUp() | level.isExitReached() | level.isPlayerDead()){
-                    LevelLogic.resetLevel(level);
+                    level.setReplaySaveData(GameReplay.getSavedMapData());
+
+                    //LevelLogic.resetLevel(level); //todo: i think this stops the score from saving
 
                     game.updateTotalPoints();
                     game.unlockNextLevelAsNecessary();
@@ -63,8 +66,8 @@ public class GUIController {
                     timer.getKeyFrames().clear();
                     timer = null;
                     returnToOverview();
-                    //just for testing
-                    // GameReplay.openReplayWindow();
+
+                    //GameReplay.openReplayWindow(level.getReplaySaveData()); //todo: add a button to overview to watch replay
                 }
             }
         };
@@ -77,7 +80,9 @@ public class GUIController {
 
     public void playLevel(String selectedLevelName){
         this.levelButtonSelectorList = null;
+        GameReplay.clearSavedMap();
         Level selectedLevel = game.getLevels().get(selectedLevelName);
+
         executeTimeline(selectedLevel);
     }
     public void returnToOverview (){

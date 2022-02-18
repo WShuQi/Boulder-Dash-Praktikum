@@ -1,4 +1,4 @@
-/* package com.example.g15_bugkiller.GameReplay;
+package com.example.g15_bugkiller.GameReplay;
 
 import com.example.g15_bugkiller.*;
 import javafx.animation.KeyFrame;
@@ -9,7 +9,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -28,21 +30,42 @@ public class GameReplay {
     static GraphicsContext gc;
 
     public static void saveMapFrame(Field[][] map){
-        savedMapData.add(map);
+        Field[][] mapCopy = new Field[map.length][map[0].length];
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                Field fieldToCopy = map[i][j];
+                mapCopy[i][j] = new Field(new Gegenstand(fieldToCopy.getType(), new Values(fieldToCopy.getGegenstand().getValues().getValueList())));
+            }
+        }
+
+        savedMapData.add(mapCopy);
     }
 
-    public static void openReplayWindow(){
+    public static void openReplayWindow(List<Field[][]> savedReplayData){
+        savedMapData = savedReplayData;
+
+        currentFrame = 0;
+
         Stage stage = new Stage();
         stage.setTitle("Replay");
 
-        Group root = new Group();
+        BorderPane borderPane = new BorderPane();
 
         Canvas canvas = new Canvas(1000, 1000);
-        root.getChildren().add(canvas);
+        borderPane.setCenter(canvas);
 
         gc = canvas.getGraphicsContext2D();
 
-        stage.setScene(new Scene(root, 1000, 1000));
+        Button replayButton = new Button("Watch Again");
+        replayButton.setOnAction(actionEvent -> {
+            currentFrame = 0;
+            replay();
+        });
+
+        borderPane.setBottom(replayButton);
+
+        stage.setScene(new Scene(borderPane));
 
         stage.show();
         replay();
@@ -54,7 +77,7 @@ public class GameReplay {
     private static void replay(){
         int totalMapFrames = savedMapData.size();
 
-        System.out.println(totalMapFrames);
+        //System.out.println(totalMapFrames);
 
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 
@@ -63,9 +86,9 @@ public class GameReplay {
                 drawLevel(savedMapData.get(currentFrame));
                 currentFrame++;
 
-                System.out.println(currentFrame);
+                //System.out.println("Replay currentFrame: " + currentFrame);
 
-                if(currentFrame >= totalMapFrames){
+                if(currentFrame >= totalMapFrames - 1){
                     timer.stop();
                 }
             }
@@ -92,6 +115,12 @@ public class GameReplay {
             }
         }
     }
-}
 
-*/
+    public static void clearSavedMap(){
+        savedMapData = new ArrayList<>();
+    }
+
+    public static List<Field[][]> getSavedMapData() {
+        return savedMapData;
+    }
+}
