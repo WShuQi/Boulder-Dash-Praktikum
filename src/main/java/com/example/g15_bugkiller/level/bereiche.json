@@ -1,6 +1,6 @@
 {
   "gems":[6,12,18],
-  "name":"Labyrinth",
+  "name":"Bereiche",
   "ticks":[1200,440,210],
   "pre":[
     { "situation":"any",
