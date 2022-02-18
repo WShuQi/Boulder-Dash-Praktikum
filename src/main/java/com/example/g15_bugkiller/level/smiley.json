@@ -1,7 +1,7 @@
 {
   "gems":[8,12,16],
   "name":"Smiley",
-  "time":[130,50,25],
+  "time":[1500,900,500],
   "mapdata": {
     
     "width" : 23,
