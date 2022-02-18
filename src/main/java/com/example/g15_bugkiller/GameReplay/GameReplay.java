@@ -23,7 +23,7 @@ import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
 
 public class GameReplay {
 
-    public static final int BLOCK_SIZE = 32;
+    public static final int BLOCK_SIZE = 25;
     public static final int START_FIELD_Y = 30;
 
     static List<Field[][]> savedMapData = new ArrayList<>();

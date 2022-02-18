@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,10 +21,7 @@ public class GUIView {
 
     public final int BLOCK_SIZE = 25;
     public final int BLOCK_SIZE_MINI = 8;
-
     public final int START_FIELD_Y = 30;
-
-
 
     private GraphicsContext gc;
 
