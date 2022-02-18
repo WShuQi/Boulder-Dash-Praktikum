@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import java.net.URL;
+import java.util.Locale;
 import java.util.Map;
 
 public class GUIApplication extends Application {
@@ -44,6 +46,7 @@ public class GUIApplication extends Application {
 
         stage.addEventFilter(KeyEvent.KEY_PRESSED, keyPressListener.keyPressed);
         stage.addEventFilter(KeyEvent.KEY_RELEASED, keyPressListener.keyReleased);
+
 
         GUIController controller = new GUIController(view, game, keyPressListener);
 

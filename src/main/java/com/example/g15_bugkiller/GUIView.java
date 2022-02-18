@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
@@ -125,6 +126,7 @@ public class GUIView {
         }
 
         gc.setFill(Color.WHITE);
+        gc.setFont(new Font("Arial",14));
         gc.fillText("freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
                 "    gesammelte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
 
