@@ -102,10 +102,15 @@ public class GUIView {
 
     }
 
+    private void graueLeiste(){
+        gc.setFill(Color.DARKGRAY);
+        gc.fillRect(0, 0 , 1000, 40);
+
+    }
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        schwarzeLeiste();
+        graueLeiste();
 
         int unlockedLevels = 0;
         int gesamtePunkte = 0;
@@ -147,24 +152,27 @@ public class GUIView {
     }
 
     private LevelButtonSelector drawLevelSelection(String levelName, Level level, double startX, double startY) {
-        gc.setFill(Color.BLACK);
 
-        gc.strokeText(level.getLevelName(), startX, startY);
+        gc.setFill(Color.BLACK);
+        gc.fillRect(startX , startY-20, 271, 30);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText(level.getLevelName(), startX + 10, startY);
 
         gc.setFill(Color.DARKGREY);
-        gc.fillText("Edelsteine: " + level.getCollectedGems() + "     " + "Bestzeit: " + level.getTicksPast()
-                + "     " + "erreichte Punkte: "+ level.getScoredPoints(), startX , startY + 20);
+        gc.fillText("Edelsteine: " + level.getCollectedGems() + "        " + "Bestzeit: " + level.getTicksPast()
+                + "        " + "erreichte Punkte: "+ level.getScoredPoints(), startX , startY + 30);
 
         if (level.isUnlocked()) {
-            gc.setFill(Color.LIGHTBLUE);
-            double x = startX + 100;
-            double y = startY + 30;
+            gc.setFill(Color.DARKGRAY);
+            double x = startX + 95;
+            double y = startY + 40;
             int w = 80;
             int h = 20;
             // gc.fillRect(x, y, w, h);
             gc.fillOval(x, y, w, h);
-            gc.setFill(Color.BLACK);
-            gc.fillText("Play", startX + 128, startY + 44);
+            gc.setFill(Color.WHITE);
+            gc.fillText("Play", startX + 123, startY + 54);
             gc.fillText("     ", startX, startY + 50);
 
             return new LevelButtonSelector(levelName, x, y, w, h);
