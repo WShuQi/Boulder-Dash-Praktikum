@@ -49,6 +49,8 @@ public class GUIView {
         counterBackground.fitWidthProperty();
          **/
 
+        schwarzeLeiste();
+
         drawGemCounter(level.getCollectedGems());
 
         drawTimePassed(level.getTicksPast());
@@ -73,30 +75,32 @@ public class GUIView {
         Image counterBackground;
         counterBackground = PictureRepo.getImage("Counter_Vorlage_small");
         gc.drawImage(counterBackground, 400.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
-        gc.setFill(Color.BLACK);
-        gc.fillText("GEMS: " + gemCounter, 425.0D, 21.0D);
+        gc.setFill(Color.WHITE);
+        gc.fillText("GEMS: " + gemCounter, 425.0D, 22.0D);
 
     }
 
     private void drawTimePassed (int ticksCounter) {
-       gc.setFill(Color.BLACK);
-        gc.fillText("Zeit: " + ticksCounter, 500, 20.D);
+       gc.setFill(Color.WHITE);
+        gc.fillText("Zeit: " + ticksCounter, 500, 22.D);
 
     }
 
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
-        int xKoord = 625;
-        gc.setFill(Color.BLACK);
-        gc.fillText("Leben übrig: ", 550, 20.0D);
+        int xKoord = 650;
+        gc.setFill(Color.WHITE);
+        gc.fillText("Leben übrig: ", 575, 22.0D);
         for (int i = 1; i <= livesLeft; i ++) {
             gc.drawImage(heart, xKoord, 0.0D);
             xKoord += 25;
         }
-
+    }
+    private void schwarzeLeiste(){
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0 , 1000, 40);
 
     }
-
 
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
