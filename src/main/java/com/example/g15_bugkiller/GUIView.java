@@ -18,7 +18,8 @@ import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
 
 public class GUIView {
 
-    public final int BLOCK_SIZE = 32;
+    public final int BLOCK_SIZE = 25;
+    public final int BLOCK_SIZE_MINI = 8;
 
     public final int START_FIELD_Y = 30;
 
@@ -35,6 +36,9 @@ public class GUIView {
         Field[][] fields = level.getLevelMap();
         double startX = 500 - 0.5 * BLOCK_SIZE * fields.length;
         double startY = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
+
+        double startXMini = 500 - 0.5 * BLOCK_SIZE_MINI * fields.length;
+        double startYMini = 75;
 
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -67,6 +71,17 @@ public class GUIView {
 
                 Image image = PictureRepo.getImage(field.getType().name());
                 gc.drawImage(image, x, y, BLOCK_SIZE, BLOCK_SIZE);
+            }
+        }
+        for(int zeile = 0; zeile < fields.length; zeile++){
+            for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
+                Field field = fields[zeile][spalte];
+
+                double y = BLOCK_SIZE_MINI * spalte + startYMini- START_FIELD_Y;
+                double x = BLOCK_SIZE_MINI * zeile + startXMini;
+
+                Image image = PictureRepo.getImage(field.getType().name());
+                gc.drawImage(image, x, y, BLOCK_SIZE_MINI, BLOCK_SIZE_MINI);
             }
         }
     }
@@ -108,6 +123,8 @@ public class GUIView {
         gc.fillRect(0, 0 , 1000, 40);
 
     }
+
+
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
