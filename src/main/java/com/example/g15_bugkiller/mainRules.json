@@ -238,7 +238,7 @@
     { "name": "SwaplingChangesDirectionRightToLeft",
       "situation":"any",
       "direction":"east",
-      "original":[{"token":"swapling", "values":{"moved":0, "direction": 1}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling"]}],
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 1}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
       "result":[{"token":"swapling", "values":{"moved":1, "direction": 3}},{"token":"1"}]
     },
     { "name": "SwaplingMovesLeft",
@@ -250,7 +250,7 @@
     { "name": "SwaplingChangesDirectionLeftToRight",
       "situation":"any",
       "direction":"west",
-      "original":[{"token":"swapling", "values":{"moved":0, "direction": 3}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling"]}],
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 3}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
       "result":[{"token":"swapling", "values":{"moved":1, "direction": 1}},{"token":"1"}]
     },
     { "name": "SwaplingMovesDown",
@@ -262,7 +262,7 @@
     { "name": "SwaplingChangesDirectionDownToUp",
       "situation":"any",
       "direction":"south",
-      "original":[{"token":"swapling", "values":{"moved":0, "direction": 4}},{"token":"wall"}],
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 4}},{"token": ["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
       "result":[{"token":"swapling", "values":{"moved":1, "direction": 2}},{"token":"wall"}]
     },
     { "name": "SwaplingMovesUp",
@@ -274,7 +274,7 @@
     { "name": "SwaplingChangesDirectionUpToDown",
       "situation":"any",
       "direction":"north",
-      "original":[{"token":"swapling", "values":{"moved":0, "direction": 2}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling"]}],
+      "original":[{"token":"swapling", "values":{"moved":0, "direction": 2}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
       "result":[{"token":"swapling", "values":{"moved":1, "direction": 4}},{"token":"1"}]
     },
 
