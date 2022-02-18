@@ -49,9 +49,13 @@ public class GUIView {
         counterBackground.fitWidthProperty();
          **/
 
+        schwarzeLeiste();
+
         drawGemCounter(level.getCollectedGems());
 
         drawTimePassed(level.getTicksPast());
+
+        drawLives(level.getCurrentLives(), level.getLives());
 
         for(int zeile = 0; zeile < fields.length; zeile++){
             for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
@@ -68,25 +72,40 @@ public class GUIView {
 
     private void drawGemCounter (int gemCounter)  {
 
-       Image counterBackground;
-        counterBackground = PictureRepo.getImage("Counter_Vorlage_small.png");
-        gc.drawImage(counterBackground, 400.0D, 0.0D, 3*BLOCK_SIZE, BLOCK_SIZE);
-        gc.setFill(Color.YELLOWGREEN);
-        gc.fillText("GEMS: " + gemCounter, 420.0D, 20.0D);
+        Image counterBackground;
+        counterBackground = PictureRepo.getImage("GemCounter_Background_large");
+        gc.drawImage(counterBackground, 440.0D, 0.0D, 120, 40);
+        gc.setFill(Color.WHITE);
+        gc.fillText("GEMS: " + gemCounter, 473.0D, 25.0D);
 
     }
 
     private void drawTimePassed (int ticksCounter) {
-       gc.setFill(Color.BLACK);
-        gc.fillText("Zeit: " + ticksCounter, 500, 20.D);
+       gc.setFill(Color.WHITE);
+        gc.fillText("Zeit:  " + ticksCounter, 389, 25.D);
+
+    }
+
+    private void drawLives (int livesLeft, int lives) {
+        Image heart = PictureRepo.getImage("HEART");
+        int xKoord = 640;
+        gc.setFill(Color.WHITE);
+        gc.fillText("Leben übrig: ", 570, 25.0D);
+        for (int i = 1; i <= livesLeft; i ++) {
+            gc.drawImage(heart, xKoord, 4.0D);
+            xKoord += 25;
+        }
+    }
+    private void schwarzeLeiste(){
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0 , 1000, 40);
 
     }
 
 
-
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+        schwarzeLeiste();
 
         int unlockedLevels = 0;
         int gesamtePunkte = 0;
@@ -100,11 +119,11 @@ public class GUIView {
             gesamteLevel++;
         }
 
-
+        gc.setFill(Color.WHITE);
         gc.fillText("freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
-                "    gesammelte Punkte: " + gesamtePunkte , 330.0d, 40.0d);
+                "    gesammelte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
 
-        double x = 100.0d;
+        double x = 140.0d;
         double y = 80.0d;
 
         boolean odd = true;
@@ -113,11 +132,11 @@ public class GUIView {
             final Level level = levels.get(levelName);
             LevelButtonSelector selector = drawLevelSelection(levelName, level, x, y);
             if (odd) {
-                x = 480;
+                x = 600;
             }
             else {
-                x = 100.0d;
-                y += 120;
+                x = 140.0d;
+                y += 110;
             }
             odd = !odd;
             if (selector != null) {
