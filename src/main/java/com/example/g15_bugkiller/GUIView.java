@@ -32,11 +32,13 @@ public class GUIView {
     public void drawLevel(Level level) {
 
         Field[][] fields = level.getLevelMap();
-        double startX = 500 - 0.5 * BLOCK_SIZE * fields.length;
-        double startY = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
 
         double startXMini = 500 - 0.5 * BLOCK_SIZE_MINI * fields.length;
         double startYMini = 75;
+
+        double startX = 500 - 0.5 * BLOCK_SIZE * fields.length;
+        double startY = startYMini + fields[1].length * BLOCK_SIZE_MINI + 5;
+        double startYMittig = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
 
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -177,8 +179,8 @@ public class GUIView {
         gc.fillText(level.getLevelName(), startX + 10, startY);
 
         gc.setFill(Color.DARKGREY);
-        gc.fillText("Edelsteine: " + level.getCollectedGems() + "    " + "Bestzeit: " + level.getTicksPast()
-                + "    " + "erreichte Punkte: "+ level.getScoredPoints(), startX , startY + 30);
+        gc.fillText("Edelsteine: " + level.getBestGems() + "    " + "Bestzeit: " + level.getBestTime()
+                + "    " + "erreichte Punkte: "+ level.getBestScore(), startX , startY + 30);
 
         if (level.isUnlocked()||!level.isUnlocked()) {
             gc.setFill(Color.DARKGRAY);
