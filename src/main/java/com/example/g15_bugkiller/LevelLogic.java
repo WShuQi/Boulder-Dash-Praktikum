@@ -134,7 +134,7 @@ public class LevelLogic {
                 (situation == Situation.RIGHT && currentKeysPressed.isRightPressed()) || (situation == Situation.LEFT && currentKeysPressed.isLeftPressed()) ||
                 (situation == Situation.METAUP && currentKeysPressed.isMetaUpPressed()) || (situation == Situation.METADOWN && currentKeysPressed.isMetaDownPressed()) ||
                 (situation == Situation.METARIGHT && currentKeysPressed.isMetaRightPressed()) || (situation == Situation.METALEFT && currentKeysPressed.isMetaLeftPressed()) ||
-                (situation == Situation.CHANCE && giveTrueWithThreePercentChance())) {
+                (situation == Situation.CHANCE)) {
 
             situationOccurs = true;
         }
@@ -160,19 +160,20 @@ public class LevelLogic {
             if(!checkIfSituationOccurs(situation,  currentKeysPressed)){
                 continue;
             }
+            boolean isChanceSituation = situation == Situation.CHANCE;
 
             switch(direction) {
                 case EAST:
-                    executeRuleEastward(rule, isMainRule);
+                    executeRuleEastward(rule, isMainRule, isChanceSituation);
                     break;
                 case WEST:
-                    executeRuleWestward(rule, isMainRule);
+                    executeRuleWestward(rule, isMainRule,isChanceSituation);
                     break;
                 case NORTH:
-                    executeRuleNorthward(rule, isMainRule);
+                    executeRuleNorthward(rule, isMainRule, isChanceSituation);
                     break;
                 case SOUTH:
-                    executeRuleSouthward(rule, isMainRule);
+                    executeRuleSouthward(rule, isMainRule, isChanceSituation);
                     break;
             }
 
@@ -185,7 +186,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleEastward(Rule rule, boolean isMainRule){
+    private static void executeRuleEastward(Rule rule, boolean isMainRule, boolean isChanceSituation){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -209,6 +210,11 @@ public class LevelLogic {
                     nextFields[fieldCounter] = map[columnCounter + fieldCounter][rowCounter];
                 }
 
+                if(isChanceSituation && !giveTrueWithThreePercentChance()){
+                    columnCounter++;
+                    continue;
+                }
+
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
                     replaceFields(nextFields, result);
@@ -222,7 +228,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleWestward(Rule rule, boolean isMainRule){
+    private static void executeRuleWestward(Rule rule, boolean isMainRule, boolean isChanceSituation){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -244,6 +250,11 @@ public class LevelLogic {
                     nextFields[fieldCounter] = map[columnCounter - fieldCounter][rowCounter];
                 }
 
+                if(isChanceSituation && !giveTrueWithThreePercentChance()){
+                    columnCounter--;
+                    continue;
+                }
+
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
                     replaceFields(nextFields, result);
                     columnCounter = columnCounter - step;
@@ -256,7 +267,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleNorthward(Rule rule, boolean isMainRule){
+    private static void executeRuleNorthward(Rule rule, boolean isMainRule, boolean isChanceSituation){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -278,6 +289,10 @@ public class LevelLogic {
                     nextFields[fieldCounter] = map[columnCounter][rowCounter - fieldCounter];
                 }
 
+                if(isChanceSituation && !giveTrueWithThreePercentChance()){
+                    rowCounter--;
+                    continue;
+                }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
@@ -293,7 +308,7 @@ public class LevelLogic {
     }
 
 
-    private static void executeRuleSouthward(Rule rule, boolean isMainRule){
+    private static void executeRuleSouthward(Rule rule, boolean isMainRule, boolean isChanceSituation){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -314,6 +329,11 @@ public class LevelLogic {
 
                 for(int fieldCounter = 0; fieldCounter < numberOfRuleComponents; fieldCounter++){
                     nextFields[fieldCounter] = map[columnCounter][rowCounter + fieldCounter];
+                }
+
+                if(isChanceSituation && !giveTrueWithThreePercentChance()){
+                    rowCounter++;
+                    continue;
                 }
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
@@ -496,7 +516,8 @@ public class LevelLogic {
     }
 
     //Methods for mainRules
-    private static RuleComponent spaceToGrow = new RuleComponent(new Type[]{Type.PATH, Type.BLOCKLING, Type.SWAPLING, Type.XLING, Type.MUD}, new Values());
+    private static ArrayList<Type> spacesToGrow = new ArrayList<Type>(Arrays.asList(Type.PATH, Type.BLOCKLING, Type.SWAPLING, Type.XLING, Type.MUD));
+    private static RuleComponent spaceToGrow = new RuleComponent(spacesToGrow, new Values());
     private static RuleComponent spaceToGrowTo = new RuleComponent(1, new Values());
     private static RuleComponent slimeWithCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CANGROW, 1);}}));
     private static RuleComponent slimeWithoutCanGrow = new RuleComponent(Type.SLIME, new Values(new HashMap<ValuesNames, Integer>(){{put(ValuesNames.CANGROW, 0);}}));
@@ -518,10 +539,10 @@ public class LevelLogic {
         }
 
         //set if slimes can grow
-        executeRuleEastward(setSlimeCanGrowRuleEast, true);
-        executeRuleNorthward(setSlimeCanGrowRuleNorth, true);
-        executeRuleWestward(setSlimeCanGrowRuleWest, true);
-        executeRuleSouthward(setSlimeCanGrowRuleSouth, true);
+        executeRuleEastward(setSlimeCanGrowRuleEast, true, false);
+        executeRuleNorthward(setSlimeCanGrowRuleNorth, true, false);
+        executeRuleWestward(setSlimeCanGrowRuleWest, true, false);
+        executeRuleSouthward(setSlimeCanGrowRuleSouth, true, false);
 
         //spread canGrow to neighbour slimes
         valuesWereReplaced = true;
@@ -529,10 +550,10 @@ public class LevelLogic {
         while(valuesWereReplaced){
             valuesWereReplaced = false;
 
-            executeRuleEastward(spreadSlimeCanGrowRuleEast, true);
-            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, true);
-            executeRuleWestward(spreadSlimeCanGrowRuleWest, true);
-            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, true);
+            executeRuleEastward(spreadSlimeCanGrowRuleEast, true, false);
+            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, true, false);
+            executeRuleWestward(spreadSlimeCanGrowRuleWest, true, false);
+            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, true, false);
         }
 
         setSlimesToGem();
