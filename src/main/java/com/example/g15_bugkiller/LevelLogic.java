@@ -398,6 +398,13 @@ public class LevelLogic {
     private static void replaceFields(Field[] nextFields, List<RuleComponent> result) {
         int resultLength = result.size();
 
+        //fixes pushing bug
+        Field[] copyOfNextFields = new Field[nextFields.length];
+
+        for (int i = 0; i < nextFields.length; i++) {
+            copyOfNextFields[i] = new Field(new Gegenstand(nextFields[i].getGegenstand().getToken(), new Values(nextFields[i].getGegenstand().getValues().getValueList())));
+        }
+
         for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
 
             Field currentField = nextFields[resultIterator];
@@ -407,7 +414,7 @@ public class LevelLogic {
                 Type newToken = (Type) currentResultComponent.getToken();
                 currentField.getGegenstand().setToken(newToken);
             } else if (currentResultComponent.getToken() instanceof Integer){
-                currentField.getGegenstand().setToken(nextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
+                currentField.getGegenstand().setToken(copyOfNextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
             }
 
             replaceValues(currentField, currentResultComponent);
