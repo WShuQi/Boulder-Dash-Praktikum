@@ -185,17 +185,17 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
 
-        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
             int columnCounter = 0;
 
-            while(columnCounter + numberOfRuleComponents < numberOfRows){
+            while(columnCounter + numberOfRuleComponents <= numberOfColumns){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -222,16 +222,16 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
-        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
-            int columnCounter = numberOfRows-1;
+            int columnCounter = numberOfColumns-1;
 
-            while(columnCounter - numberOfRuleComponents >= 0){
+            while(columnCounter - numberOfRuleComponents >= -1){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -256,16 +256,16 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
-        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
-            int rowCounter = numberOfColumns-1;
+            int rowCounter = numberOfRows-1;
 
-            while(rowCounter - numberOfRuleComponents >= 0){
+            while(rowCounter - numberOfRuleComponents >= -1){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -273,7 +273,9 @@ public class LevelLogic {
                     nextFields[fieldCounter] = map[columnCounter][rowCounter - fieldCounter];
                 }
 
+
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
+
                     replaceFields(nextFields, result);
                     rowCounter = rowCounter - step;
 
@@ -291,17 +293,17 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
 
-        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
             int rowCounter = 0;
 
-            while(rowCounter + numberOfRuleComponents < numberOfColumns){
+            while(rowCounter + numberOfRuleComponents <= numberOfRows){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
