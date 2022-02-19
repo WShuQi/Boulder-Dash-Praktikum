@@ -20,7 +20,7 @@
           ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
           ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
           ["wall",  "path", "path", "mud", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "path", "path", "wall"],
-          ["wall",  "path", "xling", "mud", "mud", "path", "path", "path", "path", "path", "gem", "gem", "path", "path", "path", "path", "path", "path", "mud", "mud", "blockling", "path", "wall"],
+          ["wall",  "path", {"token": "xling","values":{"direction": 0}}, "mud", "mud", "path", "path", "path", "path", "path", "gem", "gem", "path", "path", "path", "path", "path", "path", "mud", "mud", {"token": "blockling","values":{"direction": 0}}, "path", "wall"],
           ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "gem", "wall", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
           ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "gem", "wall", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
           ["wall",  "path", "path", "path", "path", "path", "path", "path", "path", "path", "mud", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "path", "wall"],
