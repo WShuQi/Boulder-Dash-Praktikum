@@ -49,17 +49,6 @@ public class GUIView {
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
-        /**Graphische Grundlage für den Counter
-        ImageView counterBackground = new ImageView("Counter_Vorlage.png");
-
-         Image counterBackground = new Image(getClass().getResourceAsStream("Counter_Vorlage.png"));
-         counterBackground.getHeight();
-         counterBackground.getWidth();
-
-        counterBackground.fitHeightProperty();
-        counterBackground.fitWidthProperty();
-         **/
-
         schwarzeLeiste();
 
         drawGemCounter(level.getCollectedGems());
