@@ -45,6 +45,8 @@ public class GUIController {
 
     public void executeTimeline(Level level){
 
+        view.resetLevelView();
+
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 
             @Override
