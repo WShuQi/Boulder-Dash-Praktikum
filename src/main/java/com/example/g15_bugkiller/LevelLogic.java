@@ -9,11 +9,11 @@ import java.util.List;
 
 public class LevelLogic {
 
-    private Level level;
+    private static Level level;
 
     // Grundablauf pro Tick
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
-        this.level = level;
+        LevelLogic.level = level;
 
         //System.out.println("mapData: " + level.getLevelMap());
         level.setTicksPast(level.getTicksPast() + 1);
