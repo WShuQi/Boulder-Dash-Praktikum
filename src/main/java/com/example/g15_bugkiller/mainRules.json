@@ -10,7 +10,7 @@
       "situation":"any",
       "direction":"north",
       "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1}}],
-      "result":[{"token":"1", "values":{"moved":1, "falling": 1, "loose": 0}},{"token":"path", "values":{"moved": 1}}]
+      "result":[{"token":1, "values":{"moved":1, "falling": 1, "loose": 0}},{"token":"path", "values":{"moved": 1}}]
     },
 
 
@@ -20,44 +20,44 @@
       "situation":"any",
       "direction":"west",
       "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "slippery": 1}}],
-      "result":[{"token":"path", "values":{"moved":0}},{"token":"1", "values":{"slippery": 1, "hasSpace": 1}}]
+      "result":[{"token":"path", "values":{"moved":0}},{"token":1, "values":{"slippery": 1, "hasSpace": 1}}]
     },
     { "name": "FallingRules: giveStoneSlipDirectionRight",
       "situation":"any",
       "direction":"south",
       "original":[{"token":"*", "values":{"moved":0, "loose":1}},{"token":"*", "values":{"moved":0, "slippery": 1, "hasSpace": 1}}],
-      "result":[{"token":"0", "values":{"moved":0, "loose":1, "direction":1}},{"token":"1", "values":{"slippery": 1}}]
+      "result":[{"token":0, "values":{"moved":0, "loose":1, "direction":1}},{"token":1, "values":{"slippery": 1}}]
     },
     { "name": "FallingRules: checkIfPathToRight",
       "situation":"any",
       "direction":"west",
       "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1, "direction": 1}}],
-      "result":[{"token":"1", "values":{"moved":0, "loose": 1, "direction": 4}},{"token":"path", "values":{"moved": 0}}]
+      "result":[{"token":1, "values":{"moved":0, "loose": 1, "direction": 4}},{"token":"path", "values":{"moved": 0}}]
     },
 
     { "name": "FallingRules: checkIfSpaceToLeft",
       "situation":"any",
       "direction":"east",
       "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "slippery": 1}}],
-      "result":[{"token":"path", "values":{"moved":0}},{"token":"1", "values":{"slippery": 1, "hasSpace": 3}}]
+      "result":[{"token":"path", "values":{"moved":0}},{"token":1, "values":{"slippery": 1, "hasSpace": 3}}]
     },
     { "name": "FallingRules: giveStoneSlipDirectionLeft",
       "situation":"any",
       "direction":"south",
       "original":[{"token":"*", "values":{"moved":0, "loose":1}},{"token":"*", "values":{"moved":0, "slippery": 1, "hasSpace": 3}}],
-      "result":[{"token":"0", "values":{"moved":0, "loose":1, "direction":3}},{"token":"1", "values":{"slippery": 1}}]
+      "result":[{"token":0, "values":{"moved":0, "loose":1, "direction":3}},{"token":1, "values":{"slippery": 1}}]
     },
     { "name": "FallingRules: checkIfPathToLeft",
       "situation":"any",
       "direction":"east",
       "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1, "direction": 3}}],
-      "result":[{"token":"1", "values":{"moved":0, "loose": 1, "direction": 4}},{"token":"path", "values":{"moved": 0}}]
+      "result":[{"token":1, "values":{"moved":0, "loose": 1, "direction": 4}},{"token":"path", "values":{"moved": 0}}]
     },
     { "name": "FallingRules: slippingDown",
       "situation":"any",
       "direction":"north",
       "original":[{"token":"path", "values":{"moved":0}},{"token":"*", "values":{"moved":0, "loose": 1, "direction": 4}}],
-      "result":[{"token":"1", "values":{"moved":1, "falling": 1, "direction": 0}},{"token":"path", "values":{"moved": 1}}]
+      "result":[{"token":1, "values":{"moved":1, "falling": 1, "direction": 0}},{"token":"path", "values":{"moved": 1}}]
     },
 
     { "name": "MeDiggingRight",
@@ -243,7 +243,7 @@
       "situation":"any",
       "direction":"east",
       "original":[{"token":"swapling", "values":{"moved":0, "direction": 1}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
-      "result":[{"token":"swapling", "values":{"moved":1, "direction": 3}},{"token":"1"}]
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 3}},{"token":1}]
     },
     { "name": "SwaplingMovesLeft",
       "situation":"any",
@@ -255,7 +255,7 @@
       "situation":"any",
       "direction":"west",
       "original":[{"token":"swapling", "values":{"moved":0, "direction": 3}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
-      "result":[{"token":"swapling", "values":{"moved":1, "direction": 1}},{"token":"1"}]
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 1}},{"token":1}]
     },
     { "name": "SwaplingMovesDown",
       "situation":"any",
@@ -279,7 +279,7 @@
       "situation":"any",
       "direction":"north",
       "original":[{"token":"swapling", "values":{"moved":0, "direction": 2}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "xling", "blockling", "mud"]}],
-      "result":[{"token":"swapling", "values":{"moved":1, "direction": 4}},{"token":"1"}]
+      "result":[{"token":"swapling", "values":{"moved":1, "direction": 4}},{"token":1}]
     },
 
 
