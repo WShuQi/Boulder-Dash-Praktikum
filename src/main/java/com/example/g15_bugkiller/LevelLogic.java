@@ -9,30 +9,33 @@ import java.util.List;
 
 public class LevelLogic {
 
+    private Level level;
+
     // Grundablauf pro Tick
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
+        this.level = level;
 
         //System.out.println("mapData: " + level.getLevelMap());
         level.setTicksPast(level.getTicksPast() + 1);
-        updateStopCounter(level);
-        executePreRules(level, currentKeysPressed);
-        executeMainRules(level, currentKeysPressed);
-        executePostRules(level, currentKeysPressed);
+        updateStopCounter();
+        executePreRules(currentKeysPressed);
+        executeMainRules(currentKeysPressed);
+        executePostRules(currentKeysPressed);
 
-        computeScoredPoints(level);
-        slimeCheck(level);
-        checkIfStopButtonIsPressed(level);
-        collectedGemCheck(level);
-        playerDeadCheck(level);
-        checkIfExitIsReached(level);
-        checkIfLevelIsPassed(level);
-        checkIfTimeIsUp(level);
+        computeScoredPoints();
+        slimeCheck();
+        checkIfStopButtonIsPressed();
+        collectedGemCheck();
+        playerDeadCheck();
+        checkIfExitIsReached();
+        checkIfLevelIsPassed();
+        checkIfTimeIsUp();
 
-        resetValues(level);
+        resetValues();
     }
 
-    public static void resetLevel(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
-        resetValues(level);
+    public static void resetLevel(){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+        resetValues();
         level.setTicksPast(0);
         level.setExitReached(false);
         level.setTimeUp(false);
@@ -45,7 +48,7 @@ public class LevelLogic {
         }
     }
 
-    public static void resetValues(Level level){
+    public static void resetValues(){
         Field[][] map = level.getLevelMap();
         int rowLength = map.length;
         int columnLength = map[0].length;
@@ -58,13 +61,13 @@ public class LevelLogic {
     }
 
 
-    private static void checkIfTimeIsUp(Level level){
+    private static void checkIfTimeIsUp(){
         int maxTicks = level.getTicks()[0];
         int ticksPast = level.getTicksPast();
         level.setTimeUp(ticksPast >= maxTicks);
     }
 
-    private static void computeScoredPoints(Level level){
+    private static void computeScoredPoints(){
         int[] gems = level.getGems();
         int[] ticks = level.getTicks();
         int collectedGems = level.getCollectedGems();
@@ -83,7 +86,7 @@ public class LevelLogic {
 
     //TODO: check this in a new mainRule
 
-    private static void checkIfExitIsReached(Level level){
+    private static void checkIfExitIsReached(){
 
         Field[][] map = level.getLevelMap();
 
@@ -101,29 +104,29 @@ public class LevelLogic {
         }
     }
 
-    private static void checkIfLevelIsPassed(Level level){
+    private static void checkIfLevelIsPassed(){
         if(level.getScoredPoints() > 0 && !level.isTimeUp() && level.isExitReached() && !level.isPlayerDead()){
             level.setPassed(true);
         }
     }
 
 
-    private static void executePreRules(Level level, KeyPressListener currentKeysPressed){
+    private static void executePreRules(KeyPressListener currentKeysPressed){
         List<Rule> preRules = level.getPreRules();
-        executeRules(preRules, level, currentKeysPressed, false);
+        executeRules(preRules, currentKeysPressed, false);
     }
 
-    private static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
+    private static void executeMainRules(KeyPressListener currentKeysPressed){
         List<Rule> mainRules = level.getMainRules();
-        executeRules(mainRules, level, currentKeysPressed, true);
+        executeRules(mainRules, currentKeysPressed, true);
     }
 
-    private static void executePostRules(Level level, KeyPressListener currentKeysPressed){
+    private static void executePostRules(KeyPressListener currentKeysPressed){
         List<Rule> postRules = level.getPostRules();
-        executeRules(postRules, level, currentKeysPressed, false);
+        executeRules(postRules, currentKeysPressed, false);
     }
 
-    private static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
+    private static boolean checkIfSituationOccurs(Situation situation, KeyPressListener currentKeysPressed){
         boolean situationOccurs = false;
 
         if (situation == Situation.ANY || (situation == Situation.RARE && level.getTicksPast() % level.getSparsity() == 0) ||
@@ -143,7 +146,7 @@ public class LevelLogic {
         return (Math.random() <= 0.03);
     }
 
-    private static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed, boolean isMainRule){
+    private static void executeRules(List<Rule> rules, KeyPressListener currentKeysPressed, boolean isMainRule){
 
         if(rules == null){
             return;
@@ -154,22 +157,22 @@ public class LevelLogic {
             Situation situation = rule.getSituation();
             Direction direction = rule.getDirection();
 
-            if(!checkIfSituationOccurs(situation, level,  currentKeysPressed)){
+            if(!checkIfSituationOccurs(situation,  currentKeysPressed)){
                 continue;
             }
 
             switch(direction) {
                 case EAST:
-                    executeRuleEastward(rule, level, isMainRule);
+                    executeRuleEastward(rule, isMainRule);
                     break;
                 case WEST:
-                    executeRuleWestward(rule, level, isMainRule);
+                    executeRuleWestward(rule, isMainRule);
                     break;
                 case NORTH:
-                    executeRuleNorthward(rule, level, isMainRule);
+                    executeRuleNorthward(rule, isMainRule);
                     break;
                 case SOUTH:
-                    executeRuleSouthward(rule, level, isMainRule);
+                    executeRuleSouthward(rule, isMainRule);
                     break;
             }
 
@@ -182,7 +185,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleEastward(Rule rule, Level level, boolean isMainRule){
+    private static void executeRuleEastward(Rule rule, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -219,7 +222,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleWestward(Rule rule, Level level, boolean isMainRule){
+    private static void executeRuleWestward(Rule rule, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -253,7 +256,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleNorthward(Rule rule, Level level, boolean isMainRule){
+    private static void executeRuleNorthward(Rule rule, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -290,7 +293,7 @@ public class LevelLogic {
     }
 
 
-    private static void executeRuleSouthward(Rule rule, Level level, boolean isMainRule){
+    private static void executeRuleSouthward(Rule rule, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -359,6 +362,35 @@ public class LevelLogic {
         boolean valuesAgree = true;
 
         for(ValuesNames valueName: ruleComponentValues.keySet()){
+
+            switch(valueName){
+                case X:
+                    if(ruleComponentValues.get(valueName) != level.getX()){
+                        valuesAgree = false;
+                    }
+                    break;
+                case Y:
+                    if(ruleComponentValues.get(valueName) != level.getY()){
+                        valuesAgree = false;
+                    }
+                    break;
+                case Z:
+                    if(ruleComponentValues.get(valueName) != level.getZ()){
+                        valuesAgree = false;
+                    }
+                break;
+                case GEMS:
+                    if(ruleComponentValues.get(valueName) != level.getCollectedGems()){
+                        valuesAgree = false;
+                    }
+                    break;
+                case TICKS:
+                    if(ruleComponentValues.get(valueName) != level.getTicksPast()){
+                        valuesAgree = false;
+                    }
+                    break;
+            }
+
             if(fieldValues.get(valueName) != ruleComponentValues.get(valueName)){
                 valuesAgree = false;
             }
@@ -429,6 +461,25 @@ public class LevelLogic {
     private static void replaceValues(Field currentField, RuleComponent currentResultComponent) {
         valuesWereReplaced = true;
         for(ValuesNames valueName: currentResultComponent.getValues().getValueList().keySet()){
+
+            switch(valueName){
+                case X:
+                    level.setX(currentResultComponent.getValues().getValueList().get(valueName));
+                    break;
+                case Y:
+                    level.setY(currentResultComponent.getValues().getValueList().get(valueName));
+                    break;
+                case Z:
+                    level.setZ(currentResultComponent.getValues().getValueList().get(valueName));
+                    break;
+                case GEMS:
+                    level.setCollectedGems(currentResultComponent.getValues().getValueList().get(valueName));
+                    break;
+                case TICKS:
+                    level.setTicksPast(currentResultComponent.getValues().getValueList().get(valueName));
+                    break;
+            }
+
             int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
             currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
             /*
@@ -460,17 +511,17 @@ public class LevelLogic {
     private static Rule spreadSlimeCanGrowRuleWest = new Rule(Situation.ANY, Direction.WEST, List.of(slimeWithCanGrow, slimeWithoutCanGrow), List.of(slimeWithCanGrow, slimeWithCanGrow));
     private static Rule spreadSlimeCanGrowRuleSouth = new Rule(Situation.ANY, Direction.SOUTH, List.of(slimeWithCanGrow, slimeWithoutCanGrow), List.of(slimeWithCanGrow, slimeWithCanGrow));
 
-    private static void slimeCheck(Level level){
-        if(maxSlimeCheck(level)){
-            setSlimesToStone(level);
+    private static void slimeCheck(){
+        if(maxSlimeCheck()){
+            setSlimesToStone();
             return;
         }
 
         //set if slimes can grow
-        executeRuleEastward(setSlimeCanGrowRuleEast, level, true);
-        executeRuleNorthward(setSlimeCanGrowRuleNorth, level, true);
-        executeRuleWestward(setSlimeCanGrowRuleWest, level, true);
-        executeRuleSouthward(setSlimeCanGrowRuleSouth, level, true);
+        executeRuleEastward(setSlimeCanGrowRuleEast, true);
+        executeRuleNorthward(setSlimeCanGrowRuleNorth, true);
+        executeRuleWestward(setSlimeCanGrowRuleWest, true);
+        executeRuleSouthward(setSlimeCanGrowRuleSouth, true);
 
         //spread canGrow to neighbour slimes
         valuesWereReplaced = true;
@@ -478,16 +529,16 @@ public class LevelLogic {
         while(valuesWereReplaced){
             valuesWereReplaced = false;
 
-            executeRuleEastward(spreadSlimeCanGrowRuleEast, level, true);
-            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, level, true);
-            executeRuleWestward(spreadSlimeCanGrowRuleWest, level, true);
-            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, level, true);
+            executeRuleEastward(spreadSlimeCanGrowRuleEast, true);
+            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, true);
+            executeRuleWestward(spreadSlimeCanGrowRuleWest, true);
+            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, true);
         }
 
-        setSlimesToGem(level);
+        setSlimesToGem();
     }
 
-    private static boolean maxSlimeCheck(Level level){
+    private static boolean maxSlimeCheck(){
         if(level.getMaxSlime() == 0){
             return false;
         }
@@ -505,7 +556,7 @@ public class LevelLogic {
         return totalSlimes > level.getMaxSlime();
     }
 
-    private static void setSlimesToStone(Level level){
+    private static void setSlimesToStone(){
         Field[][] map = level.getLevelMap();
 
         for (int x = 0; x<map.length; x++){
@@ -517,7 +568,7 @@ public class LevelLogic {
         }
     }
 
-    private static void setSlimesToGem(Level level){
+    private static void setSlimesToGem(){
         Field[][] map = level.getLevelMap();
 
         for (int x = 0; x<map.length; x++){
@@ -531,7 +582,7 @@ public class LevelLogic {
         }
     }
 
-    private static void collectedGemCheck(Level level){
+    private static void collectedGemCheck(){
         Field[][] map = level.getLevelMap();
 
         for (int x = 0; x<map.length; x++){
@@ -543,7 +594,7 @@ public class LevelLogic {
         }
     }
 
-    private static void playerDeadCheck(Level level){
+    private static void playerDeadCheck(){
         Field[][] map = level.getLevelMap();
         boolean playerIsDead = true;
 
@@ -589,7 +640,7 @@ public class LevelLogic {
         return mePosition;
     }
 
-    private static void checkIfStopButtonIsPressed(Level level){
+    private static void checkIfStopButtonIsPressed(){
 
         Field[][] map = level.getLevelMap();
 
@@ -608,12 +659,12 @@ public class LevelLogic {
         }
     }
 
-    private static void updateStopCounter(Level level){
+    private static void updateStopCounter(){
         int stopCounter = level.getStopCounter();
 
         if(level.isStopped() && stopCounter > 0){
             level.setStopCounter(stopCounter-1);
-            setFieldsToStop(level);
+            setFieldsToStop();
         }
 
         if(level.isStopped() && stopCounter == 0){
@@ -621,7 +672,7 @@ public class LevelLogic {
         }
     }
 
-    private static void setFieldsToStop(Level level){
+    private static void setFieldsToStop(){
         Field[][] map = level.getLevelMap();
 
         int numberOfRows = map.length;

@@ -49,6 +49,7 @@ public class Level {
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap();
+        getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
 
@@ -63,6 +64,7 @@ public class Level {
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap() ;
+        getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.lives = lives;
         this.currentLives = lives;
@@ -72,6 +74,24 @@ public class Level {
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
         System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
         //TerminalMap.drawMap(this.levelMap);
+    }
+
+    private void getXYZValuesFromMapData(Field[][] levelMap){
+        for (int i = 0; i < levelMap.length; i++) {
+            for (int j = 0; j < levelMap[i].length; j++) {
+                if(levelMap[i][j].getGegenstand().getValues().getValueList().containsKey(ValuesNames.X)){
+                    this.x = levelMap[i][j].getGegenstand().getValues().getValueList().get(ValuesNames.X);
+                }
+                if(levelMap[i][j].getGegenstand().getValues().getValueList().containsKey(ValuesNames.Y)){
+                    this.y = levelMap[i][j].getGegenstand().getValues().getValueList().get(ValuesNames.Y);
+
+                }
+                if(levelMap[i][j].getGegenstand().getValues().getValueList().containsKey(ValuesNames.Z)){
+                    this.z = levelMap[i][j].getGegenstand().getValues().getValueList().get(ValuesNames.Z);
+
+                }
+            }
+        }
     }
 
     public String getLevelName() {
