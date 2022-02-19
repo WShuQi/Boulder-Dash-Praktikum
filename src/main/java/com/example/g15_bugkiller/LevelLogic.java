@@ -14,14 +14,14 @@ public class LevelLogic {
 
         //System.out.println("mapData: " + level.getLevelMap());
         level.setTicksPast(level.getTicksPast() + 1);
-
+        updateStopCounter(level);
         executePreRules(level, currentKeysPressed);
         executeMainRules(level, currentKeysPressed);
         executePostRules(level, currentKeysPressed);
 
         computeScoredPoints(level);
         slimeCheck(level);
-        updateStopCounter(level);
+        checkIfStopButtonIsPressed(level);
         collectedGemCheck(level);
         playerDeadCheck(level);
         checkIfExitIsReached(level);
@@ -107,6 +107,7 @@ public class LevelLogic {
         }
     }
 
+
     private static void executePreRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> preRules = level.getPreRules();
         executeRules(preRules, level, currentKeysPressed, false);
@@ -172,11 +173,12 @@ public class LevelLogic {
                     break;
             }
 
+            /*
             if(rule.getRuleName() != null && (rule.getRuleName().equals("StopButtonRight") | rule.getRuleName().equals("StopButtonLeft") | rule.getRuleName().equals("StopButtonDown") | rule.getRuleName().equals("StopButtonUp"))){
                 level.setStopped(true);
                 level.setStopCounter(5*5);
             }
-
+            */
         }
     }
 
@@ -185,17 +187,17 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
 
-        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
             int columnCounter = 0;
 
-            while(columnCounter + numberOfRuleComponents < numberOfRows){
+            while(columnCounter + numberOfRuleComponents <= numberOfColumns){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -222,16 +224,16 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
-        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+        for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
-            int columnCounter = numberOfRows-1;
+            int columnCounter = numberOfColumns-1;
 
-            while(columnCounter - numberOfRuleComponents >= 0){
+            while(columnCounter - numberOfRuleComponents >= -1){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -256,16 +258,16 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
-        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
-            int rowCounter = numberOfColumns-1;
+            int rowCounter = numberOfRows-1;
 
-            while(rowCounter - numberOfRuleComponents >= 0){
+            while(rowCounter - numberOfRuleComponents >= -1){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -273,7 +275,9 @@ public class LevelLogic {
                     nextFields[fieldCounter] = map[columnCounter][rowCounter - fieldCounter];
                 }
 
+
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
+
                     replaceFields(nextFields, result);
                     rowCounter = rowCounter - step;
 
@@ -291,17 +295,17 @@ public class LevelLogic {
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
 
-        int numberOfRows = map.length;
-        int numberOfColumns = map[0].length;
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
         int step = isMainRule? 1 : numberOfRuleComponents;
 
 
-        for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+        for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
             int rowCounter = 0;
 
-            while(rowCounter + numberOfRuleComponents < numberOfColumns){
+            while(rowCounter + numberOfRuleComponents <= numberOfRows){
 
                 Field[] nextFields = new Field[numberOfRuleComponents];
 
@@ -585,15 +589,49 @@ public class LevelLogic {
         return mePosition;
     }
 
+    private static void checkIfStopButtonIsPressed(Level level){
+
+        Field[][] map = level.getLevelMap();
+
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+            for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+
+                if(map[columnCounter][rowCounter].getGegenstand().getValues().getValueList().getOrDefault(ValuesNames.STOPBUTTONPRESSED, 0) == 1){
+                    level.setStopped(true);
+                    level.setStopCounter(25);
+                    return;
+                }
+            }
+        }
+    }
+
     private static void updateStopCounter(Level level){
         int stopCounter = level.getStopCounter();
 
         if(level.isStopped() && stopCounter > 0){
-            stopCounter--;
+            level.setStopCounter(stopCounter-1);
+            setFieldsToStop(level);
         }
 
-        if(stopCounter == 0){
+        if(level.isStopped() && stopCounter == 0){
             level.setStopped(false);
+        }
+    }
+
+    private static void setFieldsToStop(Level level){
+        Field[][] map = level.getLevelMap();
+
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+            for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+
+                map[columnCounter][rowCounter].getGegenstand().getValues().getValueList().put(ValuesNames.STOP, 1);
+            }
         }
     }
 }

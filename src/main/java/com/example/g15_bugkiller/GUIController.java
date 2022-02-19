@@ -67,7 +67,7 @@ public class GUIController {
                     timer = null;
                     returnToOverview();
 
-                    GameReplay.openReplayWindow(level.getReplaySaveData()); //todo: add a button to overview to watch replay
+                    //GameReplay.openReplayWindow(level.getReplaySaveData()); //todo: add a button to overview to watch replay
                 }
             }
         };

@@ -38,6 +38,7 @@ public class Values {
         valueList.put(GEMS, 0);
         valueList.put(TICKS, 0);
         valueList.put(STOP, 0);
+        valueList.put(STOPBUTTONPRESSED, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {
