@@ -25,5 +25,6 @@ public enum ValuesNames {
     CANGROW,
 
     EXITREACHED,
-    STOP
+    STOP,
+    STOPBUTTONPRESSED
 }
