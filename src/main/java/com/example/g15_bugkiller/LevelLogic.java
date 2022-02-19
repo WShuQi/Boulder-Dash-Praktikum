@@ -109,17 +109,17 @@ public class LevelLogic {
 
     private static void executePreRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> preRules = level.getPreRules();
-        executeRules(preRules, level, currentKeysPressed);
+        executeRules(preRules, level, currentKeysPressed, false);
     }
 
     private static void executeMainRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> mainRules = level.getMainRules();
-        executeRules(mainRules, level, currentKeysPressed);
+        executeRules(mainRules, level, currentKeysPressed, true);
     }
 
     private static void executePostRules(Level level, KeyPressListener currentKeysPressed){
         List<Rule> postRules = level.getPostRules();
-        executeRules(postRules, level, currentKeysPressed);
+        executeRules(postRules, level, currentKeysPressed, false);
     }
 
     private static boolean checkIfSituationOccurs(Situation situation, Level level, KeyPressListener currentKeysPressed){
@@ -142,7 +142,7 @@ public class LevelLogic {
         return (Math.random() <= 0.03);
     }
 
-    private static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed){
+    private static void executeRules(List<Rule> rules, Level level, KeyPressListener currentKeysPressed, boolean isMainRule){
 
         if(rules == null){
             return;
@@ -159,16 +159,16 @@ public class LevelLogic {
 
             switch(direction) {
                 case EAST:
-                    executeRuleEastward(rule, level);
+                    executeRuleEastward(rule, level, isMainRule);
                     break;
                 case WEST:
-                    executeRuleWestward(rule, level);
+                    executeRuleWestward(rule, level, isMainRule);
                     break;
                 case NORTH:
-                    executeRuleNorthward(rule, level);
+                    executeRuleNorthward(rule, level, isMainRule);
                     break;
                 case SOUTH:
-                    executeRuleSouthward(rule, level);
+                    executeRuleSouthward(rule, level, isMainRule);
                     break;
             }
 
@@ -180,7 +180,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleEastward(Rule rule, Level level){
+    private static void executeRuleEastward(Rule rule, Level level, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -188,6 +188,7 @@ public class LevelLogic {
         int numberOfRows = map.length;
         int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
+        int step = isMainRule? 1 : numberOfRuleComponents;
 
 
         for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
@@ -206,7 +207,7 @@ public class LevelLogic {
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
                     replaceFields(nextFields, result);
-                    columnCounter = columnCounter + numberOfRuleComponents;
+                    columnCounter = columnCounter + step;
 
                 } else {
                     columnCounter++;
@@ -216,7 +217,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleWestward(Rule rule, Level level){
+    private static void executeRuleWestward(Rule rule, Level level, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -224,6 +225,7 @@ public class LevelLogic {
         int numberOfRows = map.length;
         int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
+        int step = isMainRule? 1 : numberOfRuleComponents;
 
         for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
 
@@ -239,7 +241,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
                     replaceFields(nextFields, result);
-                    columnCounter = columnCounter - numberOfRuleComponents;
+                    columnCounter = columnCounter - step;
 
                 } else {
                     columnCounter--;
@@ -249,7 +251,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleNorthward(Rule rule, Level level){
+    private static void executeRuleNorthward(Rule rule, Level level, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -257,6 +259,7 @@ public class LevelLogic {
         int numberOfRows = map.length;
         int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
+        int step = isMainRule? 1 : numberOfRuleComponents;
 
         for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
@@ -272,7 +275,7 @@ public class LevelLogic {
 
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
                     replaceFields(nextFields, result);
-                    rowCounter = rowCounter - numberOfRuleComponents;
+                    rowCounter = rowCounter - step;
 
                 } else {
                     rowCounter--;
@@ -283,7 +286,7 @@ public class LevelLogic {
     }
 
 
-    private static void executeRuleSouthward(Rule rule, Level level){
+    private static void executeRuleSouthward(Rule rule, Level level, boolean isMainRule){
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -291,6 +294,8 @@ public class LevelLogic {
         int numberOfRows = map.length;
         int numberOfColumns = map[0].length;
         int numberOfRuleComponents = original.size();
+        int step = isMainRule? 1 : numberOfRuleComponents;
+
 
         for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
 
@@ -307,7 +312,7 @@ public class LevelLogic {
                 if(checkIfNextFieldsAndOriginalsAgree(nextFields, original)){
 
                     replaceFields(nextFields, result);
-                    rowCounter = rowCounter + numberOfRuleComponents;
+                    rowCounter = rowCounter + step;
 
                 } else {
                     rowCounter++;
@@ -451,10 +456,10 @@ public class LevelLogic {
         }
 
         //set if slimes can grow
-        executeRuleEastward(setSlimeCanGrowRuleEast, level);
-        executeRuleNorthward(setSlimeCanGrowRuleNorth, level);
-        executeRuleWestward(setSlimeCanGrowRuleWest, level);
-        executeRuleSouthward(setSlimeCanGrowRuleSouth, level);
+        executeRuleEastward(setSlimeCanGrowRuleEast, level, true);
+        executeRuleNorthward(setSlimeCanGrowRuleNorth, level, true);
+        executeRuleWestward(setSlimeCanGrowRuleWest, level, true);
+        executeRuleSouthward(setSlimeCanGrowRuleSouth, level, true);
 
         //spread canGrow to neighbour slimes
         valuesWereReplaced = true;
@@ -462,10 +467,10 @@ public class LevelLogic {
         while(valuesWereReplaced){
             valuesWereReplaced = false;
 
-            executeRuleEastward(spreadSlimeCanGrowRuleEast, level);
-            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, level);
-            executeRuleWestward(spreadSlimeCanGrowRuleWest, level);
-            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, level);
+            executeRuleEastward(spreadSlimeCanGrowRuleEast, level, true);
+            executeRuleNorthward(spreadSlimeCanGrowRuleNorth, level, true);
+            executeRuleWestward(spreadSlimeCanGrowRuleWest, level, true);
+            executeRuleSouthward(spreadSlimeCanGrowRuleSouth, level, true);
         }
 
         setSlimesToGem(level);

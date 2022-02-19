@@ -18,8 +18,8 @@ public class Game {
         this.levels = levels;
         this.necessaryRatioOfTotalPoints = necessaryRatioOfTotalPoints;
         levels.values().iterator().next().setUnlocked(true);     //TODO: modify
-    if (freePlay){
-        freePlay();
+        if (freePlay){
+             freePlay();
         }
 
     }
@@ -28,7 +28,7 @@ public class Game {
         return levels;
     }
 
-    //Todo:Habe ein HashMap geplant, so kann man laut Namen die Reihenfolge von Leveln bestimmen. Bitte noch anpassen.
+    //Todo: Überarbeiten
     public void unlockNextLevelAsNecessary(){
         int numberOfLevels = levels.size();
 
