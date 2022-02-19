@@ -60,6 +60,30 @@
       "result":[{"token":"1", "values":{"moved":1, "falling": 1, "direction": 0}},{"token":"path", "values":{"moved": 1}}]
     },
 
+    { "name": "MeDiggingRight",
+      "situation":"metaright",
+      "direction":"east",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
+    { "name": "MeDiggingLeft",
+      "situation":"metaleft",
+      "direction":"west",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
+    { "name": "MeDiggingDown",
+      "situation":"metadown",
+      "direction":"south",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
+    { "name": "MeDiggingUp",
+      "situation":"metaup",
+      "direction":"north",
+      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
+      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
+    },
 
 
     { "name": "MeMovementRight",
@@ -88,30 +112,7 @@
     },
 
 
-    { "name": "MeDiggingRight",
-      "situation":"metaright",
-      "direction":"east",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
-      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
-    },
-    { "name": "MeDiggingLeft",
-      "situation":"metaleft",
-      "direction":"west",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
-      "result":[{"token":"me", "values":{"moved":1}},{"token":["path"], "values":{"moved":1}}]
-    },
-    { "name": "MeDiggingDown",
-      "situation":"metadown",
-      "direction":"south",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
-      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
-    },
-    { "name": "MeDiggingUp",
-      "situation":"metaup",
-      "direction":"north",
-      "original":[{"token":"me", "values":{"moved":0}},{"token":"mud", "values":{"moved":0}}],
-      "result":[{"token":"me", "values":{"moved":1}},{"token":"path", "values":{"moved":1}}]
-    },
+
 
 
     { "name": "MeCollectingGemToTheRight",
