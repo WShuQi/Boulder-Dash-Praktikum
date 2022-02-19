@@ -37,9 +37,11 @@ public class GUIView {
         double startYMini = 75;
 
         double startX = 500 - 0.5 * BLOCK_SIZE * fields.length;
-        double startY = startYMini + fields[1].length * BLOCK_SIZE_MINI + 5;
+
+        double startYVerschiebung = startYMini+ fields[1].length * BLOCK_SIZE_MINI + 5;
         double startYMittig = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
 
+        double startY = Math.max(startYVerschiebung,startYMittig);
         this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
