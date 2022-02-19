@@ -64,8 +64,12 @@ public class Game {
         return totalPoints;
     }
 
-    public void freePlay(){
-        for (Level level: levels.values()) {
+    public int getNumberOfUnlockedLevels() {
+        return numberOfUnlockedLevels;
+    }
+
+    public void freePlay() {
+        for (Level level : levels.values()) {
             level.setUnlocked(true);
         }
     }

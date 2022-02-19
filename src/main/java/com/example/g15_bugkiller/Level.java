@@ -35,15 +35,20 @@ public class Level {
     private boolean playerDead = false;
     private boolean stopped = false;
 
+    private int bestGems = 0;
+    private int bestTime = 0;
+    private int bestScore = 0;
+
     private List<Field[][]> replaySaveData = new ArrayList<>();
 
-    public Level(){}
+    public Level() {
+    }
 
     public Level(String levelName, int[] gems, Input mapData, int[] ticks) {
         this.levelName = levelName;
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
-        this.levelMap = map.generateMap() ;
+        this.levelMap = map.generateMap();
         this.ticks = ticks;
         this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
 
@@ -329,5 +334,35 @@ public class Level {
 
     public void setReplaySaveData(List<Field[][]> replaySaveData) {
         this.replaySaveData = replaySaveData;
+    }
+
+    public void setBestGems(int currentGems) {
+        if (currentGems > this.bestGems) {
+            this.bestGems = currentGems;
+        }
+    }
+
+    public void setBestTime(int currentTime) {
+        if (currentTime < this.bestTime) {
+            this.bestTime = currentTime;
+        }
+    }
+
+    public void setBestScore(int currentScore) {
+        if (currentScore > this.bestScore) {
+            this.bestScore = currentScore;
+        }
+    }
+
+    public int getBestGems() {
+        return bestGems;
+    }
+
+    public int getBestScore() {
+        return bestScore;
+    }
+
+    public int getBestTime() {
+        return bestTime;
     }
 }
