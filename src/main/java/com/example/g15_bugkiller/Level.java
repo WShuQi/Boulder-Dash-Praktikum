@@ -3,6 +3,7 @@ package com.example.g15_bugkiller;
 import MapGeneration.Input;
 import MapGeneration.MapGeneration;
 import MapGeneration.Coordinate;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -384,5 +385,17 @@ public class Level {
 
     public int getBestTime() {
         return bestTime;
+    }
+
+    public Coordinate getMEPosition() {
+        Field[][] map = this.getLevelMap();
+        for (int x = 0; x<map.length; x++){
+            for (int y = 0; y<map[x].length; y++){
+                if (map[x][y].getType() == Type.ME){
+                    return new Coordinate(x, y);
+                }
+            }
+        }
+        return getOriginalMePosition();
     }
 }

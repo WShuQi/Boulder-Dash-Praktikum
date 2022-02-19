@@ -1,32 +1,36 @@
 package com.example.g15_bugkiller;
 
+import MapGeneration.Coordinate;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Button;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.g15_bugkiller.GUIApplication.SCREEN_HEIGHT;
-import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
-
 public class GUIView {
 
-    public final int BLOCK_SIZE = 25;
+    public static int SCREEN_WIDTH = 1000;
+    public static int SCREEN_HEIGHT = 1000;
+
+    public final int BLOCK_SIZE = 32;
     public final int BLOCK_SIZE_MINI = 8;
     public final int START_FIELD_Y = 30;
 
     private GraphicsContext gc;
 
+    public int vorherigeErsteSpalte;
+    public int vorherigeErsteZeile;
+
     public GUIView(GraphicsContext gc) {
         this.gc = gc;
+    }
+
+    public void resetLevelView() {
+        vorherigeErsteSpalte = 0;
+        vorherigeErsteZeile = 0;
     }
 
     public void drawLevel(Level level) {
@@ -36,7 +40,7 @@ public class GUIView {
         double startXMini = 500 - 0.5 * BLOCK_SIZE_MINI * fields.length;
         double startYMini = 75;
 
-        double startX = 500 - 0.5 * BLOCK_SIZE * fields.length;
+        double startX = Math.max(4, 500 - 0.5 * BLOCK_SIZE * fields.length);
 
         double startYVerschiebung = startYMini+ fields[1].length * BLOCK_SIZE_MINI + 5;
         double startYMittig = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
@@ -64,23 +68,71 @@ public class GUIView {
 
         drawLives(level.getCurrentLives(), level.getLives());
 
-        for(int zeile = 0; zeile < fields.length; zeile++){
-            for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
-                Field field = fields[zeile][spalte];
+        int maxSpalten = fields.length;
+        int maxZeilen = fields[0].length;
 
-                double y = BLOCK_SIZE * spalte + startY - START_FIELD_Y;
-                double x = BLOCK_SIZE * zeile + startX;
+        int startSpalte = this.vorherigeErsteSpalte;
+        int startZeile = this.vorherigeErsteZeile;
+
+        final int maxZeilenToDisplay = Math.min((int) ((GUIView.SCREEN_HEIGHT - startY - 140) / BLOCK_SIZE), maxZeilen);
+        final int maxSpaltenToDisplay = Math.min((GUIView.SCREEN_WIDTH) / BLOCK_SIZE, maxSpalten);
+
+        int endeZeile = Math.min(startZeile + maxZeilenToDisplay, maxZeilen);
+        int endeSpalte = Math.min(startSpalte + maxSpaltenToDisplay, maxSpalten);
+
+        Coordinate mePosition = level.getMEPosition();
+
+        if (mePosition.getY() >= endeZeile - 3) {
+            endeZeile = mePosition.getY() + 4;
+            if (endeZeile > maxZeilen) {
+                endeZeile = maxZeilen;
+            }
+            startZeile = Math.max(endeZeile - maxZeilenToDisplay, 0);
+        }
+        else if (mePosition.getY() < startZeile + 3) {
+            startZeile = mePosition.getY() - 3;
+            if (startZeile < 0) {
+                startZeile = 0;
+            }
+            endeZeile = Math.min(startZeile + maxZeilenToDisplay, maxZeilen);
+        }
+
+        if (mePosition.getX() >= endeSpalte - 3) {
+            endeSpalte = mePosition.getX() + 4;
+            if (endeSpalte > maxSpalten) {
+                endeSpalte = maxSpalten;
+            }
+            startSpalte = Math.max(endeSpalte - maxSpaltenToDisplay, 0);
+        }
+        else if (mePosition.getX() < startSpalte + 3) {
+            startSpalte = mePosition.getX() - 3;
+            if (startSpalte < 0) {
+                startSpalte = 0;
+            }
+            endeSpalte = Math.min(startSpalte + maxSpaltenToDisplay, maxSpalten);
+        }
+
+        for (int spalte = startSpalte; spalte < endeSpalte; spalte++){
+            for(int zeile = startZeile; zeile < endeZeile; zeile++) {
+                Field field = fields[spalte][zeile];
+
+                double y = BLOCK_SIZE * (zeile - startZeile) + startY - START_FIELD_Y;
+                double x = BLOCK_SIZE * (spalte - startSpalte) + startX;
 
                 Image image = PictureRepo.getImage(field.getType().name());
                 gc.drawImage(image, x, y, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
-        for(int zeile = 0; zeile < fields.length; zeile++){
-            for(int spalte = 0; spalte < fields[zeile].length; spalte++) {
-                Field field = fields[zeile][spalte];
 
-                double y = BLOCK_SIZE_MINI * spalte + startYMini- START_FIELD_Y;
-                double x = BLOCK_SIZE_MINI * zeile + startXMini;
+        this.vorherigeErsteSpalte = startSpalte;
+        this.vorherigeErsteZeile = startZeile;
+
+        for (int spalte = 0; spalte < fields.length; spalte++){
+            for(int zeile = 0; zeile < fields[spalte].length; zeile++) {
+                Field field = fields[spalte][zeile];
+
+                double y = BLOCK_SIZE_MINI * zeile + startYMini- START_FIELD_Y;
+                double x = BLOCK_SIZE_MINI * spalte + startXMini;
 
                 Image image = PictureRepo.getImage(field.getType().name());
                 gc.drawImage(image, x, y, BLOCK_SIZE_MINI, BLOCK_SIZE_MINI);

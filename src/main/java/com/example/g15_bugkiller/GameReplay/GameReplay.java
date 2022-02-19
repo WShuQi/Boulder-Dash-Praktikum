@@ -18,9 +18,6 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.g15_bugkiller.GUIApplication.SCREEN_HEIGHT;
-import static com.example.g15_bugkiller.GUIApplication.SCREEN_WIDTH;
-
 public class GameReplay {
 
     public static final int BLOCK_SIZE = 25;
@@ -54,7 +51,7 @@ public class GameReplay {
 
         BorderPane borderPane = new BorderPane();
 
-        Canvas canvas = new Canvas(1000, 1000);
+        Canvas canvas = new Canvas(GUIView.SCREEN_WIDTH, GUIView.SCREEN_HEIGHT);
         borderPane.setCenter(canvas);
 
         gc = canvas.getGraphicsContext2D();
@@ -97,7 +94,7 @@ public class GameReplay {
     }
 
     private static void drawLevel(Field[][] map) {
-        gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gc.clearRect(0,0, GUIView.SCREEN_WIDTH, GUIView.SCREEN_HEIGHT);
 
         for(int zeile = 0; zeile < map.length; zeile++){
             for(int spalte = 0; spalte < map[zeile].length; spalte++) {

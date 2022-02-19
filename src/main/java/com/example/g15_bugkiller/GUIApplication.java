@@ -20,14 +20,11 @@ import java.util.Map;
 
 public class GUIApplication extends Application {
 
-    public static int SCREEN_WIDTH = 1000;
-    public static int SCREEN_HEIGHT = 1000;
-
 
     @Override
     public void start(Stage stage) throws IOException {
         Group root = new Group();
-        Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+        Scene scene = new Scene(root, GUIView.SCREEN_WIDTH, GUIView.SCREEN_HEIGHT);
         stage.setTitle("Boulder Dash!");
         stage.setScene(scene);
 
@@ -36,7 +33,7 @@ public class GUIApplication extends Application {
 
         Game game = new Game(levels, 0.5);
 
-        Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+        Canvas canvas = new Canvas(GUIView.SCREEN_WIDTH, GUIView.SCREEN_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GUIView view = new GUIView(gc);
 
