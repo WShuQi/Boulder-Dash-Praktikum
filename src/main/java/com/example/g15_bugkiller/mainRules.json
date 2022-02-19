@@ -484,25 +484,25 @@
     { "name": "BlocklingRules: CornerNorthEast",
       "situation":"any",
       "direction":"east",
-      "original":[{"token":"blockling", "values":{"moved":0, "direction": 1, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud"]}],
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 1, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud", "blockling"]}],
       "result":[{"token":"blockling", "values":{"moved":0, "direction": 4}},{"token":1}]
     },
     { "name": "BlocklingRules: CornerSouthWest",
       "situation":"any",
       "direction":"west",
-      "original":[{"token":"blockling", "values":{"moved":0, "direction": 3, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud"]}],
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 3, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud", "blockling"]}],
       "result":[{"token":"blockling", "values":{"moved":0, "direction": 2}},{"token":1}]
     },
     { "name": "BlocklingRules: CornerSouthEast",
       "situation":"any",
       "direction":"south",
-      "original":[{"token":"blockling", "values":{"moved":0, "direction": 4, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud"]}],
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 4, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud", "blockling"]}],
       "result":[{"token":"blockling", "values":{"moved":0, "direction": 3}},{"token":1}]
     },
     { "name": "BlocklingRules: CornerNorthWest",
       "situation":"any",
       "direction":"north",
-      "original":[{"token":"blockling", "values":{"moved":0, "direction": 2, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud"]}],
+      "original":[{"token":"blockling", "values":{"moved":0, "direction": 2, "stop": 0}},{"token":["gem", "stone", "bricks", "exit", "wall", "slime", "mud", "blockling"]}],
       "result":[{"token":"blockling", "values":{"moved":0, "direction": 1}},{"token":1}]
     },
 
