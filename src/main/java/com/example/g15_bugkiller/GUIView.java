@@ -21,16 +21,16 @@ public class GUIView {
 
     private GraphicsContext gc;
 
-    public int lastX;
-    public int lastY;
+    public int vorherigeErsteSpalte;
+    public int vorherigeErsteZeile;
 
     public GUIView(GraphicsContext gc) {
         this.gc = gc;
     }
 
     public void resetLevelView() {
-        lastX = 0;
-        lastY = 0;
+        vorherigeErsteSpalte = 0;
+        vorherigeErsteZeile = 0;
     }
 
     public void drawLevel(Level level) {
@@ -71,14 +71,14 @@ public class GUIView {
         int maxSpalten = fields.length;
         int maxZeilen = fields[0].length;
 
-        int startSpalte = 0;
-        int startZeile = 0;
+        int startSpalte = this.vorherigeErsteSpalte;
+        int startZeile = this.vorherigeErsteZeile;
 
         final int maxZeilenToDisplay = Math.min((int) ((GUIView.SCREEN_HEIGHT - startY - 140) / BLOCK_SIZE), maxZeilen);
         final int maxSpaltenToDisplay = Math.min((GUIView.SCREEN_WIDTH) / BLOCK_SIZE, maxSpalten);
 
-        int endeZeile = maxZeilenToDisplay;
-        int endeSpalte = maxSpaltenToDisplay;
+        int endeZeile = Math.min(startZeile + maxZeilenToDisplay, maxZeilen);
+        int endeSpalte = Math.min(startSpalte + maxSpaltenToDisplay, maxSpalten);
 
         Coordinate mePosition = level.getMEPosition();
 
@@ -89,6 +89,13 @@ public class GUIView {
             }
             startZeile = Math.max(endeZeile - maxZeilenToDisplay, 0);
         }
+        else if (mePosition.getY() < startZeile + 3) {
+            startZeile = mePosition.getY() - 3;
+            if (startZeile < 0) {
+                startZeile = 0;
+            }
+            endeZeile = Math.min(startZeile + maxZeilenToDisplay, maxZeilen);
+        }
 
         if (mePosition.getX() >= endeSpalte - 3) {
             endeSpalte = mePosition.getX() + 4;
@@ -96,6 +103,13 @@ public class GUIView {
                 endeSpalte = maxSpalten;
             }
             startSpalte = Math.max(endeSpalte - maxSpaltenToDisplay, 0);
+        }
+        else if (mePosition.getX() < startSpalte + 3) {
+            startSpalte = mePosition.getX() - 3;
+            if (startSpalte < 0) {
+                startSpalte = 0;
+            }
+            endeSpalte = Math.min(startSpalte + maxSpaltenToDisplay, maxSpalten);
         }
 
         for (int spalte = startSpalte; spalte < endeSpalte; spalte++){
@@ -109,6 +123,9 @@ public class GUIView {
                 gc.drawImage(image, x, y, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
+
+        this.vorherigeErsteSpalte = startSpalte;
+        this.vorherigeErsteZeile = startZeile;
 
         for (int spalte = 0; spalte < fields.length; spalte++){
             for(int zeile = 0; zeile < fields[spalte].length; zeile++) {

@@ -37,7 +37,7 @@ public class Game {
             int necessaryPoints = (int) Math.floor(necessaryRatioOfTotalPoints * numberOfUnlockedLevels * 3);
 
             if (totalPoints >= necessaryPoints) {
-                levels.get(indexOfNextUnlockedLevel).setUnlocked(true);
+                new ArrayList<>(levels.values()).get(indexOfNextUnlockedLevel).setUnlocked(true);
                 numberOfUnlockedLevels++;
             }
         }
