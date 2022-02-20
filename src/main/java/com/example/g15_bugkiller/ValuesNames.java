@@ -25,6 +25,7 @@ public enum ValuesNames {
     CANGROW,
 
     EXITREACHED,
+    EXITACTIVATED,
     STOP,
     STOPBUTTONPRESSED
 }

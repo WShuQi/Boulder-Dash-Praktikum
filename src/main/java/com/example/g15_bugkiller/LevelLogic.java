@@ -26,6 +26,7 @@ public class LevelLogic {
         slimeCheck();
         checkIfStopButtonIsPressed();
         playerDeadCheck();
+        checkIfExitCanOpen();
         checkIfExitIsReached();
         checkIfLevelIsPassed();
         checkIfTimeIsUp();
@@ -119,6 +120,29 @@ public class LevelLogic {
                 }
             }
         }
+    }
+
+    private static void checkIfExitCanOpen(){
+        if(!exitCanOpen()) return;
+
+        Field[][] map = level.getLevelMap();
+
+        int numberOfRows = map.length;
+        int numberOfColumns = map[0].length;
+
+        for(int rowCounter = 0; rowCounter < numberOfColumns; rowCounter++){
+            for(int columnCounter = 0; columnCounter < numberOfRows; columnCounter++){
+
+                if(map[columnCounter][rowCounter].getGegenstand().getToken().equals(Type.EXIT)){
+                    map[columnCounter][rowCounter].getGegenstand().getValues().setSpecificValue(ValuesNames.EXITACTIVATED, 1);
+                    return;
+                }
+            }
+        }
+    }
+
+    private static boolean exitCanOpen(){
+        return level.getGems()[0] <= level.getCollectedGems();
     }
 
     private static void checkIfLevelIsPassed(){
