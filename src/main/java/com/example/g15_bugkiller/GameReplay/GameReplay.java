@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,13 +19,21 @@ import java.util.List;
 
 public class GameReplay {
 
-    public static final int BLOCK_SIZE = 25;
+    private final double width;
+    private final double height;
+
+    public static final int MAX_BLOCK_SIZE = 64;
     public static final int START_FIELD_Y = 30;
 
     static List<Field[][]> savedMapData = new ArrayList<>();
     static GraphicsContext gc;
     static int currentFrame = 0;
     static Timeline timer;
+
+    public GameReplay(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
 
     public static void saveMapFrame(Field[][] map){
         Field[][] mapCopy = new Field[map.length][map[0].length];
@@ -41,7 +48,7 @@ public class GameReplay {
         savedMapData.add(mapCopy);
     }
 
-    public static void openReplayWindow(List<Field[][]> savedReplayData){
+    public void openReplayWindow(List<Field[][]> savedReplayData){
         savedMapData = savedReplayData;
 
         currentFrame = 0;
@@ -51,7 +58,7 @@ public class GameReplay {
 
         BorderPane borderPane = new BorderPane();
 
-        Canvas canvas = new Canvas(GUIView.SCREEN_WIDTH, GUIView.SCREEN_HEIGHT);
+        Canvas canvas = new Canvas(width, height);
         borderPane.setCenter(canvas);
 
         gc = canvas.getGraphicsContext2D();
@@ -71,7 +78,7 @@ public class GameReplay {
         replay();
     }
 
-    private static void replay(){
+    private void replay(){
         int totalMapFrames = savedMapData.size();
 
         //System.out.println(totalMapFrames);
@@ -93,18 +100,26 @@ public class GameReplay {
         timer.play();
     }
 
-    private static void drawLevel(Field[][] map) {
-        gc.clearRect(0,0, GUIView.SCREEN_WIDTH, GUIView.SCREEN_HEIGHT);
+    private void drawLevel(Field[][] map) {
+        gc.clearRect(0,0, width, height);
 
-        for(int zeile = 0; zeile < map.length; zeile++){
-            for(int spalte = 0; spalte < map[zeile].length; spalte++) {
-                Field field = map[zeile][spalte];
+        int maxSpalten = map.length;
+        int maxZeilen = map[0].length;
 
-                int y = BLOCK_SIZE * spalte + START_FIELD_Y;
-                int x = BLOCK_SIZE * zeile;
+        int maxBlockWidth = (int) (width / maxSpalten);
+        int maxBlockHeight = (int) (height / maxZeilen);
+
+        int blockSize = Math.min(Math.min(MAX_BLOCK_SIZE, maxBlockHeight), maxBlockWidth);
+
+        for(int spalte = 0; spalte < map.length; spalte++){
+            for(int zeile = 0; zeile < map[spalte].length; zeile++) {
+                Field field = map[spalte][zeile];
+
+                int y = blockSize * zeile;
+                int x = blockSize * spalte;
 
                 Image image = PictureRepo.getImage(field.getType().name());
-                gc.drawImage(image, x, y, BLOCK_SIZE, BLOCK_SIZE);
+                gc.drawImage(image, x, y, blockSize, blockSize);
             }
         }
     }

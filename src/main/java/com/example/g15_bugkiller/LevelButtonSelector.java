@@ -2,6 +2,7 @@ package com.example.g15_bugkiller;
 
 public class LevelButtonSelector {
 
+    public static final int DIFF_BUTTONS = 48;
     private final String levelName;
 
     private final double x, y;
@@ -15,8 +16,12 @@ public class LevelButtonSelector {
         this.h = h;
     }
 
-    public boolean contains(double x, double y) {
+    public boolean onPlayButton(double x, double y) {
         return x >= this.x && x <= this.x + this.w && y >= this.y && y <= this.y + this.h;
+    }
+
+    public boolean onReplayButton(double x, double y) {
+        return x >= this.x + DIFF_BUTTONS + this.w && x <= this.x + DIFF_BUTTONS + this.w + this.w && y >= this.y && y <= this.y + this.h;
     }
 
     public String getLevelName() {

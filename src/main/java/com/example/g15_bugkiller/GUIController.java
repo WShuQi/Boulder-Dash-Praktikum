@@ -19,6 +19,10 @@ public class GUIController {
 
     private List<LevelButtonSelector> levelButtonSelectorList;
 
+    private boolean levelInProgress;
+    private boolean restartLevel;
+    private boolean showReplay;
+
     public GUIController(GUIView view, Game game, KeyPressListener keyPressListener) {
         this.view = view;
         this.game = game;
@@ -32,13 +36,31 @@ public class GUIController {
     }       //Todo: Game(davon List<Level>)anpassen
 
     public void mousePressed(double x, double y) {
-        if (this.levelButtonSelectorList == null) {
-            return;
+        if (this.levelButtonSelectorList != null) {
+            for (LevelButtonSelector selector : this.levelButtonSelectorList) {
+                if (selector.onPlayButton(x, y)) {
+                    playLevel(selector.getLevelName());
+                    return;
+                }
+                else if (selector.onReplayButton(x, y)) {
+                    Level level = game.getLevels().get(selector.getLevelName());
+                    if (level.getReplaySaveData() != null && level.getReplaySaveData().size() > 0) {
+                        new GameReplay(600, 600).openReplayWindow(level.getReplaySaveData());
+                    }
+                }
+            }
         }
-        for (LevelButtonSelector selector : this.levelButtonSelectorList) {
-            if (selector.contains(x, y)) {
-                playLevel(selector.getLevelName());
-                return;
+        else {
+            // wir spielen und brauchen die anderen buttons
+            if (x >= 850 && x <= 930) {
+                if (y >= 50 && y <= 70) {
+                    // Neustart
+                    restartLevel = true;
+                }
+                else if (y >= 80 && y <= 100) {
+                    // Zurück
+                    levelInProgress = false;
+                }
             }
         }
     }
@@ -46,17 +68,24 @@ public class GUIController {
     public void executeTimeline(Level level){
 
         view.resetLevelView();
+        levelInProgress = true;
 
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event){
+                if (restartLevel) {
+                    LevelLogic.resetLevel(level);
+                    GameReplay.clearSavedMap();
+                    restartLevel = false;
+                }
+
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
                 LevelLogic.tick(level, currentKeysPressed);
                 GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
 
-                if(level.isTimeUp() | level.isExitReached() | level.isPlayerDead()){
+                if(!levelInProgress || level.isTimeUp() || level.isExitReached() || level.isPlayerDead()) {
                     level.setReplaySaveData(GameReplay.getSavedMapData());
 
                     if(level.isPassed()){
@@ -71,8 +100,6 @@ public class GUIController {
                     timer.getKeyFrames().clear();
                     timer = null;
                     returnToOverview();
-
-                    //GameReplay.openReplayWindow(level.getReplaySaveData()); //todo: add a button to overview to watch replay
                 }
             }
         };

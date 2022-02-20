@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class GUIView {
 
-    public static int SCREEN_WIDTH = 1000;
-    public static int SCREEN_HEIGHT = 1000;
+    final double width;
+    final double height;
 
     public final int BLOCK_SIZE = 32;
     public final int BLOCK_SIZE_MINI = 8;
@@ -24,8 +24,10 @@ public class GUIView {
     public int vorherigeErsteSpalte;
     public int vorherigeErsteZeile;
 
-    public GUIView(GraphicsContext gc) {
+    public GUIView(GraphicsContext gc, double width, double height) {
         this.gc = gc;
+        this.width = width;
+        this.height = height;
     }
 
     public void resetLevelView() {
@@ -46,8 +48,7 @@ public class GUIView {
         double startYMittig = 500 - 0.5 * BLOCK_SIZE * fields[1].length;
 
         double startY = Math.max(startYVerschiebung,startYMittig);
-        this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+        this.gc.clearRect(0,0, width, height);
 
         schwarzeLeiste();
 
@@ -63,8 +64,8 @@ public class GUIView {
         int startSpalte = this.vorherigeErsteSpalte;
         int startZeile = this.vorherigeErsteZeile;
 
-        final int maxZeilenToDisplay = Math.min((int) ((GUIView.SCREEN_HEIGHT - startY - 140) / BLOCK_SIZE), maxZeilen);
-        final int maxSpaltenToDisplay = Math.min((GUIView.SCREEN_WIDTH) / BLOCK_SIZE, maxSpalten);
+        final int maxZeilenToDisplay = Math.min((int) ((height - startY) / BLOCK_SIZE), maxZeilen);
+        final int maxSpaltenToDisplay = Math.min((int) (width) / BLOCK_SIZE, maxSpalten);
 
         int endeZeile = Math.min(startZeile + maxZeilenToDisplay, maxZeilen);
         int endeSpalte = Math.min(startSpalte + maxSpaltenToDisplay, maxSpalten);
@@ -127,6 +128,22 @@ public class GUIView {
                 gc.drawImage(image, x, y, BLOCK_SIZE_MINI, BLOCK_SIZE_MINI);
             }
         }
+
+        drawButtons();
+    }
+
+    private void drawButtons() {
+        drawButton("Neustart", 850, 50);
+        drawButton("Zurück", 850, 80);
+    }
+
+    private void drawButton(String text, double x, double y) {
+        int w = 80;
+        int h = 20;
+        gc.setFill(Color.DARKBLUE);
+        gc.fillRect(x, y, w, h);
+        gc.setFill(Color.WHITE);
+        gc.fillText(text, x + 5, y + h - 5);
     }
 
     private void drawGemCounter (int gemCounter)  {
@@ -140,7 +157,7 @@ public class GUIView {
     }
 
     private void drawTimePassed (int ticksCounter) {
-       gc.setFill(Color.WHITE);
+        gc.setFill(Color.WHITE);
         gc.fillText("Zeit:  " + ticksCounter, 389, 25.D);
 
     }
@@ -167,10 +184,8 @@ public class GUIView {
 
     }
 
-
-
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
-        this.gc.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        this.gc.clearRect(0,0, width, height);
         graueLeiste();
 
         int unlockedLevels = 0;
@@ -233,20 +248,33 @@ public class GUIView {
         }
 
         if (level.isUnlocked()||!level.isUnlocked()) {
-            gc.setFill(Color.DARKBLUE);
-            double x = startX + 110;
-            double y = startY + 40;
-            int w = 80;
-            int h = 20;
-            // gc.fillRect(x, y, w, h);
-            gc.fillOval(x, y, w, h);
-            gc.setFill(Color.WHITE);
-            gc.fillText("Play", startX + 138, startY + 54);
-            gc.fillText("     ", startX, startY + 50);
-
-            return new LevelButtonSelector(levelName, x, y, w, h);
+            return crateLevelButton(levelName, startX, startY,
+                    level.getReplaySaveData() != null && level.getReplaySaveData().size() > 0);
         }
         return null;
+    }
+
+    private LevelButtonSelector crateLevelButton(String levelName, double startX, double startY, boolean drawReplay) {
+        gc.setFill(Color.DARKBLUE);
+        double x = startX + 40;
+        double y = startY + 40;
+        int w = 80;
+        int h = 20;
+        // gc.fillRect(x, y, w, h);
+        gc.fillOval(x, y, w, h);
+        gc.setFill(Color.WHITE);
+        gc.fillText("Play", x + 28, y + 14);
+
+        if (drawReplay) {
+            gc.setFill(Color.DARKBLUE);
+            double rx = x + w + LevelButtonSelector.DIFF_BUTTONS;
+            // gc.fillRect(x, y, w, h);
+            gc.fillOval(rx, y, w, h);
+            gc.setFill(Color.WHITE);
+            gc.fillText("Replay", rx + 20, y + 14);
+        }
+
+        return new LevelButtonSelector(levelName, x, y, w, h);
     }
 
 }
