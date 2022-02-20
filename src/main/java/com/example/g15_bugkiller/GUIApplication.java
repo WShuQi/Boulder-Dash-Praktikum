@@ -31,6 +31,12 @@ public class GUIApplication extends Application {
 
         Group root = new Group();
         Scene scene = new Scene(root, width, height);
+        stage.setMaxHeight(height);
+        stage.setMaxWidth(width);
+
+        stage.setMinHeight(height);
+        stage.setMinWidth(width);
+
         stage.setTitle("Boulder Dash!");
         stage.setScene(scene);
 
