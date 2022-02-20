@@ -1,11 +1,9 @@
 package com.example.g15_bugkiller;
 
-public class Field {
-
+public class Field implements Cloneable {
 
     private boolean checked;
     Gegenstand gegenstand;
-
 
     public Field(Gegenstand gegenstand) { this.gegenstand = gegenstand;}
 
@@ -26,5 +24,7 @@ public class Field {
         return gegenstand;
     }
 
-
+    public Field clone() {
+        return new Field(checked, getGegenstand().clone());
+    }
 }

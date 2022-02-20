@@ -115,7 +115,7 @@ public class GUIController {
         GameReplay.clearSavedMap();
         Level selectedLevel = game.getLevels().get(selectedLevelName);
 
-        if(selectedLevel.isUnlocked()){
+        if(true || selectedLevel.isUnlocked()){
             executeTimeline(selectedLevel);
         }
 

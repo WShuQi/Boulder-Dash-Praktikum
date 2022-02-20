@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import static com.example.g15_bugkiller.ValuesNames.*;
 
-public class Values {
+public class Values implements Cloneable {
 
     HashMap<ValuesNames, Integer> valueList = new HashMap<ValuesNames, Integer>();
 
@@ -62,6 +62,8 @@ public class Values {
         return clonedList;
     }
 
-
+    public Values clone() {
+        return new Values(cloneValueList(this.valueList));
+    }
 }
 

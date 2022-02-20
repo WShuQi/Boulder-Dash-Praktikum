@@ -165,7 +165,7 @@ public class MapGeneration {
 
         for(int rowIterator = 0; rowIterator < maxMapSize.getX(); rowIterator++){                      //erstelle map aus default-Werten
             for(int columnIterator = 0; columnIterator < maxMapSize.getY(); columnIterator++){
-               newMap[rowIterator][columnIterator]= new Field(info.getDefaultField().getGegenstand());
+               newMap[rowIterator][columnIterator]= info.getDefaultField().clone();
             }
         }
 
@@ -182,9 +182,9 @@ public class MapGeneration {
                     continue;
                 }
                 if(!currentRow.get(rowIterator).getType().equals("-")) {
-                    newMap[x + rowIterator][y + columnIterator] = currentRow.get(rowIterator);   //füge an der passenden Stelle ein
+                    newMap[x + rowIterator][y + columnIterator] = currentRow.get(rowIterator).clone();   //füge an der passenden Stelle ein
                 } else {
-                    newMap[x + rowIterator][y + columnIterator] = info.getDefaultField();   //"-" heißt: Loch in der Kachel --> Füge an dieser Stelle default-Zelle ein
+                    newMap[x + rowIterator][y + columnIterator] = info.getDefaultField().clone();   //"-" heißt: Loch in der Kachel --> Füge an dieser Stelle default-Zelle ein
                 }
                 //newMap[x + rowIterator][y + columnIterator].setInKachel();
             }
@@ -246,7 +246,7 @@ public class MapGeneration {
 
         for(int rowIterator = 0; rowIterator < maxMapSize.getX(); rowIterator++){                //initialiere resultmap mit einer Kopie der ersten map aus der übergebenen Liste
             for(int columnIterator = 0; columnIterator < maxMapSize.getY(); columnIterator++){
-                resultMap[rowIterator][columnIterator] = maps.get(0)[rowIterator][columnIterator];
+                resultMap[rowIterator][columnIterator] = maps.get(0)[rowIterator][columnIterator].clone();
             }
         }
 
@@ -254,7 +254,7 @@ public class MapGeneration {
             for(int rowIterator = 0; rowIterator < maxMapSize.getX(); rowIterator++){
                 for(int columnIterator = 0; columnIterator < maxMapSize.getY(); columnIterator++){
                     if(indexMaps.get(mapIterator)[rowIterator][columnIterator]){
-                        resultMap[rowIterator][columnIterator] = maps.get(mapIterator)[rowIterator][columnIterator];
+                        resultMap[rowIterator][columnIterator] = maps.get(mapIterator)[rowIterator][columnIterator].clone();
                     }
                 }
             }
@@ -267,9 +267,9 @@ public class MapGeneration {
         for (int i = 0; i < copyOfMap.length; i++) {
             for (int j = 0; j < copyOfMap[i].length; j++) {
                 if(i>=1 && j>=1 && i<copyOfMap.length-1 && j<copyOfMap[i].length-1){
-                    copyOfMap[i][j] = new Field(map[i-1][j-1].getGegenstand());   //"innerer Teil"
+                    copyOfMap[i][j] = map[i-1][j-1].clone();   //"innerer Teil"
                 } else {
-                    copyOfMap[i][j] = new Field(info.getDefaultField().getGegenstand());  //"Rahmen aus default-Feldern"
+                    copyOfMap[i][j] = info.getDefaultField().clone();  //"Rahmen aus default-Feldern"
                 }
             }
         }

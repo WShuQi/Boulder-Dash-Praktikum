@@ -5,11 +5,10 @@ import java.util.HashMap;
 import static com.example.g15_bugkiller.ValuesNames.*;
 
 
-public class Gegenstand {
+public class Gegenstand implements Cloneable {
 
     Type token;
     Values values;
-
 
     public Gegenstand(Type token, Values values) {
         this.token = token;
@@ -58,6 +57,11 @@ public class Gegenstand {
                 break;
         }
     }
+
+    public Gegenstand clone() {
+        return new Gegenstand(token, values.clone());
+    }
+
 }
 
 

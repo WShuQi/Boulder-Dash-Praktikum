@@ -247,7 +247,7 @@ public class GUIView {
                     + "    " + "erreichte Punkte: " + "-", startX, startY + 30);
         }
 
-        if (level.isUnlocked()||!level.isUnlocked()) {
+        if (true || level.isUnlocked()) {
             return crateLevelButton(levelName, startX, startY,
                     level.getReplaySaveData() != null && level.getReplaySaveData().size() > 0);
         }
