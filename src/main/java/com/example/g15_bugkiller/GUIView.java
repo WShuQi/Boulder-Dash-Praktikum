@@ -221,12 +221,13 @@ public class GUIView {
         gc.setFill(Color.WHITE);
         gc.fillText(level.getLevelName(), startX + 10, startY);
 
-        gc.setFill(Color.DARKGREY);
+
+        gc.setFill(Color.BLACK);
         gc.fillText("Edelsteine: " + level.getBestGems() + "    " + "Bestzeit: " + level.getBestTime()
                 + "    " + "erreichte Punkte: "+ level.getBestScore(), startX , startY + 30);
 
         if (level.isUnlocked()||!level.isUnlocked()) {
-            gc.setFill(Color.DARKGRAY);
+            gc.setFill(Color.DARKBLUE);
             double x = startX + 110;
             double y = startY + 40;
             int w = 80;
