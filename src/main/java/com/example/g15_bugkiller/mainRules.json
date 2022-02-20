@@ -689,11 +689,39 @@
       "original":[{"token":"*", "values":{"toGem": 0}},{"token":"*", "values":{"toGem": 1}},{"token":"*", "values":{"toGem": 0}}],
       "result":[{"token":0, "values":{"toGem": 1}},{"token":1, "values":{"toGem": 1}},{"token":2, "values":{"toGem": 1}}]
     },
-    { "name": "Bamrich: turnIntoGem",
-      "situation":"any",
-      "direction":"south",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "eastthing", "norththing", "soutthing", "westthing"], "values": {"toGem":  1}}],
-      "result":[{"token": "gem"}]
+    {
+      "name": "Bamrich: turnIntoGem",
+      "situation": "any",
+      "direction": "south",
+      "original": [
+        {
+          "token": [
+            "me",
+            "gem",
+            "mud",
+            "stone",
+            "bricks",
+            "path",
+            "slime",
+            "swapling",
+            "blockling",
+            "xling",
+            "ghostling",
+            "eastthing",
+            "norththing",
+            "souththing",
+            "westthing"
+          ],
+          "values": {
+            "toGem": 1
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "gem"
+        }
+      ]
     },
 
     { "name": "Bam: setToExplosionHorizontally",
@@ -708,11 +736,39 @@
       "original":[{"token":"*", "values":{"toExplosion": 0}},{"token":"*", "values":{"toExplosion": 1}},{"token":"*", "values":{"toExplosion": 0}}],
       "result":[{"token":0, "values":{"toExplosion": 1}},{"token":1, "values":{"toExplosion": 1}},{"token":2, "values":{"toExplosion": 1}}]
     },
-    { "name": "Bam: turnIntoExplosion",
-      "situation":"any",
-      "direction":"south",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "eastthing", "norththing", "soutthing", "westthing"], "values": {"toExplosion":  1}}],
-      "result":[{"token": "explosion"}]
+    {
+      "name": "Bam: turnIntoExplosion",
+      "situation": "any",
+      "direction": "south",
+      "original": [
+        {
+          "token": [
+            "me",
+            "gem",
+            "mud",
+            "stone",
+            "bricks",
+            "path",
+            "slime",
+            "swapling",
+            "blockling",
+            "xling",
+            "ghostling",
+            "eastthing",
+            "norththing",
+            "souththing",
+            "westthing"
+          ],
+          "values": {
+            "toExplosion": 1
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "explosion"
+        }
+      ]
     },
 
 
