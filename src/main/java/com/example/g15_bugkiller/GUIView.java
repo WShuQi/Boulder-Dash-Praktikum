@@ -223,8 +223,14 @@ public class GUIView {
 
 
         gc.setFill(Color.BLACK);
-        gc.fillText("Edelsteine: " + level.getBestGems() + "    " + "Bestzeit: " + level.getBestTime()
-                + "    " + "erreichte Punkte: "+ level.getBestScore(), startX , startY + 30);
+
+        if(level.isPassed()) {
+            gc.fillText("Edelsteine: " + level.getBestGems() + "    " + "Bestzeit: " + level.getBestTime()
+                    + "    " + "erreichte Punkte: " + level.getBestScore(), startX, startY + 30);
+        } else {
+            gc.fillText("Edelsteine: " + "-" + "    " + "Bestzeit: " + "-"
+                    + "    " + "erreichte Punkte: " + "-", startX, startY + 30);
+        }
 
         if (level.isUnlocked()||!level.isUnlocked()) {
             gc.setFill(Color.DARKBLUE);

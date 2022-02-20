@@ -31,24 +31,23 @@ public class LevelLogic {
         checkIfLevelIsPassed();
         checkIfTimeIsUp();
 
-        resetValues();
+        resetValues(level);
     }
 
-    public static void resetLevel(){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
-        resetValues();
+    public static void resetLevel(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
+        resetLevelMap(level);
+        resetValues(level);
         level.setTicksPast(0);
         level.setExitReached(false);
         level.setTimeUp(false);
         level.setCollectedGems(0);
         level.setStopped(false);
         level.setPlayerDead(false);
-
-        if(!level.isPassed()){
-            level.setScoredPoints(0);
-        }
+        level.setScoredPoints(0);
+        level.setCurrentLives(3);
     }
 
-    public static void resetValues(){
+    public static void resetValues(Level level){
         Field[][] map = level.getLevelMap();
         int rowLength = map.length;
         int columnLength = map[0].length;
@@ -58,6 +57,25 @@ public class LevelLogic {
                 map[rowIterator][columnIterator].getGegenstand().resetValues();
             }
         }
+    }
+
+    public static void resetLevelMap(Level level){
+        Field[][] map = level.getLevelMap();
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
+        Type[][] originalTokens = level.getOriginalTokens();
+
+        for(int columnIterator = 0; columnIterator < numberOfColumns; columnIterator++){
+            for(int rowIterator = 0; rowIterator < numberOfRows; rowIterator++){
+                map[columnIterator][rowIterator].getGegenstand().setToken(originalTokens[columnIterator][rowIterator]);
+            }
+        }
+    }
+
+    public static void updateBestValues(){
+        level.setBestGems(level.getCollectedGems());
+        level.setBestScore(level.getScoredPoints());
+        level.setBestTime(level.getTicksPast());
     }
 
 

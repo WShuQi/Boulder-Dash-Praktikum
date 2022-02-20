@@ -18,6 +18,7 @@ public class Level {
     private List<Rule> mainRules;
     private List<Rule> postRules;
     private int maxSlime;
+    private Type[][] originalTokens;
     private Field[][] levelMap;
     private int collectedGems;
     private int ticksPast;  //schon vergangene Ticks
@@ -37,7 +38,7 @@ public class Level {
     private boolean stopped = false;
 
     private int bestGems = 0;
-    private int bestTime = 0;
+    private int bestTime = (int) Double.POSITIVE_INFINITY;
     private int bestScore = 0;
 
     private List<Field[][]> replaySaveData = new ArrayList<>();
@@ -50,6 +51,7 @@ public class Level {
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap();
+        this.originalTokens = cloneTokens(this.levelMap);
         getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
@@ -64,7 +66,8 @@ public class Level {
         this.levelName = levelName;
         this.gems = gems;
         MapGeneration map = new MapGeneration(mapData, 1000);
-        this.levelMap = map.generateMap() ;
+        this.levelMap = map.generateMap();
+        this.originalTokens = cloneTokens(this.levelMap);
         getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.lives = lives;
@@ -75,6 +78,20 @@ public class Level {
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
         System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
         //TerminalMap.drawMap(this.levelMap);
+    }
+
+    public Type[][] cloneTokens(Field[][] map){
+        int numberOfColumns = map.length;
+        int numberOfRows = map[0].length;
+        Type[][] clonedTokens = new Type[numberOfColumns][numberOfRows];
+
+        for(int columnIterator = 0; columnIterator < numberOfColumns; columnIterator++){
+            for(int rowIterator = 0; rowIterator < numberOfRows; rowIterator++){
+                clonedTokens[columnIterator][rowIterator] = map[columnIterator][rowIterator].getGegenstand().getToken();
+            }
+        }
+
+        return clonedTokens;
     }
 
     private void getXYZValuesFromMapData(Field[][] levelMap){
@@ -385,6 +402,14 @@ public class Level {
 
     public int getBestTime() {
         return bestTime;
+    }
+
+    public Type[][] getOriginalTokens() {
+        return originalTokens;
+    }
+
+    public void setOriginalTokens(Type[][] originalTokens) {
+        this.originalTokens = originalTokens;
     }
 
     public Coordinate getMEPosition() {

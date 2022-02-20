@@ -53,14 +53,17 @@ public class GUIController {
             public void handle(ActionEvent event){
                 KeyPressListener currentKeysPressed = keyPressListener.getClone();
                 LevelLogic.tick(level, currentKeysPressed);
-                //TerminalMap.drawMap(level.getLevelMap());
                 GameReplay.saveMapFrame(level.getLevelMap());
                 updateView(level);
 
                 if(level.isTimeUp() | level.isExitReached() | level.isPlayerDead()){
                     level.setReplaySaveData(GameReplay.getSavedMapData());
 
-                    //LevelLogic.resetLevel(level); //todo: i think this stops the score from saving
+                    if(level.isPassed()){
+                        LevelLogic.updateBestValues();
+                    }
+
+                    LevelLogic.resetLevel(level);
 
                     game.updateTotalPoints();
                     game.unlockNextLevelAsNecessary();

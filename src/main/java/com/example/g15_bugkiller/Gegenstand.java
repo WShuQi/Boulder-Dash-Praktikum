@@ -40,6 +40,7 @@ public class Gegenstand {
         this.values = values;
     }
 
+
     public void resetValues(){
         values.resetValues();
         switch (token) {
