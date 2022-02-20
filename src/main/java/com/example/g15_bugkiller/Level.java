@@ -23,9 +23,9 @@ public class Level {
     private int collectedGems;
     private int ticksPast;  //schon vergangene Ticks
     private int scoredPoints;
-    private int x;
-    private int y;
-    private int z;
+    private int x = 0;
+    private int y = 0;
+    private int z = 0;
     private int lives = 3;
     private int currentLives = lives;
     private Coordinate originalMePosition;
@@ -189,6 +189,14 @@ public class Level {
         this.collectedGems = collectedGems;
     }
 
+    public void addToCollectedGems(int collectedGems) {
+        if(collectedGems == 0){
+            this.collectedGems = 0;
+        } else {
+            this.collectedGems = java.lang.Math.max(this.collectedGems + collectedGems, 0);
+        }
+    }
+
     public void setScoredPoints(int scoredPoints) {
         this.scoredPoints = scoredPoints;
     }
@@ -205,6 +213,14 @@ public class Level {
         this.ticksPast = ticksPast;
     }
 
+    public void addToTicksPast(int ticksPast) {
+        if(ticksPast == 0){
+            this.ticksPast = 0;
+        } else {
+            this.ticksPast = java.lang.Math.max(this.ticksPast + ticksPast, 0);
+        }
+    }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -215,6 +231,30 @@ public class Level {
 
     public void setZ(int z) {
         this.z = z;
+    }
+
+    public void addToX(int x) {
+        if(x == 0){
+            this.x = 0;
+        } else {
+            this.x = java.lang.Math.max(this.x + x, 0);
+        }
+    }
+
+    public void addToY(int y) {
+        if(y == 0){
+            this.y = 0;
+        } else {
+            this.y = java.lang.Math.max(this.y + y, 0);
+        }
+    }
+
+    public void addToZ(int z) {
+        if(z == 0){
+            this.z = 0;
+        } else {
+            this.z = java.lang.Math.max(this.z + z, 0);
+        }
     }
 
     public void setSparsity(int sparsity) {
@@ -316,7 +356,6 @@ public class Level {
     public void setExitReached(boolean exitReached) {
         this.exitReached = exitReached;
     }
-
 
     public boolean isPlayerDead() {
         return playerDead;

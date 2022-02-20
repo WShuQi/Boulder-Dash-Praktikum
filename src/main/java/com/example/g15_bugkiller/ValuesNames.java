@@ -18,10 +18,10 @@ public enum ValuesNames {
     Z,
     GEMS,
     TICKS,
-    COLLECTED,
     TOGEM,
     TOEXPLOSION,
     HASSPACE,
+    SLIPDIRECTION,
     CANGROW,
 
     EXITREACHED,

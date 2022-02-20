@@ -26,14 +26,18 @@ public class Values {
         valueList.put(PUSHABLE, 0);
         valueList.put(BAM, 0);
         valueList.put(BAMRICH, 0);
-        valueList.put(COLLECTED, 0);
         valueList.put(TOGEM, 0);
         valueList.put(TOEXPLOSION, 0);
         valueList.put(HASSPACE, 0);
+        valueList.put(SLIPDIRECTION, 0);
         valueList.put(CANGROW, 0);
         valueList.put(EXITREACHED, 0);
         valueList.put(STOP, 0);
         valueList.put(STOPBUTTONPRESSED, 0);
+        valueList.put(A, 0);
+        valueList.put(B, 0);
+        valueList.put(C, 0);
+        valueList.put(D, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {

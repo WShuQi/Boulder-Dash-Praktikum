@@ -25,7 +25,6 @@ public class LevelLogic {
         computeScoredPoints();
         slimeCheck();
         checkIfStopButtonIsPressed();
-        collectedGemCheck();
         playerDeadCheck();
         checkIfExitIsReached();
         checkIfLevelIsPassed();
@@ -194,13 +193,6 @@ public class LevelLogic {
                     executeRuleSouthward(rule, isMainRule, isChanceSituation);
                     break;
             }
-
-            /*
-            if(rule.getRuleName() != null && (rule.getRuleName().equals("StopButtonRight") | rule.getRuleName().equals("StopButtonLeft") | rule.getRuleName().equals("StopButtonDown") | rule.getRuleName().equals("StopButtonUp"))){
-                level.setStopped(true);
-                level.setStopCounter(5*5);
-            }
-            */
         }
     }
 
@@ -473,10 +465,10 @@ public class LevelLogic {
         int resultLength = result.size();
 
         //fixes pushing bug
-        Field[] copyOfNextFields = new Field[nextFields.length];
+        Type[] nextFieldsTokens = new Type[nextFields.length];
 
         for (int i = 0; i < nextFields.length; i++) {
-            copyOfNextFields[i] = new Field(new Gegenstand(nextFields[i].getGegenstand().getToken(), new Values(nextFields[i].getGegenstand().getValues().getValueList())));
+            nextFieldsTokens[i] = nextFields[i].getGegenstand().getToken();
         }
 
         for(int resultIterator = 0; resultIterator < resultLength; resultIterator++){
@@ -488,7 +480,7 @@ public class LevelLogic {
                 Type newToken = (Type) currentResultComponent.getToken();
                 currentField.getGegenstand().setToken(newToken);
             } else if (currentResultComponent.getToken() instanceof Integer){
-                currentField.getGegenstand().setToken(copyOfNextFields[(int) currentResultComponent.getToken()].getGegenstand().getToken());
+                currentField.getGegenstand().setToken(nextFieldsTokens[(int) currentResultComponent.getToken()]);
             }
 
             replaceValues(currentField, currentResultComponent);
@@ -500,36 +492,33 @@ public class LevelLogic {
         valuesWereReplaced = true;
         for(ValuesNames valueName: currentResultComponent.getValues().getValueList().keySet()){
 
-            switch(valueName){
-                case X:
-                    level.setX(currentResultComponent.getValues().getValueList().get(valueName));
-                    break;
-                case Y:
-                    level.setY(currentResultComponent.getValues().getValueList().get(valueName));
-                    break;
-                case Z:
-                    level.setZ(currentResultComponent.getValues().getValueList().get(valueName));
-                    break;
-                case GEMS:
-                    level.setCollectedGems(currentResultComponent.getValues().getValueList().get(valueName));
-                    break;
-                case TICKS:
-                    level.setTicksPast(currentResultComponent.getValues().getValueList().get(valueName));
-                    break;
-            }
-
-            int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
-            currentField.getGegenstand().getValues().getValueList().put(valueName, currentResultComponentValue);
-            /*
             int currentFieldValue = currentField.getGegenstand().getValues().getValueList().getOrDefault(valueName, 0);
             int currentResultComponentValue = currentResultComponent.getValues().getValueList().get(valueName);
+
+            switch(valueName){
+                case X:
+                    level.addToX(currentResultComponentValue);
+                    break;
+                case Y:
+                    level.addToY(currentResultComponentValue);
+                    break;
+                case Z:
+                    level.addToZ(currentResultComponentValue);
+                    break;
+                case GEMS:
+                    level.addToCollectedGems(currentResultComponentValue);
+                    break;
+                case TICKS:
+                    level.addToTicksPast(currentResultComponentValue);
+                    break;
+            }
 
             if(currentResultComponentValue == 0){
                 currentField.getGegenstand().getValues().getValueList().put(valueName, 0);
             } else {
                 int newFieldValue = java.lang.Math.max(currentResultComponentValue + currentFieldValue,0);
                 currentField.getGegenstand().getValues().getValueList().put(valueName, newFieldValue);
-            }*/
+            }
         }
     }
 
@@ -616,18 +605,6 @@ public class LevelLogic {
                 Integer canGrow = gegenstand.getValues().getValueList().get(ValuesNames.CANGROW);
                 if(gegenstand.getToken() == Type.SLIME && canGrow != null && canGrow == 0){
                     map[x][y].getGegenstand().setToken(Type.GEM);
-                }
-            }
-        }
-    }
-
-    private static void collectedGemCheck(){
-        Field[][] map = level.getLevelMap();
-
-        for (int x = 0; x<map.length; x++){
-            for (int y = 0; y<map[x].length; y++){
-                if (map[x][y].getGegenstand().getValues().getValueList().getOrDefault(ValuesNames.COLLECTED, 0) == 1){
-                    level.setCollectedGems(level.getCollectedGems() + 1);
                 }
             }
         }
