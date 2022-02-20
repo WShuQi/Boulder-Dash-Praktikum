@@ -10,7 +10,7 @@ public class Game {
     int numberOfUnlockedLevels;
     double necessaryRatioOfTotalPoints;
     int totalPoints = 0;
-    boolean freePlay= false;
+    boolean freePlay= true;
 
     public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints) {
         this.levels = levels;

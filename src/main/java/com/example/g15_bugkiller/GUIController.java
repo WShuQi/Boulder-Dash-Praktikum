@@ -21,7 +21,6 @@ public class GUIController {
 
     private boolean levelInProgress;
     private boolean restartLevel;
-    private boolean showReplay;
 
     public GUIController(GUIView view, Game game, KeyPressListener keyPressListener) {
         this.view = view;
@@ -115,7 +114,7 @@ public class GUIController {
         GameReplay.clearSavedMap();
         Level selectedLevel = game.getLevels().get(selectedLevelName);
 
-        if(true || selectedLevel.isUnlocked()){
+        if(selectedLevel.isUnlocked()){
             executeTimeline(selectedLevel);
         }
 
