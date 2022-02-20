@@ -21,11 +21,6 @@
     },
     { "situation":"any",
       "direction":"east",
-      "original":[{"token":"path", "values":{"A":2}}],
-      "result":[{"token":"path", "values":{"A":1}}]
-    },
-    { "situation":"any",
-      "direction":"east",
       "original":[{"token":"path", "values":{"A":3}}],
       "result":[{"token":"wall"}]
     }

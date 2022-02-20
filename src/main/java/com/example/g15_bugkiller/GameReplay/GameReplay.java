@@ -75,6 +75,12 @@ public class GameReplay {
         stage.setScene(new Scene(borderPane));
 
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            timer.stop();
+            timer = null;
+        });
+
         replay();
     }
 
@@ -126,6 +132,7 @@ public class GameReplay {
 
     public static void clearSavedMap(){
         savedMapData = new ArrayList<>();
+        currentFrame = 0;
     }
 
     public static List<Field[][]> getSavedMapData() {
