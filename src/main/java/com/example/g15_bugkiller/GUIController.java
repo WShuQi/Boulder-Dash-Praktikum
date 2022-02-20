@@ -115,7 +115,10 @@ public class GUIController {
         GameReplay.clearSavedMap();
         Level selectedLevel = game.getLevels().get(selectedLevelName);
 
-        executeTimeline(selectedLevel);
+        if(selectedLevel.isUnlocked()){
+            executeTimeline(selectedLevel);
+        }
+
     }
     public void returnToOverview (){
         this.levelButtonSelectorList = view.drawLevelOverview(game.levels);

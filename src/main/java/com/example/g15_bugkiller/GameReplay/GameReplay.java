@@ -54,12 +54,18 @@ public class GameReplay {
         currentFrame = 0;
 
         Stage stage = new Stage();
+        stage.setMaxHeight(height + 70);
+        stage.setMaxWidth(width);
+
+        stage.setMinHeight(height + 70);
+        stage.setMinWidth(width);
+
         stage.setTitle("Replay");
 
         BorderPane borderPane = new BorderPane();
 
         Canvas canvas = new Canvas(width, height);
-        borderPane.setCenter(canvas);
+        borderPane.setTop(canvas);
 
         gc = canvas.getGraphicsContext2D();
 
@@ -70,7 +76,9 @@ public class GameReplay {
             replay();
         });
 
-        borderPane.setBottom(replayButton);
+        BorderPane buttonPane = new BorderPane();
+        buttonPane.setCenter(replayButton);
+        borderPane.setBottom(buttonPane);
 
         stage.setScene(new Scene(borderPane));
 
