@@ -35,7 +35,7 @@ public class LevelLogic {
     }
 
     public static void resetLevel(Level level){     //Zurücksetzen der Zusatzwerte aller Felder entsprechend ihrer Bedeutung
-        resetTokens(level);
+        resetLevelMap(level);
         resetValues(level);
         level.setTicksPast(0);
         level.setExitReached(false);
@@ -59,17 +59,8 @@ public class LevelLogic {
         }
     }
 
-    public static void resetTokens(Level level){
-        Field[][] map = level.getLevelMap();
-        int numberOfColumns = map.length;
-        int numberOfRows = map[0].length;
-        Type[][] originalTokens = level.getOriginalTokens();
-
-        for(int columnIterator = 0; columnIterator < numberOfColumns; columnIterator++){
-            for(int rowIterator = 0; rowIterator < numberOfRows; rowIterator++){
-                map[columnIterator][rowIterator].getGegenstand().setToken(originalTokens[columnIterator][rowIterator]);
-            }
-        }
+    public static void resetLevelMap(Level level){
+        level.setLevelMap(level.cloneLevelMap(level.getOriginalLevelMap()));
     }
 
     public static void updateBestValues(){

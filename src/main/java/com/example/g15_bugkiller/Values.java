@@ -52,6 +52,16 @@ public class Values {
         valueList.put(valuesNames, valuewert);
     }
 
+    public HashMap<ValuesNames, Integer> cloneValueList(HashMap<ValuesNames, Integer> valueList){
+        HashMap<ValuesNames, Integer> clonedList = new HashMap<ValuesNames, Integer>();
+
+        for(ValuesNames key: valueList.keySet()){
+            clonedList.put(key,valueList.get(key));
+        }
+
+        return clonedList;
+    }
+
 
 }
 
