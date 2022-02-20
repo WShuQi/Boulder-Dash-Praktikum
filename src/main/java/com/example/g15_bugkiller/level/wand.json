@@ -3,6 +3,7 @@
   "name":"Die wachsende Wand",
   "ticks":[1150,400,180],
   "pre":[
+
     { "situation":"any",
       "direction":"east",
       "original":[{"token":"path", "values":{"A":0}},{"token":"wall"}],
@@ -16,6 +17,11 @@
     { "situation":"any",
       "direction":"east",
       "original":[{"token":"path", "values":{"A":1}}],
+      "result":[{"token":"path", "values":{"A":1}}]
+    },
+    { "situation":"any",
+      "direction":"east",
+      "original":[{"token":"path", "values":{"A":2}}],
       "result":[{"token":"path", "values":{"A":1}}]
     },
     { "situation":"any",
