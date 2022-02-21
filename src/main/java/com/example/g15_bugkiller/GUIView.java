@@ -186,13 +186,6 @@ public class GUIView {
         int xKoordClock = 680;
         int xKoordGems = 645;
 
-        /**
-        gc.setFill(Color.DARKBLUE);
-        gc.fillRect(747,3, 303, 103);
-        gc.setFill(Color.BLACK);
-        gc.fillRect(750,0, 300, 100);
-         **/
-
         gc.setFill(Color.WHITE);
         if (getCollectedGems < gems[0]) {
             gc.fillText(" ", 760, 40.0D);
@@ -215,6 +208,7 @@ public class GUIView {
 
         gc.fillText("Level bestanden: ", 20, 40.0D);
 
+        //Check if level is
         if (getCollectedGems >= gems[0]) {
             gc.drawImage(check, 130, 18.0D);
         }
@@ -249,7 +243,7 @@ public class GUIView {
     }
 
     private void graueLeiste(){
-        gc.setFill(Color.DARKGRAY);
+        gc.setFill(Color.DARKCYAN);
         gc.fillRect(0, 0 , 1000, 40);
 
     }
@@ -274,8 +268,8 @@ public class GUIView {
 
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("Arial",14));
-        gc.fillText("freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
-                "    gesammelte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
+        gc.fillText("Freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
+                "    Gesammelte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
 
         double x = 110.0d;
         double y = 80.0d;
@@ -327,7 +321,7 @@ public class GUIView {
     }
 
     private LevelButtonSelector crateLevelButton(String levelName, double startX, double startY, boolean drawReplay) {
-        gc.setFill(Color.DARKBLUE);
+        gc.setFill(Color.LIGHTSKYBLUE);
         double x = startX + 40;
         double y = startY + 40;
         int w = 80;
@@ -338,7 +332,7 @@ public class GUIView {
         gc.fillText("Play", x + 28, y + 14);
 
         if (drawReplay) {
-            gc.setFill(Color.DARKBLUE);
+            gc.setFill(Color.LIGHTSKYBLUE);
             double rx = x + w + LevelButtonSelector.DIFF_BUTTONS;
             // gc.fillRect(x, y, w, h);
             gc.fillOval(rx, y, w, h);

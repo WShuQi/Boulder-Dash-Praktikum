@@ -65,7 +65,7 @@ public class GUIApplication extends Application {
         stage.show();
 
 
-        LevelEditor.openLevelEditor();
+        //LevelEditor.openLevelEditor();
 
     }
 
