@@ -1,7 +1,13 @@
 package com.example.g15_bugkiller.LevelEditor;
 
+import MapGeneration.*;
+import com.example.g15_bugkiller.Field;
+import com.example.g15_bugkiller.Gegenstand;
+import com.example.g15_bugkiller.Type;
+import com.example.g15_bugkiller.Values;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapEdit {
 
@@ -24,6 +30,44 @@ public class MapEdit {
         drawGrid();
 
         return mapEditGridPane;
+    }
+
+    public static Input getInput(){
+        TileVersion tileVersion = new TileVersion(turnKachelsToFields());
+        List<TileVersion> tileVersionList = List.of(tileVersion);
+
+        Tile tile = new Tile("main", tileVersionList);
+        List<Tile> tileList = List.of(tile);
+
+        TilesAt tilesAt = new TilesAt(new Coordinate(0, 0), "main", 0);
+        List<TilesAt> tilesAtList = List.of(tilesAt);
+
+        List<ConnectBy> emptyConnectByList = List.of();
+
+        Coordinate mapSize = new Coordinate(width, height);
+
+        Field defaultField = new Field(new Gegenstand(Type.PATH, new Values()));
+
+        Input input = new Input(tileList, tilesAtList, emptyConnectByList, defaultField, mapSize);
+
+        return input;
+    }
+
+    private static List<List<Field>> turnKachelsToFields(){
+        List<List<Field>> fieldArray = new ArrayList<>();
+
+        for (int h = 0; h < height; h++) {
+            List<Field> fieldRow = new ArrayList<>();
+
+            for (int w = 0; w < width; w++) {
+                fieldRow.add(writableKachels.get(h).get(w).getField());
+            }
+
+            fieldArray.add(fieldRow);
+        }
+
+        return fieldArray;
+
     }
 
     public static void resetMap(){

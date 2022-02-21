@@ -1,5 +1,8 @@
 package com.example.g15_bugkiller.LevelEditor;
 
+import MapGeneration.Input;
+import com.example.g15_bugkiller.Level;
+import com.example.g15_bugkiller.TerminalMap;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -50,18 +53,18 @@ public class LevelSettings {
 
         //Ticks Input
         //1
-        Label ticksInputLabel1 = new Label("#1");
-        Spinner<Integer> ticksInput1 = new Spinner<>(3, 10000, 100);
+        Label ticksInputLabel1 = new Label("1");
+        Spinner<Integer> ticksInput1 = new Spinner<>(1, 10000, 100);
         VBox ticksBox1 = new VBox();
         ticksBox1.getChildren().addAll(ticksInputLabel1, ticksInput1);
         //2
-        Label ticksInputLabel2 = new Label("#2");
-        Spinner<Integer> ticksInput2 = new Spinner<>(3, 10000, 200);
+        Label ticksInputLabel2 = new Label("2");
+        Spinner<Integer> ticksInput2 = new Spinner<>(1, 10000, 200);
         VBox ticksBox2 = new VBox();
         ticksBox2.getChildren().addAll(ticksInputLabel2, ticksInput2);
         //3
-        Label ticksInputLabel3 = new Label("#3");
-        Spinner<Integer> ticksInput3 = new Spinner<>(3, 10000, 300);
+        Label ticksInputLabel3 = new Label("3");
+        Spinner<Integer> ticksInput3 = new Spinner<>(1, 10000, 300);
         VBox ticksBox3 = new VBox();
         ticksBox3.getChildren().addAll(ticksInputLabel3, ticksInput3);
 
@@ -74,18 +77,18 @@ public class LevelSettings {
         ticksBox.getChildren().addAll(ticksBoxLabel, ticksBox1, ticksBox2, ticksBox3, ticksSeparator);
 
         //Gems
-        Label gemsInputLabel1 = new Label("#1");
-        Spinner<Integer> gemsInput1 = new Spinner<>(3, 10000, 2);
+        Label gemsInputLabel1 = new Label("1");
+        Spinner<Integer> gemsInput1 = new Spinner<>(1, 10000, 2);
         VBox gemsBox1 = new VBox();
         gemsBox1.getChildren().addAll(gemsInputLabel1, gemsInput1);
         //2
-        Label gemsInputLabel2 = new Label("#2");
-        Spinner<Integer> gemsInput2 = new Spinner<>(3, 10000, 5);
+        Label gemsInputLabel2 = new Label("2");
+        Spinner<Integer> gemsInput2 = new Spinner<>(1, 10000, 5);
         VBox gemsBox2 = new VBox();
         gemsBox2.getChildren().addAll(gemsInputLabel2, gemsInput2);
         //3
-        Label gemsInputLabel3 = new Label("#3");
-        Spinner<Integer> gemsInput3 = new Spinner<>(3, 10000, 10);
+        Label gemsInputLabel3 = new Label("3");
+        Spinner<Integer> gemsInput3 = new Spinner<>(1, 10000, 10);
         VBox gemsBox3 = new VBox();
         gemsBox3.getChildren().addAll(gemsInputLabel3, gemsInput3);
 
@@ -96,10 +99,28 @@ public class LevelSettings {
         VBox gemsBox = new VBox();
         gemsBox.getChildren().addAll(gemsBoxLabel, gemsBox1, gemsBox2, gemsBox3, gemsSeparator);
 
+        //Lives
+        Label livesInputLabel = new Label("Lives");
+        Spinner<Integer> livesInput = new Spinner<>(0, 10000, 3);
+
+        Separator livesSeparator = new Separator();
+        livesSeparator.setPadding(new Insets(10, 0, 10, 0));
+
+        VBox livesBox = new VBox();
+        livesBox.getChildren().addAll(livesInputLabel, livesInput, livesSeparator);
+
         //save button
         Button saveButton = new Button("Save Level");
         saveButton.setOnAction(event -> {
-            //ToDo:
+            String name = levelNameInput.getText();
+            int[] gems = {gemsInput1.getValue(), gemsInput2.getValue(), gemsInput3.getValue()};
+            int[] ticks = {ticksInput1.getValue(), ticksInput2.getValue(), ticksInput3.getValue()};
+            Input mapData = MapEdit.getInput();
+            int lives = livesInput.getValue();
+
+            Level level = new Level(name, gems, mapData, ticks, lives);
+            System.out.println("saving level: " + level.getLevelName());
+            TerminalMap.drawMap(level.getLevelMap());
         });
 
         Separator buttonSeparator = new Separator();
@@ -112,7 +133,7 @@ public class LevelSettings {
 
         });
 
-        levelSettings.getChildren().addAll(levelNameInputBox, mapSizeBox, ticksBox, gemsBox, saveButton, buttonSeparator, resetMapButton);
+        levelSettings.getChildren().addAll(levelNameInputBox, mapSizeBox, ticksBox, gemsBox, livesBox, saveButton, buttonSeparator, resetMapButton);
         return levelSettings;
     }
 }
