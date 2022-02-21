@@ -177,13 +177,21 @@ public class GUIView {
     private void drawNecessaryAchievements (int getCollectedGems, int[] gems, boolean passed) {
         Image gem = PictureRepo.getImage("GEM");
         Image check = PictureRepo.getImage("PASSED");
+        Image noCheck = PictureRepo.getImage("NOTPASSED");
         int xKoord = 920;
         gc.setFill(Color.WHITE);
         gc.fillText("Gesammelte Gems: ", 770, 25.0D);
         gc.fillText(getCollectedGems + "/" + gems[0], 900, 25.0D);
         gc.drawImage(gem, xKoord, 4.0D);
-        gc.fillText("Level bestanden: " + passed, 20, 25.0D);
-        gc.drawImage(check, 170, 4.0D);
+        gc.fillText("Level bestanden: ", 20, 25.0D);
+        if (passed == true || getCollectedGems == gems[0]) {
+            gc.drawImage(check, 130, 4.0D);
+        }
+        else {
+            gc.drawImage(noCheck, 130, 4.0D);
+        }
+
+
     }
 
     private void schwarzeLeiste(){
