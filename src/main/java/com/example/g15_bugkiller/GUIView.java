@@ -40,7 +40,7 @@ public class GUIView {
         Field[][] fields = level.getLevelMap();
 
         double startXMini = 500 - 0.5 * BLOCK_SIZE_MINI * fields.length;
-        double startYMini = 75;
+        double startYMini = 125;
 
         double startX = Math.max(4, 500 - 0.5 * BLOCK_SIZE * fields.length);
 
@@ -152,15 +152,16 @@ public class GUIView {
 
         Image counterBackground;
         counterBackground = PictureRepo.getImage("GemCounter_Background_large");
-        gc.drawImage(counterBackground, 440.0D, 0.0D, 120, 40);
-        gc.setFill(Color.WHITE);
+        gc.drawImage(counterBackground, 385.0D, -20.0D, 230, 100);
+        /**gc.setFill(Color.WHITE);
         gc.fillText("GEMS: " + gemCounter, 467.0D, 25.0D);
+         **/
 
     }
 
     private void drawTimePassed (int ticksCounter) {
         gc.setFill(Color.WHITE);
-        gc.fillText("Zeit:  " + ticksCounter, 389, 25.D);
+        gc.fillText("Zeit:  " + ticksCounter, 370, 25.D);
 
     }
 
@@ -168,7 +169,7 @@ public class GUIView {
         Image heart = PictureRepo.getImage("HEART");
         int xKoord = 650;
         gc.setFill(Color.WHITE);
-        gc.fillText("Leben übrig: ", 570, 25.0D);
+        gc.fillText("Leben übrig: ", 590, 25.0D);
         for (int i = 1; i <= livesLeft; i ++) {
             gc.drawImage(heart, xKoord, 4.0D);
             xKoord += 25;
@@ -223,9 +224,9 @@ public class GUIView {
             gc.fillText("Zeit übrig: ", 850, 90D);
             gc.setFill(Color.RED);
             gc.fillText( "" + descendingTime, 920, 90.0D);
-            gc.drawImage(star, 820, 35.0D);
-            gc.drawImage(star, 860, 35.0D);
-            gc.drawImage(star, 900, 35.0D);
+            gc.drawImage(star, 445, 15.0D);
+            gc.drawImage(star, 485, 15.0D);
+            gc.drawImage(star, 525, 15.0D);
         }
         else if (ticks[1] > getTicksPast && ticks[2] <= getTicksPast){
             gc.setFill(Color.WHITE);
@@ -248,7 +249,7 @@ public class GUIView {
 
     private void schwarzeLeiste(){
         gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0 , 1000, 40);
+        gc.fillRect(0, 0 , 1000, 70);
 
     }
 
