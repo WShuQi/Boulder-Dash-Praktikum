@@ -145,7 +145,7 @@ public class GUIView {
         gc.setFill(Color.DARKBLUE);
         gc.fillRect(x, y, w, h);
         gc.setFill(Color.WHITE);
-        gc.fillText(text, x + 5, y + h - 5);
+        gc.fillText(text, x + 10, y + h - 5);
     }
 
     private void drawGemCounter (int gemCounter)  {
@@ -205,6 +205,10 @@ public class GUIView {
         else if (getCollectedGems <= gems[2]) {
             gc.fillText(" ", 760, 40.0D);
             gc.fillText(getCollectedGems + "/" + gems[2], xKoordGems, 40.0D);
+        }
+        else if (getCollectedGems > gems[2]) {
+            gc.fillText(" ", 760, 40.0D);
+            gc.fillText("" +getCollectedGems, xKoordGems +15, 40.0D);
         }
 
         gc.drawImage(gem, xKoordClock, 18.0D);
