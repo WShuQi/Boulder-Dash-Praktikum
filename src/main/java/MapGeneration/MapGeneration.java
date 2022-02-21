@@ -45,8 +45,10 @@ public class MapGeneration {
         mapGenerated = false;
         Field[][] newMap = generateMapWithDefaultTiles(); //erstelle Map mit nur default-Zellen
 
-        outerloop: //cf. https://stackoverflow.com/questions/886955/how-do-i-break-out-of-nested-loops-in-java
-         for(int trialCounter = 1; trialCounter <= maxNumberOfTrials; trialCounter++){ //Zähle Versuche
+        int trialcounter = 1;
+        boolean allTilesAtsAdded = false;
+
+        while(trialcounter <= maxNumberOfTrials){ //Zähle Versuche
 
              List<TilesAt> tilesAts = info.getTilesAts();
              int numberOfTilesAts = tilesAts.size();
@@ -60,43 +62,50 @@ public class MapGeneration {
              Field[][] generatedMap = createMapWithOneTile(tilesAts.get(0).getCoordinate(), firstSelectedVersion);   //erstelle (Index-)Karte nur mit ausgewählter Version aus erstem tilesAt
 
              for(int tilesAtsIterator = 1; tilesAtsIterator < numberOfTilesAts; tilesAtsIterator++){ //für jede weitere TilesAt wähle zufällig geeignete Version aus und erstelle (Index-)Karte nur mit dieser Version
-                 String currentTilesAtKind = tilesAts.get(tilesAtsIterator).getKindName();
 
-                 int randomIndex = rand.nextInt(info.getTileWithName(currentTilesAtKind).getVersions().size());   //cf. https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
-                 TileVersion currentSelectedVersion = info.getTileWithName(currentTilesAtKind).getVersions().get(randomIndex);
+                 while(trialcounter <= maxNumberOfTrials) {
+                     String currentTilesAtKind = tilesAts.get(tilesAtsIterator).getKindName();
 
-                 boolean[][] currentIndexMap = createIndexMapWithOneTile(tilesAts.get(tilesAtsIterator).getCoordinate(), currentSelectedVersion);
-                 Field[][] currentGeneratedMap = createMapWithOneTile(tilesAts.get(tilesAtsIterator).getCoordinate(), currentSelectedVersion);
+                     int randomIndex = rand.nextInt(info.getTileWithName(currentTilesAtKind).getVersions().size());   //cf. https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
+                     TileVersion currentSelectedVersion = info.getTileWithName(currentTilesAtKind).getVersions().get(randomIndex);
+
+                     boolean[][] currentIndexMap = createIndexMapWithOneTile(tilesAts.get(tilesAtsIterator).getCoordinate(), currentSelectedVersion);
+                     Field[][] currentGeneratedMap = createMapWithOneTile(tilesAts.get(tilesAtsIterator).getCoordinate(), currentSelectedVersion);
 
 
-                 List<Field[][]> mapList = new ArrayList<>();  //erstelle Liste, die bisher generierte Karte und Karte mit neu ausgewählter Kachel enthält...
-                 mapList.add(generatedMap);
-                 mapList.add(currentGeneratedMap);
+                     List<Field[][]> mapList = new ArrayList<>();  //erstelle Liste, die bisher generierte Karte und Karte mit neu ausgewählter Kachel enthält...
+                     mapList.add(generatedMap);
+                     mapList.add(currentGeneratedMap);
 
-                 List<boolean[][]> indexMapList  = new ArrayList<>(); //sowie die korrespondierende Liste aus Index-Karten
-                 indexMapList.add(indexMap);
-                 indexMapList.add(currentIndexMap);
+                     List<boolean[][]> indexMapList = new ArrayList<>(); //sowie die korrespondierende Liste aus Index-Karten
+                     indexMapList.add(indexMap);
+                     indexMapList.add(currentIndexMap);
 
-                 if(checkIfMapsAgree(mapList, indexMapList)){   //prüfe: bisher generierte Karte und Karte mit neuer Kachel kompatibel?
-                     generatedMap = uniteMaps(mapList, indexMapList); //wenn ja: vereinige sie
+                     if (checkIfMapsAgree(mapList, indexMapList)) {   //prüfe: bisher generierte Karte und Karte mit neuer Kachel kompatibel?
+                         generatedMap = uniteMaps(mapList, indexMapList); //wenn ja: vereinige sie
 
-                     for(int rowIterator = 0; rowIterator < maxMapSize.getX(); rowIterator++){   //update indexMap
-                         for(int columnIterator = 0; columnIterator < maxMapSize.getY(); columnIterator++){
-                             indexMap[rowIterator][columnIterator] = indexMap[rowIterator][columnIterator] | currentIndexMap[rowIterator][columnIterator];
+                         for (int rowIterator = 0; rowIterator < maxMapSize.getX(); rowIterator++) {   //update indexMap
+                             for (int columnIterator = 0; columnIterator < maxMapSize.getY(); columnIterator++) {
+                                 indexMap[rowIterator][columnIterator] = indexMap[rowIterator][columnIterator] || currentIndexMap[rowIterator][columnIterator];
+                             }
                          }
-                     }
 
-                 } else {
-                     continue outerloop; //cf. https://stackoverflow.com/questions/886955/how-do-i-break-out-of-nested-loops-in-java
+                         if(tilesAtsIterator == numberOfTilesAts-1){
+                             allTilesAtsAdded = true;
+                         }
+                         break;
+                     }
+                     trialcounter++;
                  }
              }
 
-           if(valideConnectBy(generatedMap)) {
+           if(valideConnectBy(generatedMap) && allTilesAtsAdded) {
                  newMap = generatedMap;
                  mapGenerated = true;
                  break;
            }
-         }
+           trialcounter++;
+        }
 
         if(!defaultMapIsValid){
             //newMap = null;

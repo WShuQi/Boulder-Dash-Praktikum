@@ -48,7 +48,7 @@ public class Level {
     public Level(String levelName, int[] gems, Input mapData, int[] ticks) {
         this.levelName = levelName;
         this.gems = gems;
-        map = new MapGeneration(mapData, 1000);
+        map = new MapGeneration(mapData, 10000);
         this.levelMap = map.generateMap();
         getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
