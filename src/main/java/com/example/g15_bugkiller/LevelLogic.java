@@ -76,7 +76,7 @@ public class LevelLogic {
         level.setTimeUp(ticksPast >= maxTicks);
     }
 
-    private static void computeScoredPoints(){
+    public static void computeScoredPoints(){
         int[] gems = level.getGems();
         int[] ticks = level.getTicks();
         int collectedGems = level.getCollectedGems();
