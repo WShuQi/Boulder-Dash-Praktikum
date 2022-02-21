@@ -167,13 +167,13 @@ public class GUIView {
 
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
-        int xKoord = 600;
+        int xKoordLives = 850;
         /**gc.setFill(Color.WHITE);
         gc.fillText("Leben übrig: ", 590, 25.0D);
          **/
         for (int i = 1; i <= livesLeft; i ++) {
-            gc.drawImage(heart, xKoord, 5D, 55,55);
-            xKoord += 40;
+            gc.drawImage(heart, xKoordLives, 5D, 55,55);
+            xKoordLives += 40;
         }
     }
     private void drawNecessaryAchievements (int getCollectedGems, int[] gems, int[] ticks, int getTicksPast) {
@@ -183,9 +183,8 @@ public class GUIView {
         Image noCheck = PictureRepo.getImage("NOTPASSED");
         Image clockTimer = PictureRepo.getImage("CLOCK_TIMER");
         Image star = PictureRepo.getImage("STAR");
-        int xKoord = 950;
-
-        int descendingTime = ticks[2] - getTicksPast;
+        int xKoordClock = 680;
+        int xKoordGems = 645;
 
         /**
         gc.setFill(Color.DARKBLUE);
@@ -197,18 +196,18 @@ public class GUIView {
         gc.setFill(Color.WHITE);
         if (getCollectedGems < gems[0]) {
             gc.fillText(" ", 760, 40.0D);
-            gc.fillText(getCollectedGems + "/" + gems[0], 920, 40.0D);
+            gc.fillText(getCollectedGems + "/" + gems[0], xKoordGems, 40.0D);
         }
         else if (getCollectedGems <= gems[1]) {
             gc.fillText(" ", 760, 40.0D);
-            gc.fillText(getCollectedGems + "/" + gems[1], 920, 40.0D);
+            gc.fillText(getCollectedGems + "/" + gems[1], xKoordGems, 40.0D);
         }
         else if (getCollectedGems <= gems[2]) {
             gc.fillText(" ", 760, 40.0D);
-            gc.fillText(getCollectedGems + "/" + gems[2], 920, 40.0D);
+            gc.fillText(getCollectedGems + "/" + gems[2], xKoordGems, 40.0D);
         }
 
-        gc.drawImage(gem, xKoord, 18.0D);
+        gc.drawImage(gem, xKoordClock, 18.0D);
 
         gc.fillText("Level bestanden: ", 20, 40.0D);
 
