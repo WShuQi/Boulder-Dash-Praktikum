@@ -720,7 +720,7 @@
     { "name": "Bamrich: turnIntoGem",
       "situation":"any",
       "direction":"south",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "eastthing", "norththing", "souththing", "westthing"], "values": {"toGem":  1}}],
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling"], "values": {"toGem":  1}}],
       "result":[{"token": "gem", "values":{"toGem": 0, "direction": 0}}]
     },
 
@@ -739,7 +739,7 @@
     { "name": "Bam: turnIntoExplosion",
       "situation":"any",
       "direction":"south",
-      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "eastthing", "norththing", "souththing", "westthing"], "values": {"toExplosion":  1}}],
+      "original":[{"token":["me", "gem", "mud", "stone", "bricks", "path", "slime", "swapling", "blockling", "xling", "ghostling", "eastthing", "norththing", "souththing", "westthing", "fire", "pot", "sieve", "sand"], "values": {"toExplosion":  1}}],
       "result":[{"token": "explosion", "values":{"toExplosion": 0, "direction": 0}}]
     },
 
