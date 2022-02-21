@@ -240,7 +240,7 @@ public class GUIView {
 
     private void schwarzeLeiste(){
         gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0 , 1000, 70);
+        gc.fillRect(0, 0 , 1000, 65);
 
     }
 
