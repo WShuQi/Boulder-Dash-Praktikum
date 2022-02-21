@@ -58,7 +58,7 @@ public class GUIView {
 
         drawLives(level.getCurrentLives(), level.getLives());
 
-        drawNecessaryAchievements(level.getCollectedGems(), level.getGems(), level.isPassed(), level.getTicks(), level.getTicksPast());
+        drawNecessaryAchievements(level.getCollectedGems(), level.getGems(),  level.getTicks(), level.getTicksPast());
 
         int maxSpalten = fields.length;
         int maxZeilen = fields[0].length;
@@ -161,14 +161,13 @@ public class GUIView {
 
     private void drawTimePassed (int ticksCounter) {
         gc.setFill(Color.WHITE);
-        gc.fillText("" + ticksCounter, 635, 40.D);
-
+        gc.fillText("" + ticksCounter, 350, 40.D);
 
     }
 
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
-        int xKoord = 290;
+        int xKoord = 600;
         /**gc.setFill(Color.WHITE);
         gc.fillText("Leben übrig: ", 590, 25.0D);
          **/
@@ -177,14 +176,14 @@ public class GUIView {
             xKoord += 40;
         }
     }
-    private void drawNecessaryAchievements (int getCollectedGems, int[] gems, boolean passed, int[] ticks, int getTicksPast) {
+    private void drawNecessaryAchievements (int getCollectedGems, int[] gems, int[] ticks, int getTicksPast) {
 
         Image gem = PictureRepo.getImage("GEM");
         Image check = PictureRepo.getImage("PASSED");
         Image noCheck = PictureRepo.getImage("NOTPASSED");
         Image clockTimer = PictureRepo.getImage("CLOCK_TIMER");
         Image star = PictureRepo.getImage("STAR");
-        int xKoord = 955;
+        int xKoord = 950;
 
         int descendingTime = ticks[2] - getTicksPast;
 
@@ -197,19 +196,19 @@ public class GUIView {
 
         gc.setFill(Color.WHITE);
         if (getCollectedGems < gems[0]) {
-            gc.fillText("Gesammelte Gems: ", 760, 25.0D);
-            gc.fillText(getCollectedGems + "/" + gems[0], 920, 25.0D);
+            gc.fillText(" ", 760, 40.0D);
+            gc.fillText(getCollectedGems + "/" + gems[0], 920, 40.0D);
         }
         else if (getCollectedGems <= gems[1]) {
-            gc.fillText("Gesammelte Gems: ", 760, 25.0D);
-            gc.fillText(getCollectedGems + "/" + gems[1], 920, 25.0D);
+            gc.fillText(" ", 760, 40.0D);
+            gc.fillText(getCollectedGems + "/" + gems[1], 920, 40.0D);
         }
         else if (getCollectedGems <= gems[2]) {
-            gc.fillText("Gesammelte Gems: ", 760, 25.0D);
-            gc.fillText(getCollectedGems + "/" + gems[2], 920, 25.0D);
+            gc.fillText(" ", 760, 40.0D);
+            gc.fillText(getCollectedGems + "/" + gems[2], 920, 40.0D);
         }
 
-        gc.drawImage(gem, xKoord, 4.0D);
+        gc.drawImage(gem, xKoord, 18.0D);
 
         gc.fillText("Level bestanden: ", 20, 40.0D);
 
@@ -220,7 +219,7 @@ public class GUIView {
             gc.drawImage(noCheck, 130, 18.0D);
         }
 
-        gc.drawImage(clockTimer, 655, 15D);
+        gc.drawImage(clockTimer, 300, 15D);
 
         if (ticks[2] > getTicksPast) {
             gc.drawImage(star, 445, 15.0D);
