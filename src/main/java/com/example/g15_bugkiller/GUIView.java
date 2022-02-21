@@ -161,7 +161,7 @@ public class GUIView {
 
     private void drawTimePassed (int ticksCounter) {
         gc.setFill(Color.WHITE);
-        gc.fillText("Zeit:  " + ticksCounter, 370, 25.D);
+        gc.fillText("Zeit:  " + ticksCounter, 360, 25.D);
 
     }
 
