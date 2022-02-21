@@ -161,18 +161,20 @@ public class GUIView {
 
     private void drawTimePassed (int ticksCounter) {
         gc.setFill(Color.WHITE);
-        gc.fillText("Zeit:  " + ticksCounter, 360, 25.D);
+        gc.fillText("" + ticksCounter, 635, 40.D);
+
 
     }
 
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
-        int xKoord = 650;
-        gc.setFill(Color.WHITE);
+        int xKoord = 290;
+        /**gc.setFill(Color.WHITE);
         gc.fillText("Leben übrig: ", 590, 25.0D);
+         **/
         for (int i = 1; i <= livesLeft; i ++) {
-            gc.drawImage(heart, xKoord, 4.0D);
-            xKoord += 25;
+            gc.drawImage(heart, xKoord, 5D, 55,55);
+            xKoord += 40;
         }
     }
     private void drawNecessaryAchievements (int getCollectedGems, int[] gems, boolean passed, int[] ticks, int getTicksPast) {
@@ -209,16 +211,16 @@ public class GUIView {
 
         gc.drawImage(gem, xKoord, 4.0D);
 
-        gc.fillText("Level bestanden: ", 20, 25.0D);
+        gc.fillText("Level bestanden: ", 20, 40.0D);
 
-        if (passed == true || getCollectedGems >= gems[0]) {
-            gc.drawImage(check, 130, 4.0D);
+        if (getCollectedGems >= gems[0]) {
+            gc.drawImage(check, 130, 18.0D);
         }
         else {
-            gc.drawImage(noCheck, 130, 4.0D);
+            gc.drawImage(noCheck, 130, 18.0D);
         }
 
-        gc.drawImage(clockTimer, 320, 4.0D);
+        gc.drawImage(clockTimer, 655, 15D);
 
         if (ticks[2] > getTicksPast) {
             gc.drawImage(star, 445, 15.0D);
