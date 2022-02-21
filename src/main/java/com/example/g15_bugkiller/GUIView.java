@@ -152,7 +152,7 @@ public class GUIView {
 
         Image counterBackground;
         counterBackground = PictureRepo.getImage("GemCounter_Background_large");
-        gc.drawImage(counterBackground, 385.0D, -20.0D, 230, 100);
+        gc.drawImage(counterBackground, 385.0D, -18.0D, 230, 100);
         /**gc.setFill(Color.WHITE);
         gc.fillText("GEMS: " + gemCounter, 467.0D, 25.0D);
          **/
@@ -182,15 +182,16 @@ public class GUIView {
         Image noCheck = PictureRepo.getImage("NOTPASSED");
         Image clockTimer = PictureRepo.getImage("CLOCK_TIMER");
         Image star = PictureRepo.getImage("STAR");
-        int xKoord = 940;
+        int xKoord = 955;
 
         int descendingTime = ticks[2] - getTicksPast;
 
-
+        /**
         gc.setFill(Color.DARKBLUE);
         gc.fillRect(747,3, 303, 103);
         gc.setFill(Color.BLACK);
         gc.fillRect(750,0, 300, 100);
+         **/
 
         gc.setFill(Color.WHITE);
         if (getCollectedGems < gems[0]) {
@@ -217,30 +218,20 @@ public class GUIView {
             gc.drawImage(noCheck, 130, 4.0D);
         }
 
-        gc.drawImage(clockTimer, 950, 60.0D);
+        gc.drawImage(clockTimer, 320, 4.0D);
 
         if (ticks[2] > getTicksPast) {
-            gc.setFill(Color.WHITE);
-            gc.fillText("Zeit übrig: ", 850, 90D);
-            gc.setFill(Color.RED);
-            gc.fillText( "" + descendingTime, 920, 90.0D);
             gc.drawImage(star, 445, 15.0D);
             gc.drawImage(star, 485, 15.0D);
             gc.drawImage(star, 525, 15.0D);
         }
         else if (ticks[1] > getTicksPast && ticks[2] <= getTicksPast){
-            gc.setFill(Color.WHITE);
-            gc.fillText("Zeit übrig: ", 850, 90D);
-            gc.setFill(Color.RED);
-            gc.fillText( "" + ticks[1], 920, 90.0D);
+
             gc.drawImage(star, 820, 35.0D);
             gc.drawImage(star, 860, 35.0D);
         }
         else if (ticks[0] >= getTicksPast && ticks[1] <= getTicksPast) {
-            gc.setFill(Color.WHITE);
-            gc.fillText("Zeit übrig: ", 850, 90D);
-            gc.setFill(Color.RED);
-            gc.fillText( "" + ticks[0], 920, 90.0D);
+            ;
             gc.fillText("Zeit übrig: " + ticks[0], 850, 90.D);
             gc.drawImage(star, 820, 35.0D);
         }
