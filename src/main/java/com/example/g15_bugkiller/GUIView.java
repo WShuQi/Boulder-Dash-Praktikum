@@ -227,13 +227,13 @@ public class GUIView {
         }
         else if (ticks[1] > getTicksPast && ticks[2] <= getTicksPast){
 
-            gc.drawImage(star, 820, 35.0D);
-            gc.drawImage(star, 860, 35.0D);
+            gc.drawImage(star, 465, 15.0D);
+            gc.drawImage(star, 505, 15.0D);
         }
         else if (ticks[0] >= getTicksPast && ticks[1] <= getTicksPast) {
             ;
             gc.fillText("Zeit übrig: " + ticks[0], 850, 90.D);
-            gc.drawImage(star, 820, 35.0D);
+            gc.drawImage(star, 485, 35.0D);
         }
 
     }
