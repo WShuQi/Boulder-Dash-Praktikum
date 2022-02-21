@@ -135,8 +135,8 @@ public class GUIView {
     }
 
     private void drawButtons() {
-        drawButton("Neustart", 850, 120);
-        drawButton("Zurück", 850, 160);
+        drawButton("Neustart", 50, 80);
+        drawButton("Zurück", 850, 80);
     }
 
     private void drawButton(String text, double x, double y) {

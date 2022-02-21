@@ -51,12 +51,12 @@ public class GUIController {
         }
         else {
             // wir spielen und brauchen die anderen buttons
-            if (x >= 850 && x <= 930) {
-                if (y >= 50 && y <= 70) {
+            if (y >= 80 && y <= 100) {
+                if (x >= 50 && x <= 130) {
                     // Neustart
                     restartLevel = true;
                 }
-                else if (y >= 80 && y <= 100) {
+                else if (x >= 850 && x <= 930) {
                     // Zurück
                     levelInProgress = false;
                 }
