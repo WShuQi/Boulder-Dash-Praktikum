@@ -408,36 +408,39 @@ public class LevelLogic {
 
         for(ValuesNames valueName: ruleComponentValues.keySet()){
 
+            int fieldValue = fieldValues.getOrDefault(valueName, 0);
+            int ruleValue = ruleComponentValues.get(valueName);
+
             switch(valueName){
                 case X:
-                    if(ruleComponentValues.get(valueName) != level.getX()){
-                        valuesAgree = false;
-                    }
+                    fieldValue = level.getX();
                     break;
                 case Y:
-                    if(ruleComponentValues.get(valueName) != level.getY()){
-                        valuesAgree = false;
-                    }
+                    fieldValue = level.getY();
                     break;
                 case Z:
-                    if(ruleComponentValues.get(valueName) != level.getZ()){
-                        valuesAgree = false;
-                    }
-                break;
+                    fieldValue = level.getZ();
+                    break;
                 case GEMS:
-                    if(ruleComponentValues.get(valueName) != level.getCollectedGems()){
-                        valuesAgree = false;
-                    }
+                    fieldValue = level.getCollectedGems();
                     break;
                 case TICKS:
-                    if(ruleComponentValues.get(valueName) != level.getTicksPast()){
-                        valuesAgree = false;
-                    }
+                    fieldValue = level.getTicksPast();
                     break;
             }
 
-            if(fieldValues.get(valueName) != ruleComponentValues.get(valueName)){
-                valuesAgree = false;
+            if(ruleValue == 0 && fieldValue != 0){
+                return false;
+            }
+
+            if(ruleValue > 0){
+                if(fieldValue == 0){
+                    return false;
+                }
+
+                if(fieldValue < ruleValue){
+                    return false;
+                }
             }
         }
 

@@ -34,10 +34,6 @@ public class Values implements Cloneable {
         valueList.put(EXITREACHED, 0);
         valueList.put(STOP, 0);
         valueList.put(STOPBUTTONPRESSED, 0);
-        valueList.put(A, 0);
-        valueList.put(B, 0);
-        valueList.put(C, 0);
-        valueList.put(D, 0);
     }
 
     public HashMap<ValuesNames, Integer> getValueList() {
