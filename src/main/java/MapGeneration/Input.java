@@ -26,6 +26,10 @@ public class Input {
         applyCoordinateOffsetToTilesAt();
     }
 
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
     public List<TilesAt> getTilesAts() {
         return tilesAts;
     }

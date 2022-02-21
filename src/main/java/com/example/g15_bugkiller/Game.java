@@ -76,8 +76,16 @@ public class Game {
         return totalPoints;
     }
 
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
     public int getNumberOfUnlockedLevels() {
         return numberOfUnlockedLevels;
+    }
+
+    public void setNumberOfUnlockedLevels(int numberOfUnlockedLevels) {
+        this.numberOfUnlockedLevels = numberOfUnlockedLevels;
     }
 
     public void freePlay() {
@@ -86,9 +94,9 @@ public class Game {
         }
     }
 
-    public Set<String> cloneStringSet(Set<String> set){
+    public Set<String> cloneStringSet(Set<String> set) {
         Set<String> clonedSet = new HashSet<String>();
-        for(String element: set){
+        for (String element : set) {
             clonedSet.add(new String(element));
         }
         return clonedSet;

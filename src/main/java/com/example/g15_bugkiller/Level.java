@@ -3,6 +3,7 @@ package com.example.g15_bugkiller;
 import MapGeneration.Input;
 import MapGeneration.MapGeneration;
 import MapGeneration.Coordinate;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Level {
     private int sparsity = 1;
     private int[] gems;
     private int[] ticks;
+    private Input mapdata;
     private List<Rule> preRules;
     private List<Rule> mainRules;
     private List<Rule> postRules;
@@ -42,12 +44,16 @@ public class Level {
 
     private List<Field[][]> replaySaveData = new ArrayList<>();
 
+    private JSONArray preJson;
+    private JSONArray postJson;
+
     public Level() {
     }
 
     public Level(String levelName, int[] gems, Input mapData, int[] ticks) {
         this.levelName = levelName;
         this.gems = gems;
+        this.mapdata = mapData;
         map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap();
         getXYZValuesFromMapData(this.levelMap);
@@ -63,6 +69,7 @@ public class Level {
     public Level(String levelName, int[] gems, Input mapData, int[] ticks, int lives) {
         this.levelName = levelName;
         this.gems = gems;
+        this.mapdata = mapData;
         map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap();
         getXYZValuesFromMapData(this.levelMap);
@@ -125,6 +132,10 @@ public class Level {
 
     public int[] getGems() {
         return gems;
+    }
+
+    public Input getMapdata() {
+        return mapdata;
     }
 
     public List<Rule> getPreRules() {
@@ -361,6 +372,7 @@ public class Level {
         }
     }
 
+
     public void setBestTime(int currentTime) {
         if (currentTime < this.bestTime) {
             this.bestTime = currentTime;
@@ -387,13 +399,30 @@ public class Level {
 
     public Coordinate getMEPosition() {
         Field[][] map = this.getLevelMap();
-        for (int x = 0; x<map.length; x++){
-            for (int y = 0; y<map[x].length; y++){
-                if (map[x][y].getType() == Type.ME){
+        for (int x = 0; x < map.length; x++) {
+            for (int y = 0; y < map[x].length; y++) {
+                if (map[x][y].getType() == Type.ME) {
                     return new Coordinate(x, y);
                 }
             }
         }
         return getOriginalMePosition();
     }
+
+    public void setPre(JSONArray pre) {
+        this.preJson = pre;
+    }
+
+    public void setPost(JSONArray post) {
+        this.postJson = post;
+    }
+
+    public JSONArray getPre() {
+        return preJson;
+    }
+
+    public JSONArray getPost() {
+        return postJson;
+    }
+
 }

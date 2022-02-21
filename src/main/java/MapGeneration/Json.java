@@ -17,6 +17,8 @@ import java.util.Locale;
 public class Json {
 
     private JSONObject json;
+    private JSONArray pre = null;
+    private JSONArray post = null;
 
 
     public Json(String filename) throws FileNotFoundException {
@@ -297,6 +299,7 @@ public class Json {
     private List<Rule> getPreRules(){
         List<Rule> preRules = new ArrayList<>();
         JSONArray prelistJson = json.getJSONArray("pre");
+        this.pre = prelistJson;
         for(int i = 0; i < prelistJson.length(); i++) {
             JSONObject preJson = prelistJson.getJSONObject(i);
             Situation situation = this.readSituation(preJson);
@@ -351,6 +354,7 @@ public class Json {
     private List<Rule> getPostRules(){
         List<Rule> postRules = new ArrayList<>();
         JSONArray postlistJson = json.getJSONArray("post");
+        this.post = postlistJson;
         for(int i = 0; i < postlistJson.length(); i++) {
             JSONObject postJson = postlistJson.getJSONObject(i);
             Situation situation = this.readSituation(postJson);
@@ -431,10 +435,11 @@ public class Json {
             int maxslime = json.getInt("maxslime");
             level.setMaxSlime(maxslime);
         }
-
+        level.setPre(pre);
         if (json.has("pre")) {
             level.setPreRules(this.getPreRules());
         }
+        level.setPost(post);
         if (json.has("post")) {
             level.setPostRules(this.getPostRules());
         }
@@ -451,5 +456,9 @@ public class Json {
             mainrules.add(mainRule);
         }
         return mainrules;
+    }
+
+    public JSONObject getJson() {
+        return json;
     }
 }
