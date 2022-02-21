@@ -17,7 +17,6 @@ public class Level {
     private List<Rule> mainRules;
     private List<Rule> postRules;
     private int maxSlime;
-    private Field[][] originalLevelMap;
     private Field[][] levelMap;
     private int collectedGems;
     private int ticksPast;  //schon vergangene Ticks
@@ -39,6 +38,7 @@ public class Level {
     private int bestGems = 0;
     private int bestTime = (int) Double.POSITIVE_INFINITY;
     private int bestScore = 0;
+    private MapGeneration map;
 
     private List<Field[][]> replaySaveData = new ArrayList<>();
 
@@ -48,9 +48,8 @@ public class Level {
     public Level(String levelName, int[] gems, Input mapData, int[] ticks) {
         this.levelName = levelName;
         this.gems = gems;
-        MapGeneration map = new MapGeneration(mapData, 1000);
+        map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap();
-        this.originalLevelMap = cloneLevelMap(this.levelMap);
         getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
@@ -64,9 +63,8 @@ public class Level {
     public Level(String levelName, int[] gems, Input mapData, int[] ticks, int lives) {
         this.levelName = levelName;
         this.gems = gems;
-        MapGeneration map = new MapGeneration(mapData, 1000);
+        map = new MapGeneration(mapData, 1000);
         this.levelMap = map.generateMap();
-        this.originalLevelMap = cloneLevelMap(this.levelMap);
         getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.lives = lives;
@@ -77,6 +75,12 @@ public class Level {
         System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
         System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
         //TerminalMap.drawMap(this.levelMap);
+    }
+
+    public void generateNewMap(){
+        this.levelMap = cloneLevelMap(map.generateMap());
+        this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
+        getXYZValuesFromMapData(this.levelMap);
     }
 
     public Field[][] cloneLevelMap(Field[][] map){
@@ -166,19 +170,6 @@ public class Level {
     public void setPreRules(List<Rule> preRules) {
 
         this.preRules = preRules;
-
-        /*System.out.println("Printing Pre Rule Values");
-        for (int i = 0; i < preRules.size(); i++) {
-            System.out.println("Original Values:");
-            for (int j = 0; j < preRules.get(i).getOriginal().size(); j++) {
-                System.out.println(preRules.get(i).getOriginal().get(j).getValues().getValueList());
-            }
-
-            System.out.println("Result Values:");
-            for (int j = 0; j < preRules.get(i).getResult().size(); j++) {
-                System.out.println(preRules.get(i).getResult().get(j).getValues().getValueList());
-            }
-        }*/
     }
 
 
@@ -282,58 +273,6 @@ public class Level {
 
     public void setMainRules(List<Rule> mainRules) {
         this.mainRules = mainRules;
-
-
-        /*
-        System.out.println("Printing main rules");
-
-        for (int i = 0; i < mainRules.size(); i++) {
-            System.out.println("Rule nummer " + i);
-            //System.out.println("");
-            //System.out.println("Situation: " + mainRules.get(i).getSituation());
-            //System.out.println("Direction: " + mainRules.get(i).getDirection());
-
-            System.out.println("Original Tokens:");
-            for (int j = 0; j < mainRules.get(i).getOriginal().size(); j++) {
-
-                System.out.println("Rule " + i + " Token  " + j + " is class " + mainRules.get(i).getOriginal().get(j).getToken().getClass());
-                if (mainRules.get(i).getResult().get(j).getToken() instanceof Object) {
-                    System.out.println("is a type array");
-                    //System.out.println("type array has length " + ((ArrayList<?>) mainRules.get(i).getResult().get(j).getToken()).size());
-                } else if (mainRules.get(i).getResult().get(j).getToken() instanceof Type) {
-                    System.out.println("is a type");
-                } else if (mainRules.get(i).getResult().get(j).getToken() instanceof Integer) {
-                    System.out.println("is a int");
-                } else {
-                    System.out.println("is NOT a type array or type or int");
-                }
-
-                //System.out.println("Values:");
-                //System.out.println(mainRules.get(i).getOriginal().get(j).getValues().getValueList());
-
-            }
-
-            System.out.println("");
-            System.out.println("Result Tokens:");
-            for (int j = 0; j < mainRules.get(i).getResult().size(); j++) {
-                System.out.println("Rule " + i + " Token " + j+ " ist class " + mainRules.get(i).getResult().get(j).getToken().getClass());
-
-                if (mainRules.get(i).getResult().get(j).getToken() instanceof ArrayList) {
-                    System.out.println("is a type array");
-                } else if (mainRules.get(i).getResult().get(j).getToken() instanceof Type) {
-                    System.out.println("is a type");
-                } else if (mainRules.get(i).getResult().get(j).getToken() instanceof Integer) {
-                    System.out.println("is a int");
-                } else {
-                    System.out.println("is NOT a type array or type or int");
-                }
-
-                System.out.println("Values:");
-                System.out.println(mainRules.get(i).getResult().get(j).getValues().getValueList());
-
-            }
-        }
-        */
     }
 
     public boolean isPassed() {
@@ -444,14 +383,6 @@ public class Level {
 
     public int getBestTime() {
         return bestTime;
-    }
-
-    public Field[][] getOriginalLevelMap() {
-        return originalLevelMap;
-    }
-
-    public void setOriginalLevelMap(Field[][] originalLevelMap) {
-        this.originalLevelMap = originalLevelMap;
     }
 
     public Coordinate getMEPosition() {

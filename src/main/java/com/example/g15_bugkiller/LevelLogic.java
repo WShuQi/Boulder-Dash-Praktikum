@@ -60,7 +60,7 @@ public class LevelLogic {
     }
 
     public static void resetLevelMap(Level level){
-        level.setLevelMap(level.cloneLevelMap(level.getOriginalLevelMap()));
+        level.generateNewMap();
     }
 
     public static void updateBestValues(){
