@@ -286,7 +286,7 @@ public class GUIView {
             final Level level = levels.get(levelName);
             LevelButtonSelector selector = drawLevelSelection(levelName, level, x, y);
             if (odd) {
-                x = 600;
+                x = 540;
             }
             else {
                 x = 110.0d;
@@ -303,7 +303,7 @@ public class GUIView {
     private LevelButtonSelector drawLevelSelection(String levelName, Level level, double startX, double startY) {
 
         gc.setFill(Color.BLACK);
-        gc.fillRect(startX , startY-20, 295, 30);
+        gc.fillRect(startX , startY-20, 345, 30);
 
         gc.setFill(Color.WHITE);
         gc.fillText(level.getLevelName(), startX + 10, startY);
