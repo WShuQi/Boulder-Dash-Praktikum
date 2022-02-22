@@ -9,8 +9,10 @@ import java.util.Map;
 
 public class Gamesaver {
 
+
     private String path;
     private String jsonStr;
+    //Egal Fortschritte von Game, oder ein Benutzer-definiertes Level, endlich nur als diese String speichern.
 
     public Gamesaver(String path) {
         this.path = path;
@@ -70,6 +72,7 @@ public class Gamesaver {
         int maxSlime = level.getMaxSlime();
         leveljobj.put("maxslime", maxSlime);
 
+        //Mapdata einlesen, davon width,height,tiles,tilesAt,connectbys,default
         Input mapdata = level.getMapdata();
         JSONObject mapdatajobj = new JSONObject();
         int width = mapdata.getMapSize().getX();
@@ -77,6 +80,7 @@ public class Gamesaver {
         int height = mapdata.getMapSize().getY();
         mapdatajobj.put("height", height);
 
+        //Tiles stufe für Stufe einlesen
         List<Tile> tiles = mapdata.getTiles();
         JSONObject tilesjobj = new JSONObject();
         for (Tile tile : tiles) {
@@ -95,6 +99,7 @@ public class Gamesaver {
                         HashMap<ValuesNames, Integer> values = gegenstand.getValues().getValueList();
                         HashMap<String, Integer> newValues = new HashMap<>();
 
+                        //Nur geänderte Values werden gespeichert
                         for (ValuesNames valuesNames : values.keySet()) {
                             if (values.get(valuesNames) > 0) {
                                 newValues.put(valuesNames.toString(), values.get(valuesNames));
@@ -103,6 +108,7 @@ public class Gamesaver {
 
                         JSONObject valuesjobj = new JSONObject(newValues);
 
+                        //Wenn keine Werte geändert wird, token einfach als String speichern(anstatt JsonObj)
                         if (newValues.isEmpty()) {
                             fieldsjarr.put(token);
                         } else {
@@ -190,18 +196,28 @@ public class Gamesaver {
         System.out.println("Fortschritte werden erfolgreich gespeichert!");
     }
 
-    public void readGameData(Game game) throws FileNotFoundException {
-        Json json = new Json(path);
-        JSONObject gameDataJobj = json.getJson();
-        game.setNumberOfUnlockedLevels(gameDataJobj.getInt("numberOfUnlockedLevels"));
-        game.setTotalPoints(gameDataJobj.getInt("totalpoints"));
-        Map<String, Level> levels = game.getLevels();
-        JSONObject levelsobj = gameDataJobj.getJSONObject("levels");
-        for (String name : levelsobj.keySet()) {
-            levels.get(name).setBestGems(levelsobj.getJSONObject(name).getInt("gems"));
-            levels.get(name).setBestTime(levelsobj.getJSONObject(name).getInt("besttime"));
-            levels.get(name).setScoredPoints(levelsobj.getJSONObject(name).getInt("scoredPoints"));
-            levels.get(name).setUnlocked(levelsobj.getJSONObject(name).getBoolean("unlocked"));
+    public void readGameData(Game game) {
+        try {
+            Json json = new Json(path);
+            JSONObject gameDataJobj = json.getJson();
+            game.setNumberOfUnlockedLevels(gameDataJobj.getInt("numberOfUnlockedLevels"));
+            game.setTotalPoints(gameDataJobj.getInt("totalpoints"));
+            Map<String, Level> levels = game.getLevels();
+            JSONObject levelsobj = gameDataJobj.getJSONObject("levels");
+            for (String name : levelsobj.keySet()) {
+                try {
+                    levels.get(name).setBestGems(levelsobj.getJSONObject(name).getInt("gems"));
+                    levels.get(name).setBestTime(levelsobj.getJSONObject(name).getInt("besttime"));
+                    levels.get(name).setBestScore(levelsobj.getJSONObject(name).getInt("scoredPoints"));
+                    levels.get(name).setUnlocked(levelsobj.getJSONObject(name).getBoolean("unlocked"));
+                } catch (NullPointerException e) {
+                    System.out.println("No data of the level " + name);
+                    continue;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

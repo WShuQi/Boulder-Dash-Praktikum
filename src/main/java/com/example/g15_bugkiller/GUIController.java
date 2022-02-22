@@ -1,6 +1,7 @@
 package com.example.g15_bugkiller;
 
 // import com.example.g15_bugkiller.GameReplay.GameReplay;
+import MapGeneration.Gamesaver;
 import com.example.g15_bugkiller.GameReplay.GameReplay;
 import javafx.animation.KeyFrame;
 import com.example.g15_bugkiller.LevelEditor.LevelEditor;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class GUIController {
@@ -33,7 +35,7 @@ public class GUIController {
 
     private void updateView(Level level) {
         view.drawLevel(level);
-    }       //Todo: Game(davon List<Level>)anpassen
+    }
 
     public void mousePressed(double x, double y) {
         if (this.levelButtonSelectorList != null) {
@@ -52,11 +54,17 @@ public class GUIController {
             if (y >= 10 && y <= 30) {
              if (x >= 50 && x <= 200) {
                  //TODO: SHUQI hier ist der Fortschritte speichern Button
+                 Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
+                 gamesaver.getGameData(game);
+                 gamesaver.createJson("01");
                  System.out.println("Fortschritte speichern"); //nur zur Überprüfung
-                }
+             }
              else if (x >= 800 && x <= 950) {
                  //TODO: SHUQI hier ist der Fortschritte laden Button
+                 Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames/01.json");
+                 gamesaver.readGameData(game);
                  System.out.println("Fortschritte laden"); //nur zur Überprüfung
+                 System.out.println(game.getLevels().get("Die wachsende Wand").getBestScore());
              }
             }
             if (y >= 60 && y <= 80) {

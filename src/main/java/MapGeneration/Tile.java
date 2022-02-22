@@ -24,10 +24,8 @@ public class Tile {
     }
 
     public Coordinate getBiggestXandY(){
-        //fixme: hier scheint es ein Problem zu geben
         int biggestX = 0;
         int biggestY = 0;
-        //Problem von folgenden Zeilen: Caused by: java.lang.NullPointerException
         for (TileVersion version : versions) {
             List<List<Field>> entries = version.getEntries();
             if (entries.size() > biggestY){
