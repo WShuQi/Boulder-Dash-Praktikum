@@ -2,8 +2,10 @@ package com.example.g15_bugkiller.LevelEditor;
 
 import MapGeneration.Gamesaver;
 import MapGeneration.Input;
+import com.example.g15_bugkiller.Field;
 import com.example.g15_bugkiller.Level;
 import com.example.g15_bugkiller.TerminalMap;
+import com.example.g15_bugkiller.Type;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -121,6 +123,14 @@ public class LevelSettings {
 
             Level level = new Level(name, gems, mapData, ticks, lives);
 
+            if(!levelHasMeAndExit(level)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Map");
+            alert.setHeaderText("Level has to include ME and EXIT");
+            alert.showAndWait();
+            return;
+        }
+
             Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/level");
             gamesaver.getLevelData(level);
             gamesaver.createJson(level.getLevelName());
@@ -141,5 +151,25 @@ public class LevelSettings {
 
         levelSettings.getChildren().addAll(levelNameInputBox, mapSizeBox, ticksBox, gemsBox, livesBox, saveButton, buttonSeparator, resetMapButton);
         return levelSettings;
+    }
+
+
+    private static boolean levelHasMeAndExit(Level level){
+        Field[][] map = level.getLevelMap();
+
+        boolean hasMe = false;
+        boolean hasExit = false;
+
+        for (int i = 0; i < map[0].length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if(map[i][j].getType() == Type.ME){
+                    hasMe = true;
+                }
+                if(map[i][j].getType() == Type.EXIT){
+                    hasExit = true;
+                }
+            }
+        }
+        return hasMe && hasExit;
     }
 }
