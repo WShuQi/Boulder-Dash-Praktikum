@@ -1,17 +1,62 @@
 {
-  "gems":[1,2,4],
-  "name":"Regeln",
-  "ticks":[2000,1600,1100],
-  "pre":[
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":["pot", "sieve", "sand"]}],
-      "result":[{"token":"0", "values":{"loose":1, "slippery":1, "pushable":1}}]
+  "gems": [
+    1,
+    2,
+    4
+  ],
+  "name": "Regeln",
+  "ticks": [
+    2000,
+    1600,
+    1100
+  ],
+  "lives": 3,
+  "pre": [
+    {
+      "situation": "any",
+      "direction": "east",
+      "original": [
+        {
+          "token": [
+            "pot",
+            "sieve",
+            "sand"
+          ]
+        }
+      ],
+      "result": [
+        {
+          "token": "0",
+          "values": {
+            "loose": 1,
+            "slippery": 1,
+            "pushable": 1
+          }
+        }
+      ]
     },
-    { "situation":"any",
-      "direction":"north",
-      "original":[{"token":"fire"},{"token":"me"}],
-      "result":[{"token":"fire"},{"token":"me", "values":{"bam":1}}]
+    {
+      "situation": "any",
+      "direction": "north",
+      "original": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "me"
+        }
+      ],
+      "result": [
+        {
+          "token": "fire"
+        },
+        {
+          "token": "me",
+          "values": {
+            "bam": 1
+          }
+        }
+      ]
     },
     { "situation":"any",
       "direction":"north",

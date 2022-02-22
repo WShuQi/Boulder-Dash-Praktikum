@@ -1,17 +1,62 @@
 {
-  "gems":[5,8,12],
-  "name":"Labyrinth",
-  "ticks":[1200,740,350],
+  "gems": [
+    5,
+    8,
+    12
+  ],
+  "name": "Labyrinth",
+  "ticks": [
+    1200,
+    740,
+    350
+  ],
+  "lives": 3,
   "mapdata": {
-    "width" : 43,
-    "height" : 33,
-    "tiles" : {
-      "core" : [
-        [ ["wall", "wall", "mud", "mud", "wall", "wall"],
-          ["wall", "mud", "mud", "mud", "mud", "wall"],
-          ["mud", "mud", "mud", "mud", "mud", "mud"],
-          ["mud", "mud", "mud", "mud", "mud", "mud"],
-          ["wall", "mud", "mud", "mud", "mud", "wall"],
+    "width": 43,
+    "height": 33,
+    "tiles": {
+      "core": [
+        [
+          [
+            "wall",
+            "wall",
+            "mud",
+            "mud",
+            "wall",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
+          [
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud"
+          ],
+          [
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "wall"
+          ],
           ["wall", "wall", "mud", "mud", "wall", "wall"] ],
         [ ["wall", "wall", "mud", "mud", "wall", "wall"],
           ["wall", "mud", "mud", "mud", "wall", "wall"],

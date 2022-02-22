@@ -411,15 +411,17 @@ public class Json {
 
         int[] gems = new int[3];
         JSONArray gemsJson = json.getJSONArray("gems");
-        for(int i = 0; i < gemsJson.length(); i++){
+        for (int i = 0; i < gemsJson.length(); i++) {
             gems[i] = gemsJson.getInt(i);
         }
 
+        int lives = json.getInt("lives");
+
         int[] ticks = new int[3];
-        try{
+        try {
             JSONArray ticksJson = json.getJSONArray("ticks");
-            for(int j = 0; j < ticksJson.length(); j++){
-            ticks[j] = ticksJson.getInt(j);
+            for (int j = 0; j < ticksJson.length(); j++) {
+                ticks[j] = ticksJson.getInt(j);
             }
         } catch (JSONException e) {
             JSONArray ticksJson = json.getJSONArray("time");
@@ -430,6 +432,8 @@ public class Json {
         Input mapdata = this.getInput();
 
         Level level = new Level(levelName, gems, mapdata, ticks);
+
+        level.setLives(lives);
 
         if (json.has("maxslime")) {
             int maxslime = json.getInt("maxslime");
