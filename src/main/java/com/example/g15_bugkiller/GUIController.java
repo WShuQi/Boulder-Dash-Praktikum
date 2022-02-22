@@ -3,6 +3,7 @@ package com.example.g15_bugkiller;
 // import com.example.g15_bugkiller.GameReplay.GameReplay;
 import com.example.g15_bugkiller.GameReplay.GameReplay;
 import javafx.animation.KeyFrame;
+import com.example.g15_bugkiller.LevelEditor.LevelEditor;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,10 +54,15 @@ public class GUIController {
                  //TODO: SHUQI hier ist der Fortschritte speichern Button
                  System.out.println("Fortschritte speichern"); //nur zur Überprüfung
                 }
-             if (x >= 800 && x <= 950) {
+             else if (x >= 800 && x <= 950) {
                  //TODO: SHUQI hier ist der Fortschritte laden Button
                  System.out.println("Fortschritte laden"); //nur zur Überprüfung
              }
+            }
+            if (y >= 60 && y <= 80) {
+                if (x >= 425 && x <= 575)  {
+                    LevelEditor.openLevelEditor();
+                }
             }
         }
         else {

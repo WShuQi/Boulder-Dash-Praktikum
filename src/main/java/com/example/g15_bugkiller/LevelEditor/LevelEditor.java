@@ -20,7 +20,7 @@ public class LevelEditor {
 
     public static void openLevelEditor() {
         Stage stage = new Stage();
-        stage.setTitle("Replay");
+        stage.setTitle("Level Editor");
 
         BorderPane border = new BorderPane();
 
