@@ -123,7 +123,7 @@ public class LevelSettings {
 
             Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/level");
             gamesaver.getLevelData(level);
-            gamesaver.createJson("newLevel");
+            gamesaver.createJson(level.getLevelName());
 
             System.out.println("saving level: " + level.getLevelName());
             TerminalMap.drawMap(level.getLevelMap());

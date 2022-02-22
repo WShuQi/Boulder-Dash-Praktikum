@@ -102,10 +102,16 @@ public class Gamesaver {
                         }
 
                         JSONObject valuesjobj = new JSONObject(newValues);
-                        JSONObject fieldjobj = new JSONObject();
-                        fieldjobj.put("token", token);
-                        fieldjobj.put("values", valuesjobj);
-                        fieldsjarr.put(fieldjobj);
+
+                        if (newValues.isEmpty()) {
+                            fieldsjarr.put(token);
+                        } else {
+                            JSONObject fieldjobj = new JSONObject();
+                            fieldjobj.put("token", token);
+                            fieldjobj.put("values", valuesjobj);
+                            fieldsjarr.put(fieldjobj);
+                        }
+
                     }
 
                     entriesjarr.put(fieldsjarr);

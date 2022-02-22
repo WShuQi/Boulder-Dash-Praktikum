@@ -1,17 +1,62 @@
 {
-  "gems":[12,16,22],
-  "name":"Das Schicksal",
-  "ticks":[600,320,190],
+  "gems": [
+    12,
+    16,
+    22
+  ],
+  "name": "Das Schicksal",
+  "ticks": [
+    600,
+    320,
+    190
+  ],
+  "lives": 3,
   "mapdata": {
-    "width" : 41,
-    "height" : 13,
-    "tiles" : {
-      "left" : [
-        [ ["wall", "wall", "wall", "wall", "wall", "wall"],
-          ["wall", "mud", "mud", "mud", "mud", "mud"],
-          ["wall", "mud", "mud", "mud", "mud", "mud"],
-          ["wall", "mud", "me", "mud", "mud", "mud"],
-          ["wall", "mud", "mud", "mud", "mud", "mud"],
+    "width": 41,
+    "height": 13,
+    "tiles": {
+      "left": [
+        [
+          [
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall",
+            "wall"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud"
+          ],
+          [
+            "wall",
+            "mud",
+            "me",
+            "mud",
+            "mud",
+            "mud"
+          ],
+          [
+            "wall",
+            "mud",
+            "mud",
+            "mud",
+            "mud",
+            "mud"
+          ],
           ["wall", "mud", "mud", "mud", "mud", "mud"],
           ["wall", "wall", "wall", "wall", "wall", "wall"],
           ["wall", "mud", "mud", "mud", "mud", "mud"],

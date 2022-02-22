@@ -1,17 +1,74 @@
 {
-  "gems":[6,12,18],
-  "name":"Bereiche",
-  "ticks":[1200,440,210],
-  "pre":[
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"bricks", "values":{"A":0}},{"token":"slime", "values":{"A":0}}],
-      "result":[{"token":"bricks"},{"token":"bricks", "values":{"A":1}}]
+  "gems": [
+    6,
+    12,
+    18
+  ],
+  "name": "Bereiche",
+  "ticks": [
+    1200,
+    440,
+    210
+  ],
+  "lives": 3,
+  "pre": [
+    {
+      "situation": "any",
+      "direction": "east",
+      "original": [
+        {
+          "token": "bricks",
+          "values": {
+            "A": 0
+          }
+        },
+        {
+          "token": "slime",
+          "values": {
+            "A": 0
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "bricks"
+        },
+        {
+          "token": "bricks",
+          "values": {
+            "A": 1
+          }
+        }
+      ]
     },
-    { "situation":"any",
-      "direction":"west",
-      "original":[{"token":"bricks", "values":{"A":0}},{"token":"slime", "values":{"A":0}}],
-      "result":[{"token":"bricks"},{"token":"bricks", "values":{"A":1}}]
+    {
+      "situation": "any",
+      "direction": "west",
+      "original": [
+        {
+          "token": "bricks",
+          "values": {
+            "A": 0
+          }
+        },
+        {
+          "token": "slime",
+          "values": {
+            "A": 0
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "bricks"
+        },
+        {
+          "token": "bricks",
+          "values": {
+            "A": 1
+          }
+        }
+      ]
     },
     { "situation":"any",
       "direction":"north",

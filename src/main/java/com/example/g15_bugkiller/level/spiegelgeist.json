@@ -1,17 +1,68 @@
 {
-  "gems":[7,14,21],
-  "name":"Spiegelgeist",
-  "ticks":[750,300,160],
-  "pre":[
-    { "situation":"right",
-      "direction":"west",
-      "original":[{"token":"ghostling"},{"token":["mud", "path"]}],
-      "result":[{"token":"mud"},{"token":"0", "values":{"moved":1}}]
+  "gems": [
+    7,
+    14,
+    21
+  ],
+  "name": "Spiegelgeist",
+  "ticks": [
+    750,
+    300,
+    160
+  ],
+  "lives": 3,
+  "pre": [
+    {
+      "situation": "right",
+      "direction": "west",
+      "original": [
+        {
+          "token": "ghostling"
+        },
+        {
+          "token": [
+            "mud",
+            "path"
+          ]
+        }
+      ],
+      "result": [
+        {
+          "token": "mud"
+        },
+        {
+          "token": "0",
+          "values": {
+            "moved": 1
+          }
+        }
+      ]
     },
-    { "situation":"left",
-      "direction":"east",
-      "original":[{"token":"ghostling"},{"token":["mud", "path"]}],
-      "result":[{"token":"mud"},{"token":"0", "values":{"moved":1}}]
+    {
+      "situation": "left",
+      "direction": "east",
+      "original": [
+        {
+          "token": "ghostling"
+        },
+        {
+          "token": [
+            "mud",
+            "path"
+          ]
+        }
+      ],
+      "result": [
+        {
+          "token": "mud"
+        },
+        {
+          "token": "0",
+          "values": {
+            "moved": 1
+          }
+        }
+      ]
     },
     { "situation":"up",
       "direction":"north",

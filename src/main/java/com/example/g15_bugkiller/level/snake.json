@@ -1,17 +1,53 @@
 {
-  "gems":[4,8,16],
-  "name":"Snake",
-  "ticks":[50,30,20],
-  "pre":[
-    { "situation":"any",
-      "direction":"east",
-      "original":[{"token":"exit", "values":{"X":0}}],
-      "result":[{"token":"0", "values":{"X":3}}]
+  "gems": [
+    4,
+    8,
+    16
+  ],
+  "name": "Snake",
+  "ticks": [
+    50,
+    30,
+    20
+  ],
+  "lives": 3,
+  "pre": [
+    {
+      "situation": "any",
+      "direction": "east",
+      "original": [
+        {
+          "token": "exit",
+          "values": {
+            "X": 0
+          }
+        }
+      ],
+      "result": [
+        {
+          "token": "0",
+          "values": {
+            "X": 3
+          }
+        }
+      ]
     },
-    { "situation":"right",
-      "direction":"east",
-      "original":[{"token":"exit"}],
-      "result":[{"token":"0", "values":{"X":0}}]
+    {
+      "situation": "right",
+      "direction": "east",
+      "original": [
+        {
+          "token": "exit"
+        }
+      ],
+      "result": [
+        {
+          "token": "0",
+          "values": {
+            "X": 0
+          }
+        }
+      ]
     },
     { "situation":"left",
       "direction":"east",
