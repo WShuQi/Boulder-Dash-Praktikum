@@ -48,6 +48,16 @@ public class GUIController {
                     }
                 }
             }
+            if (y >= 10 && y <= 30) {
+             if (x >= 50 && x <= 200) {
+                 //TODO: SHUQI hier ist der Fortschritte speichern Button
+                 System.out.println("Fortschritte speichern"); //nur zur Überprüfung
+                }
+             if (x >= 800 && x <= 950) {
+                 //TODO: SHUQI hier ist der Fortschritte laden Button
+                 System.out.println("Fortschritte laden"); //nur zur Überprüfung
+             }
+            }
         }
         else {
             // wir spielen und brauchen die anderen buttons

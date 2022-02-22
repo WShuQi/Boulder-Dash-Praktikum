@@ -50,7 +50,7 @@ public class GUIView {
         double startY = Math.max(startYVerschiebung,startYMittig);
         this.gc.clearRect(0,0, width, height);
 
-        blackTopStrip();
+        blackTopStripe();
 
         drawGemCounter(level.getCollectedGems());
 
@@ -131,21 +131,35 @@ public class GUIView {
             }
         }
 
-        drawButtons();
+        drawButtonsGame();
     }
 
-    private void drawButtons() {
-        drawButton("Neustart", 50, 80);
-        drawButton("Zurück", 850, 80);
+    private void drawButtonsGame() {
+        drawButtonCyan("Neustart", 50, 80);
+        drawButtonCyan("Zurück", 850, 80);
     }
 
-    private void drawButton(String text, double x, double y) {
-        int w = 80;
+    private void drawButtonsOverview() {
+        drawButtonBlack("Fortschritte speichern", 50, 10);
+        drawButtonBlack("Fortschritte laden", 800, 10);
+    }
+
+    private void drawButtonBlack(String text, double x, double y) {
+        int w = 150;
         int h = 20;
-        gc.setFill(Color.DARKBLUE);
+        gc.setFill(Color.BLACK);
         gc.fillRect(x, y, w, h);
         gc.setFill(Color.WHITE);
         gc.fillText(text, x + 10, y + h - 5);
+    }
+
+    private void drawButtonCyan(String text, double x, double y) {
+        int w = 80;
+        int h = 20;
+        gc.setFill(Color.DARKCYAN);
+        gc.fillRect(x, y, w, h);
+        gc.setFill(Color.WHITE);
+        gc.fillText(text, x + 12, y + h - 5);
     }
 
     private void drawGemCounter (int gemCounter)  {
@@ -236,13 +250,13 @@ public class GUIView {
 
     }
 
-    private void blackTopStrip(){
+    private void blackTopStripe(){
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0 , 1000, 65);
 
     }
 
-    private void cyanTopStrip(){
+    private void cyanTopStripe(){
         gc.setFill(Color.DARKCYAN);
         gc.fillRect(0, 0 , 1000, 40);
 
@@ -252,7 +266,7 @@ public class GUIView {
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
         this.gc.clearRect(0,0, width, height);
-        cyanTopStrip();
+        cyanTopStripe();
 
         int unlockedLevels = 0;
         int gesamtePunkte = 0;
@@ -262,14 +276,18 @@ public class GUIView {
             if (level.isUnlocked()) {
                 unlockedLevels++;
             }
-            gesamtePunkte += level.getScoredPoints();
+            else if (level.isPassed()) {
+                gesamtePunkte += level.getBestScore();
+            }
             gesamteLevel++;
         }
 
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("Arial",14));
         gc.fillText("Freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
-                "    Gesammelte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
+                "    Gesamte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
+
+        drawButtonsOverview();
 
         double x = 110.0d;
         double y = 80.0d;
@@ -314,13 +332,13 @@ public class GUIView {
         }
 
         if (level.isUnlocked()) {
-            return crateLevelButton(levelName, startX, startY,
+            return createLevelButton(levelName, startX, startY,
                     level.getReplaySaveData() != null && level.getReplaySaveData().size() > 0);
         }
         return null;
     }
 
-    private LevelButtonSelector crateLevelButton(String levelName, double startX, double startY, boolean drawReplay) {
+    private LevelButtonSelector createLevelButton(String levelName, double startX, double startY, boolean drawReplay) {
         gc.setFill(Color.DARKCYAN);
         double x = startX + 40;
         double y = startY + 40;
