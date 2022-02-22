@@ -18,9 +18,14 @@ public class LevelEditor {
     public static final int START_WIDTH = 20;
     public static final int START_HEIGHT= 20;
 
+    static boolean levelEditorOpen = false;
+
     public static void openLevelEditor() {
+        if(levelEditorOpen) return;
+        levelEditorOpen = true;
+
         Stage stage = new Stage();
-        stage.setTitle("Replay");
+        stage.setTitle("Level Editor");
 
         BorderPane border = new BorderPane();
 
@@ -65,5 +70,9 @@ public class LevelEditor {
 
         stage.setScene(new Scene(border, 1000, 1000));
         stage.show();
+
+        stage.setOnCloseRequest(windowEvent -> {
+            levelEditorOpen = false;
+        });
     }
 }

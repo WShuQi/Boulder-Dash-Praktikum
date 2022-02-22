@@ -141,7 +141,8 @@ public class GUIView {
 
     private void drawButtonsOverview() {
         drawButtonBlack("Fortschritte speichern", 50, 10);
-        drawButtonBlack("Fortschritte laden", 800, 10);
+        drawButtonBlack("   Fortschritte laden", 800, 10);
+        drawButtonBlack("neues Level erstellen", 425, 60);
     }
 
     private void drawButtonBlack(String text, double x, double y) {
@@ -276,7 +277,7 @@ public class GUIView {
             if (level.isUnlocked()) {
                 unlockedLevels++;
             }
-            else if (level.isPassed()) {
+            if (level.isPassed()) {
                 gesamtePunkte += level.getBestScore();
             }
             gesamteLevel++;
@@ -290,7 +291,7 @@ public class GUIView {
         drawButtonsOverview();
 
         double x = 110.0d;
-        double y = 80.0d;
+        double y = 120.0d;
 
         boolean odd = true;
         List<LevelButtonSelector> result = new ArrayList<>();

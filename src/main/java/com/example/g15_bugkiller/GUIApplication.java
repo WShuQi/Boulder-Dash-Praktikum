@@ -38,7 +38,7 @@ public class GUIApplication extends Application {
         stage.setMinHeight(height);
         stage.setMinWidth(width);
 
-        stage.setTitle("Boulder Dash!");
+        stage.setTitle("Boulder Dash");
         stage.setScene(scene);
 
         LevelReader levelReader = new LevelReader("src/main/java/com/example/g15_bugkiller/level");
@@ -64,8 +64,6 @@ public class GUIApplication extends Application {
 
         stage.show();
 
-
-        LevelEditor.openLevelEditor();
 
     }
 

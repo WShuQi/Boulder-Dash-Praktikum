@@ -20,6 +20,8 @@ public class TypePalette extends TilePane{
     }
 
     private void drawPalette(){
+        setSelectedKachel(new FieldKachel(40, 40, new Field(new Gegenstand(Type.WALL, new Values()))));
+
         for (Type type : drawableTypes) {
             FieldKachel typeFieldKachel = new FieldKachel(40, 40, new Field(new Gegenstand(type, new Values())));
             typeFieldKachel.setStroke(Color.BLACK);
