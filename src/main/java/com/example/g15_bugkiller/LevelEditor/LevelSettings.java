@@ -121,6 +121,10 @@ public class LevelSettings {
 
             Level level = new Level(name, gems, mapData, ticks, lives);
 
+            Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/level");
+            gamesaver.getLevelData(level);
+            gamesaver.createJson("newLevel");
+
             System.out.println("saving level: " + level.getLevelName());
             TerminalMap.drawMap(level.getLevelMap());
         });
