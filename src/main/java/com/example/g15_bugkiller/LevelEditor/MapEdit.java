@@ -13,11 +13,12 @@ public class MapEdit {
 
     private static int width;
     private static int height;
-    private static ArrayList<ArrayList<WritableFieldKachel>> writableKachels = new ArrayList<ArrayList<WritableFieldKachel>>();
+    private static ArrayList<ArrayList<WritableFieldKachel>> writableKachels;
     private static GridPane mapEditGridPane;
 
     public static GridPane getMapEditGridPane(int mapWidth, int mapHeight){
         mapEditGridPane = new GridPane();
+        writableKachels = new ArrayList<ArrayList<WritableFieldKachel>>();
 
         width = mapWidth;
         height = mapHeight;

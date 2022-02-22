@@ -124,12 +124,12 @@ public class LevelSettings {
             Level level = new Level(name, gems, mapData, ticks, lives);
 
             if(!levelHasMeAndExit(level)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Map");
-            alert.setHeaderText("Level has to include ME and EXIT");
-            alert.showAndWait();
-            return;
-        }
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Map");
+                alert.setHeaderText("Level has to include ME and EXIT");
+                alert.showAndWait();
+                return;
+            }
 
             Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/level");
             gamesaver.getLevelData(level);
@@ -149,6 +149,7 @@ public class LevelSettings {
 
         });
 
+        levelSettings.getChildren().clear();
         levelSettings.getChildren().addAll(levelNameInputBox, mapSizeBox, ticksBox, gemsBox, livesBox, saveButton, buttonSeparator, resetMapButton);
         return levelSettings;
     }
