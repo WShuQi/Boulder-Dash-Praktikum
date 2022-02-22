@@ -13,13 +13,13 @@ public class WritableFieldKachel extends FieldKachel {
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             if(mouseEvent.getButton().toString() == "PRIMARY"){
-                setField(TypePalette.getSelectedKachel());
+                setField(FieldSettings.getField());
             }
         });
     }
 
-    public void setField(FieldKachel fieldKachel){
-        this.field = fieldKachel.getField();
+    public void setField(Field field){
+        this.field = field;
         this.setFill(new ImagePattern(PictureRepo.getImage(field.getType().name())));
     }
 }

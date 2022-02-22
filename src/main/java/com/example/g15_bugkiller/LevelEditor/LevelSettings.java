@@ -1,5 +1,6 @@
 package com.example.g15_bugkiller.LevelEditor;
 
+import MapGeneration.Gamesaver;
 import MapGeneration.Input;
 import com.example.g15_bugkiller.Level;
 import com.example.g15_bugkiller.TerminalMap;
@@ -119,6 +120,7 @@ public class LevelSettings {
             int lives = livesInput.getValue();
 
             Level level = new Level(name, gems, mapData, ticks, lives);
+
             System.out.println("saving level: " + level.getLevelName());
             TerminalMap.drawMap(level.getLevelMap());
         });
