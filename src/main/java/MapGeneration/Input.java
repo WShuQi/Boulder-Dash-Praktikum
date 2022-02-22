@@ -38,7 +38,7 @@ public class Input {
         return connectBys;
     }
 
-    public static Field getDefaultField() {
+    public Field getDefaultField() {
         return defaultField;
     }
 
