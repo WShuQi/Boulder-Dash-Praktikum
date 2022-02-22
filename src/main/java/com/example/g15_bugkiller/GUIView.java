@@ -277,7 +277,7 @@ public class GUIView {
             if (level.isUnlocked()) {
                 unlockedLevels++;
             }
-            else if (level.isPassed()) {
+            if (level.isPassed()) {
                 gesamtePunkte += level.getBestScore();
             }
             gesamteLevel++;
