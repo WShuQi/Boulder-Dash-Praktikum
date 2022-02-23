@@ -16,22 +16,20 @@ public class GUIController {
 
     private GUIView view;
     private Game game;
-    private KeyPressListener keyPressListener;
     private Timeline timer;
-    private MouseScrollListener mouseScrollListener;
+    private final KeyPressListener keyPressListener;
 
     private List<LevelButtonSelector> levelButtonSelectorList;
 
-    private boolean levelInProgress;
+    private boolean levelInProgress = false;
     private boolean restartLevel;
     private double currentStartY = 120;
 
-    public GUIController(GUIView view, Game game, KeyPressListener keyPressListener, MouseScrollListener mouseScrollListener) {
+    public GUIController(GUIView view, Game game, KeyPressListener keyPressListener) {
         this.view = view;
         this.game = game;
 
         this.keyPressListener = keyPressListener;
-        this.mouseScrollListener = mouseScrollListener;
 
         this.levelButtonSelectorList = view.drawLevelOverview(game.levels, this.currentStartY);
     }
@@ -95,6 +93,7 @@ public class GUIController {
                     gamesaver.readGameData(game);
                     System.out.println("Fortschritte laden"); //nur zur Überprüfung
                     System.out.println(game.getLevels().get("Die wachsende Wand").getBestScore());
+                    this.updateOverview();
                 }
             }
 
