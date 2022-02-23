@@ -172,6 +172,9 @@ public class GUIView {
         Image counterBackground;
         counterBackground = PictureRepo.getImage("GemCounter_Background_large");
         gc.drawImage(counterBackground, 385.0D, -18.0D, 230, 100);
+        /**gc.setFill(Color.WHITE);
+        gc.fillText("GEMS: " + gemCounter, 467.0D, 25.0D);
+         **/
 
     }
 
@@ -184,7 +187,9 @@ public class GUIView {
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
         int xKoordLives = 850;
-
+        /**gc.setFill(Color.WHITE);
+        gc.fillText("Leben übrig: ", 590, 25.0D);
+         **/
         for (int i = 1; i <= livesLeft; i ++) {
             gc.drawImage(heart, xKoordLives, 5D, 55,55);
             xKoordLives += 40;
@@ -237,12 +242,12 @@ public class GUIView {
             gc.drawImage(star, 485, 15.0D);
             gc.drawImage(star, 525, 15.0D);
         }
-        else if (ticks[1] > getTicksPast){
+        else if (ticks[1] > getTicksPast && ticks[2] <= getTicksPast){
 
             gc.drawImage(star, 465, 15.0D);
             gc.drawImage(star, 505, 15.0D);
         }
-        else if (ticks[0] >= getTicksPast) {
+        else if (ticks[0] >= getTicksPast && ticks[1] <= getTicksPast) {
             ;
             gc.fillText("Zeit übrig: " + ticks[0], 850, 90.D);
             gc.drawImage(star, 485, 15.0D);
@@ -253,19 +258,38 @@ public class GUIView {
     private void blackTopStripe(){
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0 , 1000, 65);
-
     }
 
     private void cyanTopStripe(){
         gc.setFill(Color.DARKCYAN);
         gc.fillRect(0, 0 , 1000, 40);
-
     }
 
 
-
-    public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels) {
+    public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels, double startY) {
         this.gc.clearRect(0,0, width, height);
+
+        double x = 110.0d;
+        double y = startY;
+
+        boolean odd = true;
+        List<LevelButtonSelector> result = new ArrayList<>();
+        for (final String levelName : levels.keySet()) {
+            final Level level = levels.get(levelName);
+            LevelButtonSelector selector = drawLevelSelection(levelName, level, x, y);
+            if (odd) {
+                x = 540;
+            }
+            else {
+                x = 110.0d;
+                y += 110;
+            }
+            odd = !odd;
+            if (selector != null) {
+                result.add(selector);
+            }
+        }
+
         cyanTopStripe();
 
         int unlockedLevels = 0;
@@ -287,29 +311,13 @@ public class GUIView {
         gc.fillText("Freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
                 "    Gesamte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
 
+
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 40 , 1000, 50);
         drawButtonsOverview();
 
-        double x = 110.0d;
-        double y = 120.0d;
-
-        boolean odd = true;
-        List<LevelButtonSelector> result = new ArrayList<>();
-        for (final String levelName : levels.keySet()) {
-            final Level level = levels.get(levelName);
-            LevelButtonSelector selector = drawLevelSelection(levelName, level, x, y);
-            if (odd) {
-                x = 540;
-            }
-            else {
-                x = 110.0d;
-                y += 110;
-            }
-            odd = !odd;
-            if (selector != null) {
-                result.add(selector);
-            }
-        }
         return result;
+
     }
 
     private LevelButtonSelector drawLevelSelection(String levelName, Level level, double startX, double startY) {

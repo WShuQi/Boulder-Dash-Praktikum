@@ -9,16 +9,15 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.control.ScrollToEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import java.net.URL;
-import java.util.Locale;
 import java.util.Map;
 
 public class GUIApplication extends Application {
@@ -53,14 +52,18 @@ public class GUIApplication extends Application {
         root.getChildren().add(canvas);
 
         KeyPressListener keyPressListener = new KeyPressListener();
+        final MouseScrollListener mouseScrollListener= new MouseScrollListener();
 
         stage.addEventFilter(KeyEvent.KEY_PRESSED, keyPressListener.keyPressed);
         stage.addEventFilter(KeyEvent.KEY_RELEASED, keyPressListener.keyReleased);
 
-        GUIController controller = new GUIController(view, game, keyPressListener);
+        GUIController controller = new GUIController(view, game, keyPressListener, mouseScrollListener);
+
 
         stage.addEventFilter(MouseEvent.MOUSE_PRESSED,
                 mouseEvent -> controller.mousePressed(mouseEvent.getX(), mouseEvent.getY()));
+        stage.addEventFilter(ScrollEvent.SCROLL,
+                scrollEvent -> controller.mouseScrolled(scrollEvent.getDeltaY()));
 
         stage.show();
 
