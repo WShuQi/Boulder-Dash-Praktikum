@@ -27,5 +27,6 @@ public enum ValuesNames {
     EXITREACHED,
     EXITACTIVATED,
     STOP,
-    STOPBUTTONPRESSED
+    STOPBUTTONPRESSED,
+    BLOOD
 }

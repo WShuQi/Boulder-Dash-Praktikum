@@ -33,6 +33,8 @@ public enum Type {
 
     CATCHALL,
 
-    STOPBUTTON
+    STOPBUTTON,
+
+    BLOOD
 
 }

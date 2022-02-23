@@ -645,11 +645,18 @@ public class LevelLogic {
             Coordinate originalMePosition = level.getOriginalMePosition();
 
             if(level.getCurrentLives() == 0){
+
+                for (int x = 0; x<map.length; x++) {
+                    for (int y = 0; y < map[x].length; y++) {
+                        if (map[x][y].getGegenstand().getValues().valueList.getOrDefault(ValuesNames.BLOOD, 0) == 1) {
+                            map[x][y].getGegenstand().setToken(Type.BLOOD);
+                        }
+                    }
+                }
                 level.setPlayerDead(true);
             } else {
                 map[originalMePosition.getY()][originalMePosition.getX()].getGegenstand().setToken(Type.ME);
             }
-
         }
     }
 
