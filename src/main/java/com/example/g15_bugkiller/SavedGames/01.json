@@ -1,1 +1,102 @@
-{"totalpoints":1,"numberOfUnlockedLevels":2,"levels":{"Schleim oder nicht Schleim":{"scoredPoints":1,"gems":10,"unlocked":true,"besttime":91},"Die wachsende Wand":{"scoredPoints":2,"gems":26,"unlocked":true,"besttime":268},"Smiley":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"death":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Snake":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Bereiche":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Labyrinth":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Trichter":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Teleport":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Spiegelgeist":{"scoredPoints":0,"gems":16,"unlocked":true,"besttime":64},"Im Kreisverkehr":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Ein Text":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Das Schicksal":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647},"Regeln":{"scoredPoints":0,"gems":0,"unlocked":true,"besttime":2147483647}}}
+{
+  "totalpoints": 2,
+  "numberOfUnlockedLevels": 2,
+  "levels": {
+    "Schleim oder nicht Schleim": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Die wachsende Wand": {
+      "scoredPoints": 2,
+      "gems": 26,
+      "unlocked": true,
+      "besttime": 268
+    },
+    "Smiley": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "death": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Snake": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Bereiche": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Labyrinth": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Trichter": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Teleport": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Spiegelgeist": {
+      "scoredPoints": 0,
+      "gems": 16,
+      "unlocked": true,
+      "besttime": 64
+    },
+    "um zu Leben muss zu Sterben": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Im Kreisverkehr": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Ein Text": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Das Schicksal": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "Regeln": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    },
+    "sterben": {
+      "scoredPoints": 0,
+      "gems": 0,
+      "unlocked": true,
+      "besttime": 2147483647
+    }
+  }
+}
