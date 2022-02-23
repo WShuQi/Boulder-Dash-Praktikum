@@ -364,10 +364,17 @@ public class GUIView {
         gc.fillText("Play", x + 28, y + 17);
 
         if (drawReplay) {
-            gc.setFill(Color.DARKCYAN);
             double rx = x + w + LevelButtonSelector.DIFF_BUTTONS;
-            // gc.fillRect(x, y, w, h);
+
+            gc.setFill(Color.LIGHTGRAY);
+            gc.fillOval(rx+1, y+1, w+2, h+2);
+            
+            gc.setFill(Color.DARKCYAN);
             gc.fillOval(rx, y, w, h);
+
+            gc.setFill(Color.BLACK);
+            gc.strokeOval(rx,y,w+0.5D,h+0.5D);
+
             gc.setFill(Color.WHITE);
             gc.fillText("Replay", rx + 19, y + 17);
         }
