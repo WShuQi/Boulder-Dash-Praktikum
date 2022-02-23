@@ -329,7 +329,7 @@ public class GUIView {
 
         gc.setFill(Color.BLACK);
 
-        if(level.isPassed()) {
+        if(level.isPassed() || level.getBestScore() > 0) {
             gc.fillText("Edelsteine: " + level.getBestGems() + "    " + "Bestzeit: " + level.getBestTime()
                     + "    " + "erreichte Punkte: " + level.getBestScore(), startX, startY + 30);
         } else {

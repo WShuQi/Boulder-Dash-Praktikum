@@ -49,12 +49,11 @@ public class GUIApplication extends Application {
         root.getChildren().add(canvas);
 
         KeyPressListener keyPressListener = new KeyPressListener();
-        final MouseScrollListener mouseScrollListener= new MouseScrollListener();
 
         stage.addEventFilter(KeyEvent.KEY_PRESSED, keyPressListener.keyPressed);
         stage.addEventFilter(KeyEvent.KEY_RELEASED, keyPressListener.keyReleased);
 
-        GUIController controller = new GUIController(view, game, keyPressListener, mouseScrollListener);
+        GUIController controller = new GUIController(view, game, keyPressListener);
 
         stage.addEventFilter(MouseEvent.MOUSE_PRESSED,
                 mouseEvent -> controller.mousePressed(mouseEvent.getX(), mouseEvent.getY()));
