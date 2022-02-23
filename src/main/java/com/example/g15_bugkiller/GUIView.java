@@ -298,7 +298,7 @@ public class GUIView {
             if (level.isUnlocked()) {
                 unlockedLevels++;
             }
-            if (level.isPassed()) {
+            if (level.isPassed() || level.getBestScore() > 0) {
                 gesamtePunkte += level.getBestScore();
             }
             gesamteLevel++;
@@ -368,7 +368,7 @@ public class GUIView {
 
             gc.setFill(Color.LIGHTGRAY);
             gc.fillOval(rx+1, y+1, w+2, h+2);
-            
+
             gc.setFill(Color.DARKCYAN);
             gc.fillOval(rx, y, w, h);
 
