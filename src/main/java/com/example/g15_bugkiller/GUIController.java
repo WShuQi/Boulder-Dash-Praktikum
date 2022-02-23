@@ -39,6 +39,11 @@ public class GUIController {
     private void updateView(Level level) {
         view.drawLevel(level);
     }
+
+    private void gameOver() {
+        view.drawGameOver();
+    }
+
     private void updateOverview() {
         this.levelButtonSelectorList = view.drawLevelOverview(game.levels, this.currentStartY);
     }
@@ -129,12 +134,17 @@ public class GUIController {
                     restartLevel = false;
                 }
 
-                KeyPressListener currentKeysPressed = keyPressListener.getClone();
-                LevelLogic.tick(level, currentKeysPressed);
-                GameReplay.saveMapFrame(level.getLevelMap());
-                updateView(level);
+                if (!(level.isPlayerDead() ||  level.isTimeUp())) {
+                    KeyPressListener currentKeysPressed = keyPressListener.getClone();
+                    LevelLogic.tick(level, currentKeysPressed);
+                    GameReplay.saveMapFrame(level.getLevelMap());
+                    updateView(level);
+                }
+                else {
+                    gameOver();
+                }
 
-                if(!levelInProgress || level.isTimeUp() || level.isExitReached() || level.isPlayerDead()) {
+                if(!levelInProgress || level.isExitReached()) {
                     level.setReplaySaveData(GameReplay.getSavedMapData());
 
                     if(level.isPassed()){

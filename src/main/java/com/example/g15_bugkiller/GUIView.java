@@ -4,7 +4,9 @@ import MapGeneration.Coordinate;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -373,6 +375,14 @@ public class GUIView {
         return new LevelButtonSelector(levelName, x, y, w, h);
     }
 
-
-
+    public void drawGameOver() {
+        gc.setFill(Color.RED);
+        gc.setTextAlign(TextAlignment.CENTER);
+        Font font = gc.getFont();
+        double orgSize = font.getSize();
+        gc.setFont(new Font(font.getName(), 50));
+        gc.fillText("Game Over", 500, 500);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.setFont(new Font(font.getName(), orgSize));
+    }
 }
