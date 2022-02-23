@@ -138,7 +138,7 @@ public class GUIView {
 
     private void drawButtonsGame() {
         drawButtonCyan("Neustart", 50, 80);
-        drawButtonCyan("Zurück", 850, 80);
+        drawButtonCyan("  Zurück", 850, 80);
     }
 
     private void drawButtonsOverview() {
@@ -166,7 +166,7 @@ public class GUIView {
         gc.setFill(Color.DARKCYAN);
         gc.fillRect(x, y, w, h);
         gc.setFill(Color.WHITE);
-        gc.fillText(text, x + 12, y + h - 5);
+        gc.fillText(text, x + 12, y + h - 8);
     }
 
     private void drawGemCounter (int gemCounter)  {
