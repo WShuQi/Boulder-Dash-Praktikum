@@ -1,7 +1,6 @@
 package com.example.g15_bugkiller;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 public class KeyPressListener {
 

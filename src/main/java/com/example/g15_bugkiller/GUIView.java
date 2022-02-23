@@ -243,16 +243,13 @@ public class GUIView {
             gc.drawImage(star, 525, 15.0D);
         }
         else if (ticks[1] > getTicksPast && ticks[2] <= getTicksPast){
-
             gc.drawImage(star, 465, 15.0D);
             gc.drawImage(star, 505, 15.0D);
         }
         else if (ticks[0] >= getTicksPast && ticks[1] <= getTicksPast) {
-            ;
             gc.fillText("Zeit übrig: " + ticks[0], 850, 90.D);
             gc.drawImage(star, 485, 15.0D);
         }
-
     }
 
     private void blackTopStripe(){
@@ -264,7 +261,6 @@ public class GUIView {
         gc.setFill(Color.DARKCYAN);
         gc.fillRect(0, 0 , 1000, 40);
     }
-
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels, double startY) {
         this.gc.clearRect(0,0, width, height);
@@ -311,13 +307,11 @@ public class GUIView {
         gc.fillText("Freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
                 "    Gesamte Punkte: " + gesamtePunkte , 345.0d, 25.0d);
 
-
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 40 , 1000, 50);
         drawButtonsOverview();
 
         return result;
-
     }
 
     private LevelButtonSelector drawLevelSelection(String levelName, Level level, double startX, double startY) {
@@ -330,7 +324,6 @@ public class GUIView {
 
         gc.setFill(Color.WHITE);
         gc.fillText(level.getLevelName(), startX + 10, startY);
-
 
         gc.setFill(Color.BLACK);
 
@@ -356,8 +349,6 @@ public class GUIView {
         int w = 80;
         int h = 25;
 
-
-
         gc.setFill(Color.LIGHTGRAY);
         gc.fillOval(x+1, y+1, w+2, h+2);
 
@@ -367,12 +358,8 @@ public class GUIView {
         gc.setFill(Color.BLACK);
         gc.strokeOval(x,y,w+0.5D,h+0.5D);
 
-
         gc.setFill(Color.WHITE);
         gc.fillText("Play", x + 28, y + 17);
-
-
-
 
         if (drawReplay) {
             gc.setFill(Color.DARKCYAN);
