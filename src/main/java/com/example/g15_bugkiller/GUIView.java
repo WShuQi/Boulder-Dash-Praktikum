@@ -142,12 +142,14 @@ public class GUIView {
     private void drawButtonsOverview() {
         drawButtonBlack("Fortschritte speichern", 50, 10);
         drawButtonBlack("   Fortschritte laden", 800, 10);
-        drawButtonBlack("neues Level erstellen", 425, 60);
+        drawButtonBlack("Neues Level erstellen", 425, 55);
     }
 
     private void drawButtonBlack(String text, double x, double y) {
         int w = 150;
-        int h = 20;
+        int h = 22;
+        gc.setFill(Color.ORANGE);
+        gc.fillRect(x+1, y+1, w + 2, h + 2);
         gc.setFill(Color.BLACK);
         gc.fillRect(x, y, w, h);
         gc.setFill(Color.WHITE);
@@ -156,7 +158,9 @@ public class GUIView {
 
     private void drawButtonCyan(String text, double x, double y) {
         int w = 80;
-        int h = 20;
+        int h = 25;
+        gc.setFill(Color.DARKGRAY);
+        gc.fillRect(x+1, y+1, w+2, h+2);
         gc.setFill(Color.DARKCYAN);
         gc.fillRect(x, y, w, h);
         gc.setFill(Color.WHITE);
@@ -168,9 +172,6 @@ public class GUIView {
         Image counterBackground;
         counterBackground = PictureRepo.getImage("GemCounter_Background_large");
         gc.drawImage(counterBackground, 385.0D, -18.0D, 230, 100);
-        /**gc.setFill(Color.WHITE);
-        gc.fillText("GEMS: " + gemCounter, 467.0D, 25.0D);
-         **/
 
     }
 
@@ -183,9 +184,7 @@ public class GUIView {
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
         int xKoordLives = 850;
-        /**gc.setFill(Color.WHITE);
-        gc.fillText("Leben übrig: ", 590, 25.0D);
-         **/
+
         for (int i = 1; i <= livesLeft; i ++) {
             gc.drawImage(heart, xKoordLives, 5D, 55,55);
             xKoordLives += 40;
@@ -238,12 +237,12 @@ public class GUIView {
             gc.drawImage(star, 485, 15.0D);
             gc.drawImage(star, 525, 15.0D);
         }
-        else if (ticks[1] > getTicksPast && ticks[2] <= getTicksPast){
+        else if (ticks[1] > getTicksPast){
 
             gc.drawImage(star, 465, 15.0D);
             gc.drawImage(star, 505, 15.0D);
         }
-        else if (ticks[0] >= getTicksPast && ticks[1] <= getTicksPast) {
+        else if (ticks[0] >= getTicksPast) {
             ;
             gc.fillText("Zeit übrig: " + ticks[0], 850, 90.D);
             gc.drawImage(star, 485, 15.0D);
@@ -315,6 +314,9 @@ public class GUIView {
 
     private LevelButtonSelector drawLevelSelection(String levelName, Level level, double startX, double startY) {
 
+        gc.setFill(Color.DARKCYAN);
+        gc.fillRect(startX+1, startY-19, 346, 31);
+
         gc.setFill(Color.BLACK);
         gc.fillRect(startX , startY-20, 345, 30);
 
@@ -340,15 +342,29 @@ public class GUIView {
     }
 
     private LevelButtonSelector createLevelButton(String levelName, double startX, double startY, boolean drawReplay) {
-        gc.setFill(Color.DARKCYAN);
+
         double x = startX + 40;
         double y = startY + 40;
         int w = 80;
-        int h = 20;
-        // gc.fillRect(x, y, w, h);
+        int h = 25;
+
+
+
+        gc.setFill(Color.LIGHTGRAY);
+        gc.fillOval(x+1, y+1, w+2, h+2);
+
+        gc.setFill(Color.DARKCYAN);
         gc.fillOval(x, y, w, h);
+
+        gc.setFill(Color.BLACK);
+        gc.strokeOval(x,y,w+0.5D,h+0.5D);
+
+
         gc.setFill(Color.WHITE);
-        gc.fillText("Play", x + 28, y + 14);
+        gc.fillText("Play", x + 28, y + 17);
+
+
+
 
         if (drawReplay) {
             gc.setFill(Color.DARKCYAN);
@@ -356,7 +372,7 @@ public class GUIView {
             // gc.fillRect(x, y, w, h);
             gc.fillOval(rx, y, w, h);
             gc.setFill(Color.WHITE);
-            gc.fillText("Replay", rx + 20, y + 14);
+            gc.fillText("Replay", rx + 20, y + 18);
         }
 
         return new LevelButtonSelector(levelName, x, y, w, h);
