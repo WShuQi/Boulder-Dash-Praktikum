@@ -138,7 +138,7 @@ public class GUIView {
 
     private void drawButtonsGame() {
         drawButtonCyan("Neustart", 50, 80);
-        drawButtonCyan("  Zurück", 850, 80);
+        drawButtonCyan(" Zurück", 850, 80);
     }
 
     private void drawButtonsOverview() {
@@ -369,7 +369,7 @@ public class GUIView {
             // gc.fillRect(x, y, w, h);
             gc.fillOval(rx, y, w, h);
             gc.setFill(Color.WHITE);
-            gc.fillText("Replay", rx + 20, y + 18);
+            gc.fillText("Replay", rx + 19, y + 17);
         }
 
         return new LevelButtonSelector(levelName, x, y, w, h);
