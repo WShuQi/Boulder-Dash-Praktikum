@@ -102,6 +102,7 @@ public class GUIController {
                     //Fortschritte laden Button
                     Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
                     gamesaver.readGameData(game);
+
                     this.updateOverview();
                 }
             }

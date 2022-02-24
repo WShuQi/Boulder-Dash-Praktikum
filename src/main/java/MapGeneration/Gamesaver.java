@@ -33,7 +33,12 @@ public class Gamesaver {
             int gems = level.getBestGems();
             leveljobj.put("gems", gems);
             int besttime = level.getBestTime();
-            leveljobj.put("besttime", besttime);
+            if (besttime == 2147483647) {
+                besttime = 0;
+                leveljobj.put("besttime", besttime);
+            } else {
+                leveljobj.put("besttime", besttime);
+            }
             int scoredPoints = level.getBestScore();
             leveljobj.put("scoredPoints", scoredPoints);
             boolean unlocked = level.isUnlocked();
