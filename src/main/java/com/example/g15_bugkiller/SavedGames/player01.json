@@ -1,6 +1,6 @@
 {
-  "totalpoints": 2,
-  "numberOfUnlockedLevels": 2,
+  "totalpoints": 0,
+  "numberOfUnlockedLevels": 1,
   "levels": {
     "Schleim oder nicht Schleim": {
       "scoredPoints": 0,
@@ -9,10 +9,10 @@
       "besttime": 2147483647
     },
     "Die wachsende Wand": {
-      "scoredPoints": 2,
-      "gems": 26,
+      "scoredPoints": 0,
+      "gems": 0,
       "unlocked": true,
-      "besttime": 268
+      "besttime": 2147483647
     },
     "Smiley": {
       "scoredPoints": 0,
@@ -58,12 +58,6 @@
     },
     "Spiegelgeist": {
       "scoredPoints": 0,
-      "gems": 16,
-      "unlocked": true,
-      "besttime": 64
-    },
-    "um zu Leben muss zu Sterben": {
-      "scoredPoints": 0,
       "gems": 0,
       "unlocked": true,
       "besttime": 2147483647
@@ -87,12 +81,6 @@
       "besttime": 2147483647
     },
     "Regeln": {
-      "scoredPoints": 0,
-      "gems": 0,
-      "unlocked": true,
-      "besttime": 2147483647
-    },
-    "sterben": {
       "scoredPoints": 0,
       "gems": 0,
       "unlocked": true,

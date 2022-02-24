@@ -1,11 +1,11 @@
 package MapGeneration;
 import com.example.g15_bugkiller.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import org.json.*;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Gamesaver {
 
@@ -194,28 +194,51 @@ public class Gamesaver {
             e.printStackTrace();
         }
         System.out.println("Fortschritte werden erfolgreich gespeichert!");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Fortschritte werden erfolgreich gespeichert!");
+        alert.showAndWait();
     }
 
     public void readGameData(Game game) {
         try {
-            Json json = new Json(path);
-            JSONObject gameDataJobj = json.getJson();
-            game.setNumberOfUnlockedLevels(gameDataJobj.getInt("numberOfUnlockedLevels"));
-            game.setTotalPoints(gameDataJobj.getInt("totalpoints"));
-            Map<String, Level> levels = game.getLevels();
-            JSONObject levelsobj = gameDataJobj.getJSONObject("levels");
-            for (String name : levelsobj.keySet()) {
-                try {
-                    levels.get(name).setBestGems(levelsobj.getJSONObject(name).getInt("gems"));
-                    levels.get(name).setBestTime(levelsobj.getJSONObject(name).getInt("besttime"));
-                    levels.get(name).setBestScore(levelsobj.getJSONObject(name).getInt("scoredPoints"));
-                    levels.get(name).setUnlocked(levelsobj.getJSONObject(name).getBoolean("unlocked"));
-                } catch (NullPointerException e) {
-                    System.out.println("No data of the level " + name);
-                    continue;
-                }
+            List<String> choices = new ArrayList<>();
+            File file = new File(this.path);
+            File[] nameFlies = file.listFiles();
+            for (File f : nameFlies) {
+                String fname = f.getName();
+                System.out.println(fname);
+                String playername = fname.substring(0, fname.lastIndexOf("."));
+                System.out.println(playername);
+                choices.add(playername);
             }
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
+            dialog.setHeaderText("Für wen wird die Fortschritte geladen? ");
+            dialog.setContentText("Bitte Name wählen: ");
 
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                String filepath = "src/main/java/com/example/g15_bugkiller/SavedGames/" + result.get() + ".json";
+                Json json = new Json(filepath);
+                JSONObject gameDataJobj = json.getJson();
+                game.setNumberOfUnlockedLevels(gameDataJobj.getInt("numberOfUnlockedLevels"));
+                game.setTotalPoints(gameDataJobj.getInt("totalpoints"));
+                Map<String, Level> levels = game.getLevels();
+                JSONObject levelsobj = gameDataJobj.getJSONObject("levels");
+                for (String name : levelsobj.keySet()) {
+                    try {
+                        levels.get(name).setBestGems(levelsobj.getJSONObject(name).getInt("gems"));
+                        levels.get(name).setBestTime(levelsobj.getJSONObject(name).getInt("besttime"));
+                        levels.get(name).setBestScore(levelsobj.getJSONObject(name).getInt("scoredPoints"));
+                        levels.get(name).setUnlocked(levelsobj.getJSONObject(name).getBoolean("unlocked"));
+                    } catch (NullPointerException e) {
+                        System.out.println("No data of the level " + name);
+                        continue;
+                    }
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Fortschritte werden erfolgreich geladen!");
+                alert.showAndWait();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

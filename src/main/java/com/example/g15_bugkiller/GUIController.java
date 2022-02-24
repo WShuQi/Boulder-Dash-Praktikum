@@ -8,9 +8,13 @@ import com.example.g15_bugkiller.LevelEditor.LevelEditor;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GUIController {
 
@@ -84,15 +88,18 @@ public class GUIController {
                     //TODO: SHUQI hier ist der Fortschritte speichern Button
                     Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
                     gamesaver.getGameData(game);
-                    gamesaver.createJson("01");
-                    System.out.println("Fortschritte speichern"); //nur zur Überprüfung
+                    TextInputDialog dialog = new TextInputDialog("player01");
+                    dialog.setHeaderText("Für wen wird die Fortschritte gespeichert? ");
+                    dialog.setContentText("Bitte Name eingeben: ");
+                    Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()) {
+                        gamesaver.createJson(result.get());
+                    }
                 }
                 else if (x >= 800 && x <= 950) {
                     //TODO: SHUQI hier ist der Fortschritte laden Button
-                    Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames/01.json");
+                    Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
                     gamesaver.readGameData(game);
-                    System.out.println("Fortschritte laden"); //nur zur Überprüfung
-                    System.out.println(game.getLevels().get("Die wachsende Wand").getBestScore());
                     this.updateOverview();
                 }
             }
