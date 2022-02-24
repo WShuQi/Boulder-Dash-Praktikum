@@ -296,7 +296,7 @@
       "situation":"any",
       "direction":"east",
       "original":[{"token":"blockling", "values":{"moved":0, "direction": 4, "stop":  0}},{"token":"me"}],
-      "result":[{"token":"blockling", "values":{"moved":1, "direction": -3}}, {"token":  "me", "values": { "bam": 1}}]
+      "result":[{"token":"blockling", "values":{"moved":1, "direction": -3}}, {"token":  "me", "values": { "bam": 1, "blood":  1}}]
     },
     { "name": "BlocklingRules: CornerSouthEast",
       "situation":"any",
@@ -314,7 +314,7 @@
       "situation":"any",
       "direction":"north",
       "original":[{"token":"me", "values": {"bam": 0}},{"token":"blockling", "values":{"moved": 0, "direction":4, "stop": 0}}],
-      "result":[{"token":"me", "values":{"bam": 1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
+      "result":[{"token":"me", "values":{"bam": 1, "blood":  1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
     },
     { "name": "BlocklingRules: XlingWalkingDown",
       "situation":"any",
@@ -340,7 +340,7 @@
       "situation":"any",
       "direction":"south",
       "original":[{"token":"blockling", "values":{"moved":0, "direction": 3, "stop":  0}},{"token":"me"}],
-      "result":[{"token":"blockling", "values":{"moved":1, "direction": 1}}, {"token":  "me", "values": { "bam": 1}}]
+      "result":[{"token":"blockling", "values":{"moved":1, "direction": 1}}, {"token":  "me", "values": { "bam": 1, "blood":  1}}]
     },
     { "name": "BlocklingRules: CornerSouthWest",
       "situation":"any",
@@ -358,7 +358,7 @@
       "situation":"any",
       "direction":"east",
       "original":[{"token":"me", "values": {"bam": 0}},{"token":"blockling", "values":{"moved": 0, "direction":3, "stop": 0}}],
-      "result":[{"token":"me", "values":{"bam": 1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
+      "result":[{"token":"me", "values":{"bam": 1, "blood":  1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
     },
     { "name": "BlocklingRules: XlingWalkingLeft",
       "situation":"any",
@@ -384,7 +384,7 @@
       "situation":"any",
       "direction":"west",
       "original":[{"token":"blockling", "values":{"moved":0, "direction": 2, "stop":  0}},{"token":"me"}],
-      "result":[{"token":"blockling", "values":{"moved":1, "direction": 1}}, {"token":  "me", "values": { "bam": 1}}]
+      "result":[{"token":"blockling", "values":{"moved":1, "direction": 1}}, {"token":  "me", "values": { "bam": 1, "blood":  1}}]
     },
     { "name": "BlocklingRules: CornerNorthWest",
       "situation":"any",
@@ -402,7 +402,7 @@
       "situation":"any",
       "direction":"south",
       "original":[{"token":"me", "values": {"bam": 0}},{"token":"blockling", "values":{"moved": 0, "direction":2, "stop": 0}}],
-      "result":[{"token":"me", "values":{"bam": 1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
+      "result":[{"token":"me", "values":{"bam": 1, "blood":  1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
     },
     { "name": "BlocklingRules: XlingWalkingUp",
       "situation":"any",
@@ -428,7 +428,7 @@
       "situation":"any",
       "direction":"north",
       "original":[{"token":"blockling", "values":{"moved":0, "direction": 1, "stop":  0}},{"token":"me"}],
-      "result":[{"token":"blockling", "values":{"moved":1, "direction": 1}}, {"token":  "me", "values": { "bam": 1}}]
+      "result":[{"token":"blockling", "values":{"moved":1, "direction": 1}}, {"token":  "me", "values": { "bam": 1, "blood":  1}}]
     },
     { "name": "BlocklingRules: CornerNorthEast",
       "situation":"any",
@@ -446,7 +446,7 @@
       "situation":"any",
       "direction":"west",
       "original":[{"token":"me", "values": {"bam": 0}},{"token":"blockling", "values":{"moved": 0, "direction":1, "stop": 0}}],
-      "result":[{"token":"me", "values":{"bam": 1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
+      "result":[{"token":"me", "values":{"bam": 1, "blood":  1}},{"token":1, "values": {"moved": 1, "direction": 0}}]
     },
     { "name": "BlocklingRules: XlingWalkingRight",
       "situation":"any",
