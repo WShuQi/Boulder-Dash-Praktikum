@@ -91,7 +91,7 @@ public class GUIController {
                     Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
                     gamesaver.getGameData(game);
                     TextInputDialog dialog = new TextInputDialog("player01");
-                    dialog.setHeaderText("Für sollen die Fortschritte gespeichert werden? ");
+                    dialog.setHeaderText("Für wen sollen die Fortschritte gespeichert werden? ");
                     dialog.setContentText("Bitte Name eingeben: ");
                     Optional<String> result = dialog.showAndWait();
                     if (result.isPresent()) {
