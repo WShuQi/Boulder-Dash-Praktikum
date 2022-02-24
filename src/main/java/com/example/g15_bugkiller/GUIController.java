@@ -124,6 +124,7 @@ public class GUIController {
                 else if (x >= 850 && x <= 930) {
                     // Zurück Button
                     levelInProgress = false;
+
                 }
             }
         }
@@ -159,8 +160,18 @@ public class GUIController {
                     level.setCollectedGems(0);
                     gameOver();
                 }
+                if (!levelInProgress) {
+                    level.setTicksPast((int) Double.POSITIVE_INFINITY);
+                    level.setCollectedGems(0);
+                    level.setReplaySaveData(GameReplay.getSavedMapData());
+                    LevelLogic.resetLevel(level);
+                    timer.stop();
+                    timer.getKeyFrames().clear();
+                    timer = null;
+                    returnToOverview();
+                }
 
-                if(!levelInProgress || level.isExitReached()) {
+                if(level.isExitReached()) {
                     // Level erfolgreich absolviert
                     level.setReplaySaveData(GameReplay.getSavedMapData());
 
