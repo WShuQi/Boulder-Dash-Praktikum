@@ -161,8 +161,8 @@ public class LevelSettings {
         boolean hasMe = false;
         boolean hasExit = false;
 
-        for (int i = 0; i < map[0].length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
                 if(map[i][j].getType() == Type.ME){
                     hasMe = true;
                 }
