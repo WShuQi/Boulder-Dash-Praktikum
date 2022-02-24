@@ -1,88 +1,102 @@
 {
-  "totalpoints": 7,
-  "numberOfUnlockedLevels": 8,
+  "totalpoints": 2,
+  "numberOfUnlockedLevels": 3,
   "levels": {
     "Schleim oder nicht Schleim": {
       "scoredPoints": 0,
       "gems": 0,
-      "unlocked": true,
+      "passed": false,
+      "unlocked": false,
       "besttime": 0
     },
     "Die wachsende Wand": {
       "scoredPoints": 0,
       "gems": 0,
+      "passed": false,
       "unlocked": false,
       "besttime": 0
     },
     "Smiley": {
       "scoredPoints": 0,
       "gems": 0,
-      "unlocked": true,
+      "passed": false,
+      "unlocked": false,
       "besttime": 0
     },
     "Snake": {
       "scoredPoints": 0,
       "gems": 0,
-      "unlocked": true,
+      "passed": false,
+      "unlocked": false,
       "besttime": 0
     },
     "Bereiche": {
       "scoredPoints": 0,
       "gems": 0,
-      "unlocked": false,
+      "passed": false,
+      "unlocked": true,
       "besttime": 0
     },
     "Labyrinth": {
       "scoredPoints": 0,
       "gems": 0,
-      "unlocked": false,
+      "passed": false,
+      "unlocked": true,
       "besttime": 0
     },
     "Trichter": {
-      "scoredPoints": 3,
-      "gems": 19,
-      "unlocked": true,
-      "besttime": 96
+      "scoredPoints": 0,
+      "gems": 0,
+      "passed": false,
+      "unlocked": false,
+      "besttime": 0
     },
     "Teleport": {
-      "scoredPoints": 3,
-      "gems": 9,
-      "unlocked": true,
-      "besttime": 65
+      "scoredPoints": 0,
+      "gems": 0,
+      "passed": false,
+      "unlocked": false,
+      "besttime": 0
     },
     "Spiegelgeist": {
-      "scoredPoints": 1,
-      "gems": 10,
-      "unlocked": true,
-      "besttime": 46
+      "scoredPoints": 0,
+      "gems": 0,
+      "passed": false,
+      "unlocked": false,
+      "besttime": 0
     },
     "Death": {
       "scoredPoints": 0,
       "gems": 0,
+      "passed": false,
       "unlocked": false,
       "besttime": 0
     },
     "Im Kreisverkehr": {
-      "scoredPoints": 0,
-      "gems": 0,
+      "scoredPoints": 2,
+      "gems": 35,
+      "passed": true,
       "unlocked": true,
-      "besttime": 0
+      "besttime": 204
     },
     "Ein Text": {
       "scoredPoints": 0,
       "gems": 0,
-      "unlocked": true,
+      "passed": false,
+      "unlocked": false,
       "besttime": 0
     },
     "Das Schicksal": {
       "scoredPoints": 0,
       "gems": 0,
+      "passed": false,
       "unlocked": false,
       "besttime": 0
     },
     "Regeln": {
       "scoredPoints": 0,
       "gems": 0,
+      "passed": false,
       "unlocked": false,
       "besttime": 0
     }

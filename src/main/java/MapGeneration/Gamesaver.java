@@ -45,6 +45,8 @@ public class Gamesaver {
             leveljobj.put("unlocked", unlocked);
             String lName = level.getLevelName();
             levelsjobj.put(lName, leveljobj);
+            boolean passed = level.isPassed();
+            leveljobj.put("passed", passed);
         }
         gamejobj.put("levels", levelsjobj);
         this.jsonStr = gamejobj.toString();
@@ -235,6 +237,7 @@ public class Gamesaver {
                         levels.get(name).setBestTime(levelsobj.getJSONObject(name).getInt("besttime"));
                         levels.get(name).setBestScore(levelsobj.getJSONObject(name).getInt("scoredPoints"));
                         levels.get(name).setUnlocked(levelsobj.getJSONObject(name).getBoolean("unlocked"));
+                        levels.get(name).setPassed(levelsobj.getJSONObject(name).getBoolean("passed"));
                     } catch (NullPointerException e) {
                         System.out.println("No data of the level " + name);
                         continue;
