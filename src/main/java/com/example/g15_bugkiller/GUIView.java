@@ -76,6 +76,7 @@ public class GUIView {
 
         Coordinate mePosition = level.getMEPosition();
 
+        //Scrollen des Levels vertikal
         if (mePosition.getY() >= endeZeile - 3) {
             endeZeile = mePosition.getY() + 4;
             if (endeZeile > maxZeilen) {
@@ -90,7 +91,7 @@ public class GUIView {
             }
             endeZeile = Math.min(startZeile + maxZeilenToDisplay, maxZeilen);
         }
-
+        // Scrollen des Levels horizontal
         if (mePosition.getX() >= endeSpalte - 3) {
             endeSpalte = mePosition.getX() + 4;
             if (endeSpalte > maxSpalten) {
@@ -106,6 +107,7 @@ public class GUIView {
             endeSpalte = Math.min(startSpalte + maxSpaltenToDisplay, maxSpalten);
         }
 
+        //zeichnen des Levels
         for (int spalte = startSpalte; spalte < endeSpalte; spalte++){
             for(int zeile = startZeile; zeile < endeZeile; zeile++) {
                 Field field = fields[spalte][zeile];
@@ -121,6 +123,7 @@ public class GUIView {
         this.vorherigeErsteSpalte = startSpalte;
         this.vorherigeErsteZeile = startZeile;
 
+        //Zeichnen der Minimap
         for (int spalte = 0; spalte < fields.length; spalte++){
             for(int zeile = 0; zeile < fields[spalte].length; zeile++) {
                 Field field = fields[spalte][zeile];
@@ -170,7 +173,7 @@ public class GUIView {
     }
 
     private void drawGemCounter (int gemCounter)  {
-
+        // Hintergrund für Sterne, früher HG für Gems, deshalb Gem Counter
         Image counterBackground;
         counterBackground = PictureRepo.getImage("GemCounter_Background_large");
         gc.drawImage(counterBackground, 385.0D, -18.0D, 230, 100);
@@ -186,6 +189,8 @@ public class GUIView {
 
     }
 
+
+    //Lebensanzeige (nur für 3 oder weniger sinnvoll, durch x Verschiebung)
     private void drawLives (int livesLeft, int lives) {
         Image heart = PictureRepo.getImage("HEART");
         int xKoordLives = 850;
@@ -199,6 +204,7 @@ public class GUIView {
     }
     private void drawNecessaryAchievements (int getCollectedGems, int[] gems, int[] ticks, int getTicksPast) {
 
+        //Anzeige verschiedener Achievements im Level
         Image gem = PictureRepo.getImage("GEM");
         Image check = PictureRepo.getImage("PASSED");
         Image noCheck = PictureRepo.getImage("NOTPASSED");
@@ -207,6 +213,7 @@ public class GUIView {
         int xKoordClock = 680;
         int xKoordGems = 645;
 
+        //GEM Anzeige
         gc.setFill(Color.WHITE);
         if (getCollectedGems < gems[0]) {
             gc.fillText(" ", 760, 40.0D);
@@ -227,9 +234,9 @@ public class GUIView {
 
         gc.drawImage(gem, xKoordClock, 18.0D);
 
+        //Level bestanden Anzeige
         gc.fillText("Level bestanden: ", 20, 40.0D);
 
-        //Check if level is
         if (getCollectedGems >= gems[0]) {
             gc.drawImage(check, 130, 18.0D);
         }
@@ -237,6 +244,7 @@ public class GUIView {
             gc.drawImage(noCheck, 130, 18.0D);
         }
 
+        //Zeit- und Sternanzeige
         gc.drawImage(clockTimer, 300, 15D);
 
         if (ticks[2] > getTicksPast) {
@@ -266,11 +274,12 @@ public class GUIView {
 
     public List<LevelButtonSelector> drawLevelOverview(Map<String, Level> levels, double startY) {
         this.gc.clearRect(0,0, width, height);
-
+        //StartY vom Scrollen abhängig
         double x = 110.0d;
         double y = startY;
 
         boolean odd = true;
+        //Aufrufen der Methode zum Anzeigen der Levels und Platzierung
         List<LevelButtonSelector> result = new ArrayList<>();
         for (final String levelName : levels.keySet()) {
             final Level level = levels.get(levelName);
@@ -294,6 +303,8 @@ public class GUIView {
         int gesamtePunkte = 0;
         int gesamteLevel = 0;
 
+        //Berechnung der Gesamtpunktzahl und freigeschalteten Levels
+
         for(Level level: levels.values()){
             if (level.isUnlocked()) {
                 unlockedLevels++;
@@ -304,6 +315,7 @@ public class GUIView {
             gesamteLevel++;
         }
 
+        //Anzeige der gesamten Punkte und wie viele Levels freigeschaltet sind
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("Arial",14));
         gc.fillText("Freigeschaltene Level:  " + unlockedLevels + "  /  " + gesamteLevel +
@@ -318,6 +330,7 @@ public class GUIView {
 
     private LevelButtonSelector drawLevelSelection(String levelName, Level level, double startX, double startY) {
 
+        //Levelanzeige
         gc.setFill(Color.DARKCYAN);
         gc.fillRect(startX+1, startY-19, 346, 31);
 
@@ -329,6 +342,7 @@ public class GUIView {
 
         gc.setFill(Color.BLACK);
 
+        // Anzeige der Leveldaten bzw. Achievements
         if(level.isPassed() || level.getBestScore() > 0) {
             gc.fillText("Edelsteine: " + level.getBestGems() + "    " + "Bestzeit: " + level.getBestTime()
                     + "    " + "erreichte Punkte: " + level.getBestScore(), startX, startY + 30);
@@ -336,7 +350,7 @@ public class GUIView {
             gc.fillText("Edelsteine: " + "-" + "    " + "Bestzeit: " + "-"
                     + "    " + "erreichte Punkte: " + "-", startX, startY + 30);
         }
-
+        //Anzeige des Replay Buttons nach Bestehen des Levels
         if (level.isUnlocked()) {
             return createLevelButton(levelName, startX, startY,
                     level.getReplaySaveData() != null && level.getReplaySaveData().size() > 0);
@@ -351,6 +365,7 @@ public class GUIView {
         int w = 80;
         int h = 25;
 
+        //Play Button
         gc.setFill(Color.LIGHTGRAY);
         gc.fillOval(x+1, y+1, w+2, h+2);
 
@@ -363,6 +378,7 @@ public class GUIView {
         gc.setFill(Color.WHITE);
         gc.fillText("Play", x + 28, y + 17);
 
+        //Replay Button
         if (drawReplay) {
             double rx = x + w + LevelButtonSelector.DIFF_BUTTONS;
 
@@ -382,6 +398,7 @@ public class GUIView {
         return new LevelButtonSelector(levelName, x, y, w, h);
     }
 
+    //Game Over Schriftzug
     public void drawGameOver() {
         gc.setFill(Color.RED);
         gc.setTextAlign(TextAlignment.CENTER);

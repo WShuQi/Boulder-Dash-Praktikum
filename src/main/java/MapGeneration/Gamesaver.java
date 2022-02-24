@@ -212,7 +212,7 @@ public class Gamesaver {
                 choices.add(playername);
             }
             ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
-            dialog.setHeaderText("Für wen wird die Fortschritte geladen? ");
+            dialog.setHeaderText("Für wen sollen die Fortschritte geladen werden? ");
             dialog.setContentText("Bitte Name wählen: ");
 
             Optional<String> result = dialog.showAndWait();

@@ -51,6 +51,7 @@ public class GUIController {
     }
 
     public void mouseScrolled (double deltaY) {
+        // Scroll berechnet StartY von drawLevelOverview neu -> Scroll Effekt
         if (this.levelButtonSelectorList != null) {
 
             if (deltaY > 0 && currentStartY <= 120 && (currentStartY - deltaY) >= -880) {
@@ -67,8 +68,9 @@ public class GUIController {
     }
 
     public void mousePressed(double x, double y) {
+        //Buttons in der Levelübersicht
         if (this.levelButtonSelectorList != null) {
-
+            // Play und Replay Buttons von den verschiedenen Leveln
             if (y > 100) {
                 for (LevelButtonSelector selector : this.levelButtonSelectorList) {
                     if (selector.onPlayButton(x, y)) {
@@ -85,11 +87,11 @@ public class GUIController {
 
             if (y >= 10 && y <= 30) {
                 if (x >= 50 && x <= 200) {
-                    //TODO: SHUQI hier ist der Fortschritte speichern Button
+                    // Fortschritte speichern Button
                     Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
                     gamesaver.getGameData(game);
                     TextInputDialog dialog = new TextInputDialog("player01");
-                    dialog.setHeaderText("Für wen wird die Fortschritte gespeichert? ");
+                    dialog.setHeaderText("Für sollen die Fortschritte gespeichert werden? ");
                     dialog.setContentText("Bitte Name eingeben: ");
                     Optional<String> result = dialog.showAndWait();
                     if (result.isPresent()) {
@@ -97,7 +99,7 @@ public class GUIController {
                     }
                 }
                 else if (x >= 800 && x <= 950) {
-                    //TODO: SHUQI hier ist der Fortschritte laden Button
+                    //Fortschritte laden Button
                     Gamesaver gamesaver = new Gamesaver("src/main/java/com/example/g15_bugkiller/SavedGames");
                     gamesaver.readGameData(game);
                     this.updateOverview();
@@ -106,19 +108,20 @@ public class GUIController {
 
             if (y >= 55 && y <= 75) {
                 if (x >= 425 && x <= 575)  {
+                    //neues Level erstellen Button
                     LevelEditor.openLevelEditor();
                 }
             }
         }
         else {
-            // wir spielen und brauchen die anderen buttons
+            // Buttons im Spiel
             if (y >= 80 && y <= 100) {
                 if (x >= 50 && x <= 130) {
-                    // Neustart
+                    // Neustart Button
                     restartLevel = true;
                 }
                 else if (x >= 850 && x <= 930) {
-                    // Zurück
+                    // Zurück Button
                     levelInProgress = false;
                 }
             }
@@ -135,22 +138,26 @@ public class GUIController {
             @Override
             public void handle(ActionEvent event){
                 if (restartLevel) {
+                    // wenn restart Button gedrückt wurde
                     LevelLogic.resetLevel(level);
                     GameReplay.clearSavedMap();
                     restartLevel = false;
                 }
 
                 if (!(level.isPlayerDead() ||  level.isTimeUp())) {
+                    //Spielablauf
                     KeyPressListener currentKeysPressed = keyPressListener.getClone();
                     LevelLogic.tick(level, currentKeysPressed);
                     GameReplay.saveMapFrame(level.getLevelMap());
                     updateView(level);
                 }
                 else {
+                    // Spiel friert ein, Game Over erscheint
                     gameOver();
                 }
 
                 if(!levelInProgress || level.isExitReached()) {
+                    // Level erfolgreich absolviert
                     level.setReplaySaveData(GameReplay.getSavedMapData());
 
                     if(level.isPassed()){
