@@ -362,13 +362,13 @@ public class Level {
     }
 
     public void setBestGems(int currentGems) {
-        if (currentGems > this.bestGems && getTicksPast() < bestTime && isPassed()) {
+        if (currentGems > this.bestGems) {
             this.bestGems = currentGems;
         }
     }
 
     public void setBestTime(int currentTime) {
-        if (currentTime < this.bestTime && getCollectedGems() >= bestGems && isPassed()) {
+        if (currentTime < this.bestTime) {
             this.bestTime = currentTime;
         }
     }

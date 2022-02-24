@@ -151,9 +151,12 @@ public class GUIController {
                     LevelLogic.tick(level, currentKeysPressed);
                     GameReplay.saveMapFrame(level.getLevelMap());
                     updateView(level);
+
                 }
                 else {
                     // Spiel friert ein, Game Over erscheint
+                    level.setTicksPast((int) Double.POSITIVE_INFINITY);
+                    level.setCollectedGems(0);
                     gameOver();
                 }
 
