@@ -57,7 +57,6 @@ public class KeyPressListener {
     }
 
     public EventHandler<KeyEvent> keyPressed  = keyEvent-> {
-        System.out.println("pressed Key: " + keyEvent.getCode());
             switch (keyEvent.getCode()){
                 case UP:
                     resetButtons();
@@ -82,7 +81,6 @@ public class KeyPressListener {
         };
 
         public EventHandler<KeyEvent> keyReleased = keyEvent -> {
-            System.out.println("released Key: " + keyEvent.getCode());
                 switch (keyEvent.getCode()){
                     case UP:
                         upPressed = false;

@@ -167,6 +167,7 @@ public class GUIController {
                     LevelLogic.resetLevel(level);
 
                     game.updateTotalPoints();
+                    System.out.println("new total points " + game.getTotalPoints());
                     game.unlockNextLevelAsNecessary();
                     timer.stop();
                     timer.getKeyFrames().clear();

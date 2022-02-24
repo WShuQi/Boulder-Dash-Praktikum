@@ -107,9 +107,6 @@ public class MapGeneration {
            trialcounter++;
         }
 
-        if(!defaultMapIsValid){
-            //newMap = null;
-        }
 
         return newMap;
 

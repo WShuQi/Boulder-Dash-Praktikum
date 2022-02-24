@@ -14,32 +14,32 @@ public class Level {
     private int sparsity = 1;
     private int[] gems;
     private int[] ticks;
-    private Input mapdata;
+    private Input mapdata; //Input für Kartengeneration
     private List<Rule> preRules;
     private List<Rule> mainRules;
     private List<Rule> postRules;
     private int maxSlime;
     private Field[][] levelMap;
-    private int collectedGems;
-    private int ticksPast;  //schon vergangene Ticks
-    private int scoredPoints;
+    private int collectedGems;  //aktuell im Spielverlauf gesammelte Gems
+    private int ticksPast;  //aktuell im Spielverlauf schon vergangene Ticks
+    private int scoredPoints;   //aktuell erreichte Punkte
     private int x = 0;
     private int y = 0;
     private int z = 0;
-    private int lives = 3;
-    private int currentLives = lives;
-    private Coordinate originalMePosition;
-    private int stopCounter = 0;
+    private int lives = 3;  //grundsätzlich in jedem Spiel verfügbare Leben
+    private int currentLives = lives;  //aktuell noch verfügbare Leben
+    private Coordinate originalMePosition;  //Me-Position bei Start des Spiels; bei Verlust eines Lebens wird hierhin gesprungen
+    private int stopCounter = 0; //vergangene Ticks bei Einsammeln eines Stoppschilds
     private boolean timeUp = false; //ist ticksPast <= ticks[0] ?
     private boolean passed = false;
     private boolean unlocked = false;
     private boolean exitReached = false;
     private boolean playerDead = false;
-    private boolean stopped = false;
+    private boolean stopped = false;  //Spiel gestoppt durch Einsammeln eines Stoppschildes?
 
-    private int bestGems = 0;
-    private int bestTime = (int) Double.POSITIVE_INFINITY;
-    private int bestScore = 0;
+    private int bestGems = 0; //Bestwert bei Gems
+    private int bestTime = (int) Double.POSITIVE_INFINITY; //Bestwert bei Spielzeit
+    private int bestScore = 0;     //Bestwert bei erlangten Punkten
     private MapGeneration map;
 
     private List<Field[][]> replaySaveData = new ArrayList<>();
@@ -59,11 +59,6 @@ public class Level {
         getXYZValuesFromMapData(this.levelMap);
         this.ticks = ticks;
         this.originalMePosition = LevelLogic.computeMePosition(this.levelMap);
-
-        //System.out.println(levelName);
-        //System.out.println("gems: " + gems[0] + ", " + gems[1] + ", " + gems[2]);
-        //System.out.println("ticks: " + ticks[0] + ", " + ticks[1] + ", " + ticks[2]);
-        //TerminalMap.drawMap(this.levelMap);
     }
 
     public Level(String levelName, int[] gems, Input mapData, int[] ticks, int lives) {
@@ -90,7 +85,7 @@ public class Level {
         getXYZValuesFromMapData(this.levelMap);
     }
 
-    public Field[][] cloneLevelMap(Field[][] map){
+    public Field[][] cloneLevelMap(Field[][] map){   //dient dazu, eine geklonte Version einer LevelMap zu erhalten, um Probleme mit Call-by-Reference zu umgehen
         int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         Field[][] clonedMap = new Field[numberOfColumns][numberOfRows];

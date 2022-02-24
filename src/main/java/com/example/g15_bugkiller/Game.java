@@ -8,24 +8,22 @@ public class Game {
     Set<String> keysOfLockedLevels;
     List<Rule> mainRules;
     int numberOfUnlockedLevels;
-    double necessaryRatioOfTotalPoints;
+    double unlockRatio;
     int totalPoints = 0;
-    boolean freePlay= true;
+    boolean freePlay = false;
 
-    public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints) {
+    public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints, boolean freePlay) {
         this.levels = levels;
-        this.necessaryRatioOfTotalPoints = necessaryRatioOfTotalPoints;
+        this.unlockRatio = necessaryRatioOfTotalPoints;
         this.keysOfLockedLevels = cloneStringSet(levels.keySet());
+        this.freePlay = freePlay;
 
         Random random = new Random();
         String keyOfFirstLeveltoBeUnlocked = new ArrayList<String>(keysOfLockedLevels).get(random.nextInt(keysOfLockedLevels.size()));
-        System.out.println(keyOfFirstLeveltoBeUnlocked);
         levels.get(keyOfFirstLeveltoBeUnlocked).setUnlocked(true);
         keysOfLockedLevels.remove(keyOfFirstLeveltoBeUnlocked);
         this.numberOfUnlockedLevels = 1;
 
-
-      //  levels.values().iterator().next().setUnlocked(true);     //TODO: modify
         if (freePlay){
              freePlay();
         }
@@ -36,21 +34,20 @@ public class Game {
         return levels;
     }
 
-    //Todo: Überarbeiten
-    public void unlockNextLevelAsNecessary(){
+    public void unlockNextLevelAsNecessary(){  //
         int numberOfLevels = levels.size();
 
         if(numberOfUnlockedLevels < numberOfLevels) {
-            int indexOfNextUnlockedLevel = numberOfUnlockedLevels;
-            int necessaryPoints = (int) Math.floor(necessaryRatioOfTotalPoints * numberOfUnlockedLevels * 3);
+            double currentRatioOfTotalPoints = ((double) totalPoints)/((double) numberOfUnlockedLevels*3);
 
-            if (totalPoints >= necessaryPoints) {
+            while (currentRatioOfTotalPoints > unlockRatio) {
                 Random random = new Random();
-                String keyOfNextLeveltoBeUnlocked = new ArrayList<String>(keysOfLockedLevels).get(random.nextInt(keysOfLockedLevels.size()));
-                levels.get(keyOfNextLeveltoBeUnlocked).setUnlocked(true);
-                keysOfLockedLevels.remove(keyOfNextLeveltoBeUnlocked);
-                System.out.println(keyOfNextLeveltoBeUnlocked);
+                System.out.println(keysOfLockedLevels.size());
+                String keyOfNextLevelToBeUnlocked = new ArrayList<String>(keysOfLockedLevels).get(random.nextInt(keysOfLockedLevels.size()));
+                levels.get(keyOfNextLevelToBeUnlocked).setUnlocked(true);
+                keysOfLockedLevels.remove(keyOfNextLevelToBeUnlocked);
                 numberOfUnlockedLevels++;
+                currentRatioOfTotalPoints = ((double) totalPoints)/((double) numberOfUnlockedLevels*3);
             }
         }
     }
@@ -92,6 +89,8 @@ public class Game {
         for (Level level : levels.values()) {
             level.setUnlocked(true);
         }
+        numberOfUnlockedLevels = levels.size();
+        keysOfLockedLevels.removeAll(keysOfLockedLevels);
     }
 
     public Set<String> cloneStringSet(Set<String> set) {

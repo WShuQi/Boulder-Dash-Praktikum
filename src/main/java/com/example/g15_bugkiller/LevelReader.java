@@ -22,15 +22,12 @@ public class LevelReader {
         File[] levelfiles = file.listFiles();
         for (File f : levelfiles) {
             Json json = new Json(f.getPath());
-            System.out.println("current file: ");
-            System.out.println(f.getPath());
+
             Level level = json.getLevel();
-            System.out.println(level);
+
             level.setMainRules(mainRulesJson.getMainRules());
-            //String fileName = f.getName();  String levelName = fileName.substring(0, fileName.lastIndexOf("."));
+
             String levelName = level.getLevelName();
-            System.out.println("levelname: ");
-            System.out.println(levelName);
             levels.put(levelName, level);
         }
         return levels;

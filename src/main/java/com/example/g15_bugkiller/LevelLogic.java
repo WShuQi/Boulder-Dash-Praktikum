@@ -15,9 +15,6 @@ public class LevelLogic {
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
         LevelLogic.level = level;
 
-        //System.out.println("mapData: " + level.getLevelMap());
-        level.setTicksPast(level.getTicksPast() + 1);
-        updateStopCounter();
         executePreRules(currentKeysPressed);
         executeMainRules(currentKeysPressed);
         executePostRules(currentKeysPressed);
@@ -30,6 +27,9 @@ public class LevelLogic {
         checkIfExitIsReached();
         checkIfLevelIsPassed();
         checkIfTimeIsUp();
+
+        level.setTicksPast(level.getTicksPast() + 1);
+        updateStopCounter();
 
         resetValues(level);
     }
@@ -211,7 +211,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleEastward(Rule rule, boolean isMainRule, boolean isChanceSituation){
+    private static void executeRuleEastward(Rule rule, boolean isMainRule, boolean isChanceSituation){ //führe Regel zeilenweise von west nach ost aus
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -219,7 +219,7 @@ public class LevelLogic {
         int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
-        int step = isMainRule? 1 : numberOfRuleComponents;
+        int step = isMainRule? 1 : numberOfRuleComponents;   //Schrittlänge, die getätigt wird, wenn eine Regel erfolgreich angewandt wurde: pre/post --> Springe ans Ende der gerade betroffenen Felder; main --> gehe ein Feld weiter
 
 
         for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
@@ -253,7 +253,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleWestward(Rule rule, boolean isMainRule, boolean isChanceSituation){
+    private static void executeRuleWestward(Rule rule, boolean isMainRule, boolean isChanceSituation){ //führe Regel zeilenweise von ost nach west aus
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -261,7 +261,7 @@ public class LevelLogic {
         int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
-        int step = isMainRule? 1 : numberOfRuleComponents;
+        int step = isMainRule? 1 : numberOfRuleComponents; //Schrittlänge, die getätigt wird, wenn eine Regel erfolgreich angewandt wurde: pre/post --> Springe ans Ende der gerade betroffenen Felder; main --> gehe ein Feld weiter
 
         for(int rowCounter = 0; rowCounter < numberOfRows; rowCounter++){
 
@@ -292,7 +292,7 @@ public class LevelLogic {
         }
     }
 
-    private static void executeRuleNorthward(Rule rule, boolean isMainRule, boolean isChanceSituation){
+    private static void executeRuleNorthward(Rule rule, boolean isMainRule, boolean isChanceSituation){ //führe Regel spaltenweise von süd nach nord aus
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -300,7 +300,7 @@ public class LevelLogic {
         int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
-        int step = isMainRule? 1 : numberOfRuleComponents;
+        int step = isMainRule? 1 : numberOfRuleComponents; //Schrittlänge, die getätigt wird, wenn eine Regel erfolgreich angewandt wurde: pre/post --> Springe ans Ende der gerade betroffenen Felder; main --> gehe ein Feld weiter
 
         for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
 
@@ -333,7 +333,7 @@ public class LevelLogic {
     }
 
 
-    private static void executeRuleSouthward(Rule rule, boolean isMainRule, boolean isChanceSituation){
+    private static void executeRuleSouthward(Rule rule, boolean isMainRule, boolean isChanceSituation){  //führe Regel spalenweise von nord nach süd aus
         List<RuleComponent> original = rule.getOriginal();
         List<RuleComponent> result = rule.getResult();
         Field[][] map = level.getLevelMap();
@@ -341,7 +341,7 @@ public class LevelLogic {
         int numberOfColumns = map.length;
         int numberOfRows = map[0].length;
         int numberOfRuleComponents = original.size();
-        int step = isMainRule? 1 : numberOfRuleComponents;
+        int step = isMainRule? 1 : numberOfRuleComponents; //Schrittlänge, die getätigt wird, wenn eine Regel erfolgreich angewandt wurde: pre/post --> Springe ans Ende der gerade betroffenen Felder; main --> gehe ein Feld weiter
 
 
         for(int columnCounter = 0; columnCounter < numberOfColumns; columnCounter++){
@@ -384,7 +384,7 @@ public class LevelLogic {
             Object currentOriginalToken = original.get(componentCounter).getToken();
             Values currentOriginalValues = original.get(componentCounter).getValues();
 
-            if(currentOriginalToken instanceof Type){
+            if(currentOriginalToken instanceof Type){ //CATCHALL = '*'
 
                 if(!((currentOriginalToken.equals(Type.CATCHALL) || currentOriginalToken.equals(currentGegenstand.getToken())) && valuesAgree(currentGegenstand.getValues().getValueList(), currentOriginalValues.getValueList()))){
                     nextFieldsAndOriginalsAgree = false;
