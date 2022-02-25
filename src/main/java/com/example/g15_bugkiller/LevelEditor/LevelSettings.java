@@ -29,13 +29,13 @@ public class LevelSettings {
         //map size
         //Width
         Label widthInputLabel = new Label("Width:");
-        Spinner<Integer> widthInput = new Spinner<>(3, 100, 20);
+        Spinner<Integer> widthInput = new Spinner<>(3, 1000, 20);
         VBox widthInputBox = new VBox();
         widthInputBox.getChildren().addAll(widthInputLabel, widthInput);
 
         //Height
         Label heightInputLabel = new Label("Height:");
-        Spinner<Integer> heightInput = new Spinner<>(3, 100, 20);
+        Spinner<Integer> heightInput = new Spinner<>(3, 1000, 20);
         VBox heightInputBox = new VBox();
         heightInputBox.getChildren().addAll(heightInputLabel, heightInput);
 
@@ -62,12 +62,12 @@ public class LevelSettings {
         ticksBox1.getChildren().addAll(ticksInputLabel1, ticksInput1);
         //2
         Label ticksInputLabel2 = new Label("2");
-        Spinner<Integer> ticksInput2 = new Spinner<>(1, 10000, 200);
+        Spinner<Integer> ticksInput2 = new Spinner<>(1, 10000, 500);
         VBox ticksBox2 = new VBox();
         ticksBox2.getChildren().addAll(ticksInputLabel2, ticksInput2);
         //3
         Label ticksInputLabel3 = new Label("3");
-        Spinner<Integer> ticksInput3 = new Spinner<>(1, 10000, 300);
+        Spinner<Integer> ticksInput3 = new Spinner<>(1, 10000, 1000);
         VBox ticksBox3 = new VBox();
         ticksBox3.getChildren().addAll(ticksInputLabel3, ticksInput3);
 

@@ -14,6 +14,7 @@ public class LevelLogic {
     // Grundablauf pro Tick
     public static void tick (Level level, KeyPressListener currentKeysPressed) {
         LevelLogic.level = level;
+        updateStopCounter();
 
         executePreRules(currentKeysPressed);
         executeMainRules(currentKeysPressed);
@@ -29,7 +30,7 @@ public class LevelLogic {
         checkIfTimeIsUp();
 
         level.setTicksPast(level.getTicksPast() + 1);
-        updateStopCounter();
+
 
         resetValues(level);
     }
