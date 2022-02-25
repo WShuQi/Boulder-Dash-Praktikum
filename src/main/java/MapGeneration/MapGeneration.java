@@ -3,6 +3,7 @@ package MapGeneration;
 import MapGeneration.*;
 import com.example.g15_bugkiller.Field;
 import com.example.g15_bugkiller.TerminalMap;
+import com.example.g15_bugkiller.Type;
 
 import java.util.*;
 
@@ -59,6 +60,7 @@ public class MapGeneration {
              TileVersion firstSelectedVersion = info.getTileWithName(firstTilesAtKind).getVersions().get(firstRandomIndex);
 
              boolean[][] indexMap = createIndexMapWithOneTile(tilesAts.get(0).getCoordinate(), firstSelectedVersion);
+
              Field[][] generatedMap = createMapWithOneTile(tilesAts.get(0).getCoordinate(), firstSelectedVersion);   //erstelle (Index-)Karte nur mit ausgewählter Version aus erstem tilesAt
 
              for(int tilesAtsIterator = 1; tilesAtsIterator < numberOfTilesAts; tilesAtsIterator++){ //für jede weitere TilesAt wähle zufällig geeignete Version aus und erstelle (Index-)Karte nur mit dieser Version
@@ -80,6 +82,7 @@ public class MapGeneration {
                      List<boolean[][]> indexMapList = new ArrayList<>(); //sowie die korrespondierende Liste aus Index-Karten
                      indexMapList.add(indexMap);
                      indexMapList.add(currentIndexMap);
+
 
                      if (checkIfMapsAgree(mapList, indexMapList)) {   //prüfe: bisher generierte Karte und Karte mit neuer Kachel kompatibel?
                          generatedMap = uniteMaps(mapList, indexMapList); //wenn ja: vereinige sie
@@ -217,7 +220,7 @@ public class MapGeneration {
             int lengthOfCurrentRowInTileVersion = currentRow.size();
 
             for(int rowIterator = 0; rowIterator < lengthOfCurrentRowInTileVersion; rowIterator++){  //gehe in jeder Zeile jede Spalte durch
-                if(!currentRow.get(rowIterator).getType().equals("-")){
+                if(!currentRow.get(rowIterator).getType().equals(Type.LOCH)){
                     indexMap[x+rowIterator][y+columnIterator] = true;     //falls kein Loch: Kachel liegt darauf --> true
                 }
             }

@@ -40,7 +40,7 @@ public class GUIApplication extends Application {
         LevelReader levelReader = new LevelReader("src/main/java/com/example/g15_bugkiller/level");
         Map<String, Level> levels = levelReader.readLevel();
 
-        Game game = new Game(levels, 0.3, false);
+        Game game = new Game(levels, 0.3, true);
 
         Canvas canvas = new Canvas(width, height);
         GraphicsContext gc = canvas.getGraphicsContext2D();
