@@ -135,8 +135,7 @@ public class LevelSettings {
             gamesaver.getLevelData(level);
             gamesaver.createJson(level.getLevelName());
 
-            System.out.println("saving level: " + level.getLevelName());
-            TerminalMap.drawMap(level.getLevelMap());
+
         });
 
         Separator buttonSeparator = new Separator();

@@ -302,8 +302,6 @@ public class MapGeneration {
 
     private boolean checkDirections(Coordinate position, Coordinate toPosition, List<Field> uses) {
 
-        TerminalMap.drawMap(connectedByMap);
-
         Coordinate [] possibleCoordinates = {
             new Coordinate(position.getX(), position.getY() + 1),   //bottom
             new Coordinate(position.getX() + 1, position.getY()),   //right

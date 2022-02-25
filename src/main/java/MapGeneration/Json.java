@@ -34,65 +34,52 @@ public class Json {
         Object token = new Object();
         try {
             JSONArray tokenArr = jObjToken.getJSONArray("token");
-            //System.out.println("This token contains a list.");
             List<Object> tokenList = new ArrayList<>();
             for (int g = 0; g < tokenArr.length(); g++) {
                 Object thisToken = new Object();
                 if (tokenArr.get(g) instanceof Integer) {
-                    //System.out.println("This Token is Int.");
                     thisToken = tokenArr.getInt(g);
-                    //System.out.println(thisToken);
                 } else {
                     String thisTokenStr = tokenArr.getString(g);
                     if (this.isType(thisTokenStr)) {
-                        //  System.out.println("This token is Type");
+
                         thisToken = Type.valueOf(thisTokenStr.toUpperCase());
-                        // System.out.println(thisToken);
+
                     } else if (thisTokenStr.equals("*")) {
-                        // System.out.println("This token is *");
+
                         thisToken = Type.CATCHALL;
-                        // System.out.println(thisToken);
+
                     } else if (thisTokenStr.equals("-")) {
                         thisToken = Type.LOCH;
                     } else if (thisTokenStr.matches("[0-9]")) {
-                        // System.out.println("This token is a string of number");
+
                         thisToken = Integer.parseInt(thisTokenStr);
-                        // System.out.println(thisToken);
-                    } else {
-                        System.out.println(thisTokenStr);
-                        System.out.println("This token is not Type or * or \"integer\"");
+
                     }
                 }
                 tokenList.add(thisToken);
             }
-            //System.out.println(tokenList);
+
             token = tokenList;
         } catch (JSONException e) {
             if (jObjToken.get("token") instanceof Integer) {
                 token = jObjToken.getInt("token");
-                //System.out.println("Token is a int");
-                //System.out.println(token);
+
             } else {
                 String tokenStr = jObjToken.getString("token");
-                //System.out.println("Token is a String...");
-                //System.out.println(token);
+
                 if (this.isType(tokenStr)) {
                     token = Type.valueOf(tokenStr.toUpperCase());
-                    // System.out.println("Token is a Type");
-                    // System.out.println(token);
+
                 } else if (tokenStr.equals("*")) {
                     token = Type.CATCHALL;
-                    // System.out.println("Token is *");
-                    // System.out.println(token);
+
                 } else if (tokenStr.equals("-")) {
                     token = Type.LOCH;
                 } else if (tokenStr.matches("[0-9]")) {
-                    //System.out.println("Token is a string of number");
+
                     token = Integer.parseInt(tokenStr);
-                    //System.out.println(token);
-                } else {
-                    System.out.println(tokenStr);
-                    System.out.println("Token is not Type or * or \"integer\"");
+
                 }
             }
         }
