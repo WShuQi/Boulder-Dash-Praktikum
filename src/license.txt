@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) [2022] [Shuqi Wang, Bitte Name eingeben]
+Copyright (c) 2022 Cora Elschenbroich, Stefan Haffner, Joscha Queisser, Charis Thron, Shuqi Wang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
