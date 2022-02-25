@@ -57,7 +57,6 @@ public class Gamesaver {
         JSONObject leveljobj = new JSONObject();
 
         int[] gems = level.getGems();
-        System.out.println(gems);
         JSONArray gemsjarr = new JSONArray(gems);
         leveljobj.put("gems", gemsjarr);
 
@@ -205,6 +204,7 @@ public class Gamesaver {
             //Alle Dateien von Path der Ordner laden
             File file = new File(this.path);
             File[] nameFlies = file.listFiles();
+
             for (File f : nameFlies) {
                 String fname = f.getName();
                 //Name des Spielers vom Path extrahieren, Choicelist einbauen
@@ -238,7 +238,6 @@ public class Gamesaver {
                     } catch (NullPointerException e) {
                         //Wenn es neu hinzugefügtes Level gibt, dann dieses Level überspringen
                         System.out.println("No data of the level " + name);
-                        continue;
                     }
                 }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

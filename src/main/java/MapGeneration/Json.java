@@ -27,11 +27,7 @@ public class Json {
     }
 
     private boolean isType(String text) {
-        boolean boo = false;
-        if (text.toUpperCase().equals("ME") || text.toUpperCase().equals("MUD") || text.toUpperCase().equals("STONE") || text.toUpperCase().equals("BRICKS") || text.toUpperCase().equals("PATH") || text.toUpperCase().equals("EXIT") || text.toUpperCase().equals("WALL") || text.toUpperCase().equals("EXPLOSION") || text.toUpperCase().equals("FIRE") || text.toUpperCase().equals("POT") || text.toUpperCase().equals("SIEVE") || text.toUpperCase().equals("SAND") || text.toUpperCase().equals("SLIME") || text.toUpperCase().equals("SWAPLING") || text.toUpperCase().equals("BLOCKLING") || text.toUpperCase().equals("XLING") || text.toUpperCase().equals("GHOSTLING") || text.toUpperCase().equals("NORTHTHING") || text.toUpperCase().equals("CATCHALL") | text.toUpperCase().equals("LOCH") || text.toUpperCase().equals("WESTTHING") || text.toUpperCase().equals("SOUTHTHING") || text.toUpperCase().equals("EASTTHING") || text.toUpperCase().equals("GEM") || text.toUpperCase().equals("STOPBUTTON")) {
-            boo = true;
-        }
-        return boo;
+        return text.toUpperCase().equals("ME") || text.toUpperCase().equals("MUD") || text.toUpperCase().equals("STONE") || text.toUpperCase().equals("BRICKS") || text.toUpperCase().equals("PATH") || text.toUpperCase().equals("EXIT") || text.toUpperCase().equals("WALL") || text.toUpperCase().equals("EXPLOSION") || text.toUpperCase().equals("FIRE") || text.toUpperCase().equals("POT") || text.toUpperCase().equals("SIEVE") || text.toUpperCase().equals("SAND") || text.toUpperCase().equals("SLIME") || text.toUpperCase().equals("SWAPLING") || text.toUpperCase().equals("BLOCKLING") || text.toUpperCase().equals("XLING") || text.toUpperCase().equals("GHOSTLING") || text.toUpperCase().equals("NORTHTHING") || text.toUpperCase().equals("CATCHALL") | text.toUpperCase().equals("LOCH") || text.toUpperCase().equals("WESTTHING") || text.toUpperCase().equals("SOUTHTHING") || text.toUpperCase().equals("EASTTHING") || text.toUpperCase().equals("GEM") || text.toUpperCase().equals("STOPBUTTON");
     }
 
     private Object readToken(JSONObject jObjToken) throws JSONException {
@@ -129,8 +125,7 @@ public class Json {
     }
 
     private Situation readSituation(JSONObject jsonObject) {
-        Situation situation = Situation.valueOf(jsonObject.getString("situation").toUpperCase());
-        return situation;
+        return Situation.valueOf(jsonObject.getString("situation").toUpperCase());
     }
 
     private String readRuleName(JSONObject jsonObject) {
@@ -141,16 +136,14 @@ public class Json {
     }
 
     private Direction readDirection(JSONObject jsonObject) {
-        Direction direction = Direction.valueOf(jsonObject.getString("direction").toUpperCase());
-        return direction;
+        return Direction.valueOf(jsonObject.getString("direction").toUpperCase());
     }
 
     private Coordinate readMapdata() throws JSONException {
         JSONObject mapDataJson = json.getJSONObject("mapdata");
         int width = mapDataJson.getInt("width");
         int height = mapDataJson.getInt("height");
-        Coordinate mapsize = new Coordinate(width, height);
-        return mapsize;
+        return new Coordinate(width, height);
     }
 
     private ArrayList<Tile> readTiles() {
@@ -282,8 +275,7 @@ public class Json {
         Type token = Type.valueOf(mapDataJson.getString("default").toUpperCase());
         Values values = new Values();
         Gegenstand gegenstand = new Gegenstand(token,values);
-        Field field = new Field(gegenstand);
-        return field;
+        return new Field(gegenstand);
     }
 
     private Input getInput () {
@@ -292,8 +284,7 @@ public class Json {
         List<ConnectBy> connectBys = this.readConnectby();
         Field defaultField = this.readDefaultField();
         Coordinate mapsize = this.readMapdata();
-        Input input = new Input(tiles,tilesAts,connectBys,defaultField,mapsize);
-        return input;
+        return new Input(tiles, tilesAts, connectBys, defaultField, mapsize);
     }
 
     private List<Rule> getPreRules(){
@@ -307,42 +298,6 @@ public class Json {
 
             List<RuleComponent> original = this.readOriginalOrResult(preJson, "original");
             List<RuleComponent> result = this.readOriginalOrResult(preJson, "result");
-            /*
-            List<RuleComponent> original = new ArrayList<>();
-            JSONArray originalListJson = preJson.getJSONArray("original");
-            for(int j = 0; j < originalListJson.length(); j++){
-                JSONObject originalJson = originalListJson.getJSONObject(j);
-                Type token = Type.valueOf(originalJson.getString("token").toUpperCase());
-                Values values = new Values();
-                if(originalJson.has("values")) {
-                    JSONObject valuesJson = originalJson.getJSONObject("values");
-                    for(String name : valuesJson.keySet()) {
-                        ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
-                        int valuewert = valuesJson.getInt(name);
-                        values.setSpecificValue(valuesNames, valuewert);
-                    }
-                }
-                RuleComponent ruleComponent = new RuleComponent(token,values);
-                original.add(ruleComponent);
-            }
-
-            List<RuleComponent> result = new ArrayList<>();
-            JSONArray resultListJson = preJson.getJSONArray("result");
-            for(int j = 0; j < resultListJson.length(); j++){
-                JSONObject resultJson = resultListJson.getJSONObject(j);
-                Type token = Type.valueOf(resultJson.getString("token").toUpperCase());
-                Values values = new Values();
-                if(resultJson.has("values")){
-                    JSONObject valuesJson = resultJson.getJSONObject("values");
-                    for(String name : valuesJson.keySet()) {
-                        ValuesNames valuesNames = ValuesNames.valueOf(name.toUpperCase());
-                        int valuewert = valuesJson.getInt(name);
-                        values.setSpecificValue(valuesNames, valuewert);
-                    }
-                }
-                RuleComponent ruleComponent = new RuleComponent(token,values);
-                result.add(ruleComponent);
-            }*/
 
             Rule prerule = new Rule(situation,direction,original,result);
             prerule.setRuleName(readRuleName(preJson));
