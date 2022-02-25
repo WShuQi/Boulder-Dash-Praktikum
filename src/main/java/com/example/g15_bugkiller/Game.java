@@ -8,9 +8,9 @@ public class Game {
     Set<String> keysOfLockedLevels;
     List<Rule> mainRules;
     int numberOfUnlockedLevels;
-    double unlockRatio;
-    int totalPoints = 0;
-    boolean freePlay = false;
+    double unlockRatio;  //"benchmark" für Freischalten neuer Level, siehe Game.unlockNextLevelAsNecessary()
+    int totalPoints = 0; //erzielte Punkte über alle Level hinweg
+    boolean freePlay = false;  //alternativer Modus: alle Level sind freigeschaltet
 
     public Game(Map<String, Level> levels, double necessaryRatioOfTotalPoints, boolean freePlay) {
         this.levels = levels;
@@ -18,10 +18,10 @@ public class Game {
         this.keysOfLockedLevels = cloneStringSet(levels.keySet());
         this.freePlay = freePlay;
 
-        Random random = new Random();
-        String keyOfFirstLeveltoBeUnlocked = new ArrayList<String>(keysOfLockedLevels).get(random.nextInt(keysOfLockedLevels.size()));
-        levels.get(keyOfFirstLeveltoBeUnlocked).setUnlocked(true);
-        keysOfLockedLevels.remove(keyOfFirstLeveltoBeUnlocked);
+        Random random = new Random();  //erstes freigeschaltetes Level wird zufällig gewählt
+        String keyOfFirstLevelToBeUnlocked = new ArrayList<String>(keysOfLockedLevels).get(random.nextInt(keysOfLockedLevels.size()));
+        levels.get(keyOfFirstLevelToBeUnlocked).setUnlocked(true);
+        keysOfLockedLevels.remove(keyOfFirstLevelToBeUnlocked);
         this.numberOfUnlockedLevels = 1;
 
         if (freePlay){
@@ -34,7 +34,14 @@ public class Game {
         return levels;
     }
 
-    public void unlockNextLevelAsNecessary(){  //
+/*
+    Regel zum Freischalten neuer Level:
+    currentRatioOfTotalPoints: Anteil an erzielten Punkten an möglichen Punkten in derzeit freigeschalteten Leveln
+    unlockRatio: "benchmark"
+    Schalte zufällig ein neues Level frei, falls currentRatioOfTotalPoints > unlockRatio
+    Wiederhole solange, bis wieder currentRatioOfTotalPoints <= unlockRatio gilt
+    */
+    public void unlockNextLevelAsNecessary(){
         int numberOfLevels = levels.size();
 
         if(numberOfUnlockedLevels < numberOfLevels) {
@@ -42,7 +49,6 @@ public class Game {
 
             while (currentRatioOfTotalPoints > unlockRatio) {
                 Random random = new Random();
-                System.out.println(keysOfLockedLevels.size());
                 String keyOfNextLevelToBeUnlocked = new ArrayList<String>(keysOfLockedLevels).get(random.nextInt(keysOfLockedLevels.size()));
                 levels.get(keyOfNextLevelToBeUnlocked).setUnlocked(true);
                 keysOfLockedLevels.remove(keyOfNextLevelToBeUnlocked);
