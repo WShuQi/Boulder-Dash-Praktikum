@@ -52,6 +52,8 @@ public class Json {
                         // System.out.println("This token is *");
                         thisToken = Type.CATCHALL;
                         // System.out.println(thisToken);
+                    } else if (thisTokenStr.equals("-")) {
+                        thisToken = Type.LOCH;
                     } else if (thisTokenStr.matches("[0-9]")) {
                         // System.out.println("This token is a string of number");
                         thisToken = Integer.parseInt(thisTokenStr);
