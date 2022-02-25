@@ -56,13 +56,10 @@ public class GUIController {
 
             if (deltaY > 0 && currentStartY <= 120 && (currentStartY - deltaY) >= -880) {
                 currentStartY -= deltaY;
-                System.out.println("Scroll: " + deltaY);
             }
             else if (deltaY < 0 && currentStartY >= -880 && (currentStartY - deltaY) <= 120) {
                 currentStartY -= deltaY;
-                System.out.println("Scroll2: " + deltaY);
             }
-            System.out.println("currentStartY: " + currentStartY);
             updateOverview();
         }
     }
@@ -182,7 +179,6 @@ public class GUIController {
                     LevelLogic.resetLevel(level);
 
                     game.updateTotalPoints();
-                    System.out.println("new total points " + game.getTotalPoints());
                     game.unlockNextLevelAsNecessary();
                     timer.stop();
                     timer.getKeyFrames().clear();
