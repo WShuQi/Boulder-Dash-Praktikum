@@ -5,6 +5,7 @@ import javafx.scene.control.ChoiceDialog;
 import org.json.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Gamesaver {
@@ -183,15 +184,8 @@ public class Gamesaver {
         String fullPath = this.path + File.separator + fileName + ".json";
         try {
             File file = new File(fullPath);
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-            if (file.exists()) {
-                file.delete();
-            }
-            file.createNewFile();
 
-            Writer writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+            Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
             writer.write(this.jsonStr);
             writer.flush();
             writer.close();
@@ -200,7 +194,6 @@ public class Gamesaver {
             System.out.println("Save failed:(");
             e.printStackTrace();
         }
-        System.out.println("Fortschritte werden erfolgreich gespeichert!");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Fortschritte werden erfolgreich gespeichert!");
         alert.showAndWait();
@@ -209,11 +202,12 @@ public class Gamesaver {
     public void readGameData(Game game) {
         try {
             List<String> choices = new ArrayList<>();
+            //Alle Dateien von Path der Ordner laden
             File file = new File(this.path);
             File[] nameFlies = file.listFiles();
             for (File f : nameFlies) {
                 String fname = f.getName();
-                System.out.println(fname);
+                //Name des Spielers vom Path extrahieren, Choicelist einbauen
                 String playername = fname.substring(0, fname.lastIndexOf("."));
                 System.out.println(playername);
                 choices.add(playername);
@@ -224,11 +218,14 @@ public class Gamesaver {
 
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent()) {
+                //Alle Daten von gewählter Json-Datei einlesen
                 String filepath = "src/main/java/com/example/g15_bugkiller/SavedGames/" + result.get() + ".json";
                 Json json = new Json(filepath);
                 JSONObject gameDataJobj = json.getJson();
+                //Generelle Werte setzen
                 game.setNumberOfUnlockedLevels(gameDataJobj.getInt("numberOfUnlockedLevels"));
                 game.setTotalPoints(gameDataJobj.getInt("totalpoints"));
+                //Levelwerte setzen
                 Map<String, Level> levels = game.getLevels();
                 JSONObject levelsobj = gameDataJobj.getJSONObject("levels");
                 for (String name : levelsobj.keySet()) {
@@ -239,6 +236,7 @@ public class Gamesaver {
                         levels.get(name).setUnlocked(levelsobj.getJSONObject(name).getBoolean("unlocked"));
                         levels.get(name).setPassed(levelsobj.getJSONObject(name).getBoolean("passed"));
                     } catch (NullPointerException e) {
+                        //Wenn es neu hinzugefügtes Level gibt, dann dieses Level überspringen
                         System.out.println("No data of the level " + name);
                         continue;
                     }

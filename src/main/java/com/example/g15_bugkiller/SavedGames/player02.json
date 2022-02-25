@@ -1,6 +1,6 @@
 {
-  "totalpoints": 6,
-  "numberOfUnlockedLevels": 7,
+  "totalpoints": 4,
+  "numberOfUnlockedLevels": 5,
   "levels": {
     "Schleim oder nicht Schleim": {
       "scoredPoints": 0,
@@ -10,11 +10,11 @@
       "besttime": 0
     },
     "Die wachsende Wand": {
-      "scoredPoints": 2,
-      "gems": 18,
+      "scoredPoints": 1,
+      "gems": 13,
       "passed": true,
       "unlocked": true,
-      "besttime": 195
+      "besttime": 85
     },
     "Smiley": {
       "scoredPoints": 0,
@@ -48,22 +48,22 @@
       "scoredPoints": 0,
       "gems": 0,
       "passed": false,
-      "unlocked": true,
+      "unlocked": false,
       "besttime": 0
     },
     "Teleport": {
-      "scoredPoints": 2,
-      "gems": 3,
+      "scoredPoints": 3,
+      "gems": 8,
       "passed": true,
       "unlocked": true,
-      "besttime": 51
+      "besttime": 71
     },
     "Spiegelgeist": {
-      "scoredPoints": 2,
-      "gems": 16,
-      "passed": true,
-      "unlocked": true,
-      "besttime": 62
+      "scoredPoints": 0,
+      "gems": 0,
+      "passed": false,
+      "unlocked": false,
+      "besttime": 0
     },
     "Death": {
       "scoredPoints": 0,
@@ -76,14 +76,14 @@
       "scoredPoints": 0,
       "gems": 0,
       "passed": false,
-      "unlocked": false,
+      "unlocked": true,
       "besttime": 0
     },
     "Ein Text": {
       "scoredPoints": 0,
       "gems": 0,
       "passed": false,
-      "unlocked": true,
+      "unlocked": false,
       "besttime": 0
     },
     "Das Schicksal": {
