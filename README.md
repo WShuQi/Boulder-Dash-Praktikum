@@ -1,4 +1,4 @@
-# G15_Bugkiller
+# Boulder-Dash
 
 ## In this game you control an adventurer who wants to collect gems and use them to get to an exit. In the process, you mostly dig your way through the earth, dodge stones and enemies, and sometimes you have to take the gems from the enemies, like the classic 'Boulder Dash' game. Many different levels are possible.
 
